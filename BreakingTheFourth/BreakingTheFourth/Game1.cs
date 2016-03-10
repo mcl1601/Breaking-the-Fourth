@@ -14,6 +14,12 @@ namespace BreakingTheFourth
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        //add in player object and fields but don't intialize
+        Player player;
+        Texture2D stickFigure;
+        //fields for getting keyboard states
+        KeyboardState kbState;
+        KeyboardState previousKbState;
 
         public Game1()
         {
@@ -29,8 +35,8 @@ namespace BreakingTheFourth
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
+            //initialize player object
+            player = new Player(50, 50, 50, 80);
             base.Initialize();
         }
 
@@ -43,7 +49,9 @@ namespace BreakingTheFourth
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            //load in player texture
+            stickFigure = Content.Load<Texture2D>("Stickman_Handgun.png");
+            player.PlayerTexture = stickFigure;
         }
 
         /// <summary>
@@ -64,8 +72,10 @@ namespace BreakingTheFourth
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
-            // TODO: Add your update logic here
+            previousKbState = kbState;
+            kbState = Keyboard.GetState();
+            //add player update for movement
+            player.Update(kbState, previousKbState);
 
             base.Update(gameTime);
         }
@@ -78,7 +88,11 @@ namespace BreakingTheFourth
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            spriteBatch.Begin();
+            //drawing methods in here
+            player.Draw(spriteBatch);
+
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
