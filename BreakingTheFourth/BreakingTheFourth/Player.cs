@@ -17,11 +17,16 @@ namespace BreakingTheFourth
         private Rectangle position;
         //also needs field to detect falling
         private bool isFalling;
+        private bool isJumping; //variable for determining if player jumped recently
+        private int startingY; //variable for Y before jumping
         //Since we don't have collectibles, we probably won't need a GameObject class
         //Make a constructor that takes 4 parameters, the x, the y, the width and the height.
         public Player(int x, int y, int width, int height)
         {
             position = new Rectangle(x, y, width, height);
+            startingY = y;
+            isJumping = false;
+            isFalling = false;
         }
         //make properties for the texture and the position & X , Y coords
         public Texture2D PlayerTexture
@@ -49,6 +54,18 @@ namespace BreakingTheFourth
             get { return isFalling; }
             set { isFalling = value; }
         }
+        //property for isJumping
+        public bool IsJumping
+        {
+            get { return isJumping; }
+            set { isJumping = value; }
+        }
+        //property for startingY
+        public int StartingY
+        {
+            get { return startingY; }
+            set { startingY = value; }
+        }
         public void Update(KeyboardState kbState, KeyboardState previousKbState)
         {
             //x-axis movement determined by keyboard input
@@ -60,15 +77,44 @@ namespace BreakingTheFourth
             {
                 X += 5;
             }
-            //jump
-            if(kbState.IsKeyDown(Keys.Space) && previousKbState.IsKeyUp(Keys.Space))
+            if(isFalling == true)
+            {
+                //go down-gravity
+                Gravity();
+                //collision detection
+                /*for(int i = 0; i< ; i++)
+                {
+                    if (position.Intersects() == true)
+                    {
+                        isFalling = false;
+                    }
+                }*/
+            }
+            if(isJumping == true)
+            {
+                position.Y -= 4;
+                if (position.Y >= (startingY - .5 * position.Height))
+                {
+                    isFalling = true;
+                }
+            }
+            //jump start
+            if (kbState.IsKeyDown(Keys.Space) && previousKbState.IsKeyUp(Keys.Space))
             {
                 //jump logic
-                ///go up
-                ///go down-gravity
-                ///collision detection
+                //go up
+                position.Y -= 4;
+                isJumping = true;
             }
         }
+        public void Gravity()
+        {
+            position.Y += 5;
+        }
+        /// <summary>
+        /// draws the player to the screen
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(playerTexture, position, Color.White);
