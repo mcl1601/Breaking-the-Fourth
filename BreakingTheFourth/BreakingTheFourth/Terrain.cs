@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-//added namespaces
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+
 
 namespace BreakingTheFourth
 {
@@ -14,9 +16,27 @@ namespace BreakingTheFourth
         //If we're gonna make the level move around the player, we'll need X and Y coordinates to move. How does that even work?
         //Do we make the ground a Rectangle? This will probably be the trickiest class.
 
-        //fields
+
+        Texture2D image;
         Rectangle position;
-        //method for collision detection for player and bullet
+        public Terrain(int x, int y, int width, int height)
+        {
+            position = new Rectangle(x, y, width, height);
+        }
+        public Texture2D Image
+        {
+            get { return image; }
+            set { image = value; }
+        }
+        public Rectangle Position
+        {
+            get { return position; }
+        }
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(image, position, Color.White);
+        }
+                //method for collision detection for player and bullet
         /*public bool CollisionDetected(Rectangle entity)
         {
             if()
