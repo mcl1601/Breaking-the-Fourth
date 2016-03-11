@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
 namespace BreakingTheFourth
 {
@@ -20,6 +21,7 @@ namespace BreakingTheFourth
         //fields for getting keyboard states
         KeyboardState kbState;
         KeyboardState previousKbState;
+        List<Terrain> terrain;
 
         public Game1()
         {
@@ -37,9 +39,17 @@ namespace BreakingTheFourth
         {
             //initialize player object
             player = new Player(50, 50, 50, 80);
+            terrain = new List<Terrain>();
             base.Initialize();
         }
-
+        public void CreateTerrain()
+        {
+            terrain.Add(new Terrain(0, GraphicsDevice.Viewport.Height-90, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height / 5));
+            for(int x=0; x<terrain.Count; x++)
+            {
+                terrain[x].Image = Content.Load<Texture2D>("terrain.png");
+            }
+        }
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
         /// all of your content.
@@ -76,7 +86,7 @@ namespace BreakingTheFourth
             kbState = Keyboard.GetState();
             //add player update for movement
             player.Update(kbState, previousKbState);
-
+            CreateTerrain();
             base.Update(gameTime);
         }
 
@@ -91,7 +101,10 @@ namespace BreakingTheFourth
             spriteBatch.Begin();
             //drawing methods in here
             player.Draw(spriteBatch);
-
+            for (int x = 0; x < terrain.Count; x++)
+            {
+                terrain[x].Draw(spriteBatch);
+            }
             spriteBatch.End();
 
             base.Draw(gameTime);
