@@ -40,6 +40,7 @@
   <ItemGroup>
     <Compile Include="Bullet.cs" />
     <Compile Include="Config.cs" />
+    <Compile Include="FileIO.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Level.cs" />
     <Compile Include="Player.cs" />
