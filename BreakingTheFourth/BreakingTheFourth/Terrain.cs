@@ -36,10 +36,10 @@ namespace BreakingTheFourth
         {
             spriteBatch.Draw(image, position, Color.White);
         }
-                //method for collision detection for player and bullet
-        /*public bool CollisionDetected(Rectangle entity)
+        //method for collision detection for player and bullet
+        public bool CollisionDetected(Rectangle entity)
         {
-            if()
+            if(position.Intersects(entity))
             {
                 return true;
             }
@@ -47,6 +47,6 @@ namespace BreakingTheFourth
             {
                 return false;
             }
-        }*/
+        }
     }
 }

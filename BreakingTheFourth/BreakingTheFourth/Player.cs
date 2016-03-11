@@ -66,7 +66,7 @@ namespace BreakingTheFourth
             get { return startingY; }
             set { startingY = value; }
         }
-        public void Update(KeyboardState kbState, KeyboardState previousKbState)
+        public void Update(KeyboardState kbState, KeyboardState previousKbState, List<Terrain> terrain)
         {
             //x-axis movement determined by keyboard input
             if(kbState.IsKeyDown(Keys.A))
@@ -82,18 +82,20 @@ namespace BreakingTheFourth
                 //go down-gravity
                 Gravity();
                 //collision detection
-                /*for(int i = 0; i< ; i++)
+                for(int i = 0; i< terrain.Count; i++)
                 {
-                    if (position.Intersects() == true)
+                    if (terrain[i].CollisionDetected(position) == true)
                     {
                         isFalling = false;
+                        isJumping = false;
+                        startingY = position.Y;
                     }
-                }*/
+                }
             }
             if(isJumping == true)
             {
                 position.Y -= 4;
-                if (position.Y >= (startingY - .5 * position.Height))
+                if (position.Y <= (startingY - (.5 * position.Height)))
                 {
                     isFalling = true;
                 }

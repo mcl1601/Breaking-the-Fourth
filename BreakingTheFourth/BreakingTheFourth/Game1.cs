@@ -38,7 +38,7 @@ namespace BreakingTheFourth
         protected override void Initialize()
         {
             //initialize player object
-            player = new Player(50, 50, 50, 80);
+            player = new Player(50, 200, 50, 80);
             terrain = new List<Terrain>();
             base.Initialize();
         }
@@ -85,7 +85,7 @@ namespace BreakingTheFourth
             previousKbState = kbState;
             kbState = Keyboard.GetState();
             //add player update for movement
-            player.Update(kbState, previousKbState);
+            player.Update(kbState, previousKbState, terrain);
             CreateTerrain();
             base.Update(gameTime);
         }
