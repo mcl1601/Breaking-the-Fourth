@@ -19,6 +19,9 @@ namespace BreakingTheFourth
         private bool isFalling;
         private bool isJumping; //variable for determining if player jumped recently
         private int startingY; //variable for Y before jumping
+
+        // FileIO object
+        FileIO movement = new FileIO();
         //Since we don't have collectibles, we probably won't need a GameObject class
         //Make a constructor that takes 4 parameters, the x, the y, the width and the height.
         public Player(int x, int y, int width, int height)
@@ -71,11 +74,11 @@ namespace BreakingTheFourth
             //x-axis movement determined by keyboard input
             if(kbState.IsKeyDown(Keys.A))
             {
-                X -= 5;
+                X -= movement.PlayerSpeed;
             }
             if (kbState.IsKeyDown(Keys.D))
             {
-                X += 5;
+                X += movement.PlayerSpeed;
             }
             if(isFalling == true)
             {
@@ -111,7 +114,7 @@ namespace BreakingTheFourth
         }
         public void Gravity()
         {
-            position.Y += 5;
+            position.Y += movement.Gravity;
         }
         /// <summary>
         /// draws the player to the screen

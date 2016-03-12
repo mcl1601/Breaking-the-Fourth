@@ -20,8 +20,7 @@ namespace BreakingTheFourth
             Stream inStream = File.OpenRead("../../../../Tool/Tool/bin/Debug/Values.data");
 
             // read the file
-            BinaryReader input = new BinaryReader(inStream);
-
+            BinaryReader input = new BinaryReader(inStream); 
             
 
             // assign the values when reading
@@ -34,5 +33,8 @@ namespace BreakingTheFourth
         }
 
         // properties
+        public int PlayerSpeed { get { return playerSpeed; } }
+        public int BulletSpeed { get { return bulletSpeed; } }
+        public int Gravity { get { return gravity; } }
     }
 }
