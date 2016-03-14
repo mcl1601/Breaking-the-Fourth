@@ -36,6 +36,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.GravityBox = new System.Windows.Forms.TextBox();
             this.DoneButton = new System.Windows.Forms.Button();
+            this.playerSuccess = new System.Windows.Forms.Label();
+            this.bulletSuccess = new System.Windows.Forms.Label();
+            this.gravitySuccess = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // PlayerLabel
@@ -116,12 +119,42 @@
             this.DoneButton.UseVisualStyleBackColor = true;
             this.DoneButton.Click += new System.EventHandler(this.DoneButton_Click);
             // 
+            // playerSuccess
+            // 
+            this.playerSuccess.AutoSize = true;
+            this.playerSuccess.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.playerSuccess.Location = new System.Drawing.Point(384, 199);
+            this.playerSuccess.Name = "playerSuccess";
+            this.playerSuccess.Size = new System.Drawing.Size(0, 16);
+            this.playerSuccess.TabIndex = 9;
+            // 
+            // bulletSuccess
+            // 
+            this.bulletSuccess.AutoSize = true;
+            this.bulletSuccess.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bulletSuccess.Location = new System.Drawing.Point(387, 280);
+            this.bulletSuccess.Name = "bulletSuccess";
+            this.bulletSuccess.Size = new System.Drawing.Size(0, 16);
+            this.bulletSuccess.TabIndex = 10;
+            // 
+            // gravitySuccess
+            // 
+            this.gravitySuccess.AutoSize = true;
+            this.gravitySuccess.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gravitySuccess.Location = new System.Drawing.Point(387, 354);
+            this.gravitySuccess.Name = "gravitySuccess";
+            this.gravitySuccess.Size = new System.Drawing.Size(0, 16);
+            this.gravitySuccess.TabIndex = 11;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.ClientSize = new System.Drawing.Size(583, 485);
+            this.Controls.Add(this.gravitySuccess);
+            this.Controls.Add(this.bulletSuccess);
+            this.Controls.Add(this.playerSuccess);
             this.Controls.Add(this.DoneButton);
             this.Controls.Add(this.GravityBox);
             this.Controls.Add(this.label2);
@@ -146,6 +179,9 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox GravityBox;
         private System.Windows.Forms.Button DoneButton;
+        private System.Windows.Forms.Label playerSuccess;
+        private System.Windows.Forms.Label bulletSuccess;
+        private System.Windows.Forms.Label gravitySuccess;
     }
 }
 
