@@ -88,6 +88,8 @@ namespace BreakingTheFourth
                     isFalling = false;
                     isJumping = false;
                     startingY = position.Y;
+                    //stops no clip issues
+                    Offset(terrain);
                 }
                 else if(IsJumping == false)
                 {
@@ -137,9 +139,18 @@ namespace BreakingTheFourth
         //Need method for checking collisions with walls and other objects - in terrain
         //Need to decide whether to make player move around level or level move around player
         
-        public void Offset()
+        public void Offset(List<Terrain> terrain)
         {
-
+            int i = 0;
+            if (X >= terrain[i].X && X <= (terrain[i].X + terrain[i].Width))
+            {
+                ////////////////////////////////////////////////////////////////////////////////////////////////
+            }
+            if (Y >= terrain[i].Y && Y <= (terrain[i].Y + terrain[i].Height))
+            {
+                ////////////////////////////////////////////////////////////////////////////////////////////////need different sets of stuff from enter left vs. enter right
+            }
+            i++;
         }
     }
 }

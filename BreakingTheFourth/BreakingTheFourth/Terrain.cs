@@ -32,6 +32,18 @@ namespace BreakingTheFourth
         {
             get { return position; }
         }
+        public int X
+        {
+            get { return position.X; }
+            set { position.X = value; }
+        }
+        public int Y
+        {
+            get { return position.Y; }
+            set { position.Y = value; }
+        }
+        public int Width { get { return position.Width; } }
+        public int Height { get { return position.Height; } }
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(image, position, Color.White);
