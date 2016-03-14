@@ -38,13 +38,16 @@ namespace BreakingTheFourth
         protected override void Initialize()
         {
             //initialize player object
-            player = new Player(50, 200, 50, 80);
+            player = new Player(50, 50, 50, 80);
             terrain = new List<Terrain>();
             base.Initialize();
         }
         public void CreateTerrain()
         {
+            terrain.Add(new Terrain(50, 150, 50, 50));
             terrain.Add(new Terrain(0, GraphicsDevice.Viewport.Height-90, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height / 5));
+            //test platform
+            terrain.Add(new Terrain(150, 200, 70, 100));
             for(int x=0; x<terrain.Count; x++)
             {
                 terrain[x].Image = Content.Load<Texture2D>("terrain.png");
@@ -84,9 +87,9 @@ namespace BreakingTheFourth
                 Exit();
             previousKbState = kbState;
             kbState = Keyboard.GetState();
+            CreateTerrain();
             //add player update for movement
             player.Update(kbState, previousKbState, terrain);
-            CreateTerrain();
             base.Update(gameTime);
         }
 
