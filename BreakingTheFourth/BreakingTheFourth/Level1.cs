@@ -47,5 +47,36 @@ namespace BreakingTheFourth
 
         // list to hold the terrain pieces
         List<Terrain> pieces = new List<Terrain>();
+
+        // Next Screen method
+        public List<Terrain> NextScreen(int screen)
+        {
+            // switch to determine which screen to draw
+            switch (screen)
+            {
+                case 1:
+                    // clear the list
+                    pieces.Clear();
+                    // add new terrain pieces
+                    pieces.Add(new Terrain(0, 0, 800, 40));
+                    pieces.Add(new Terrain(0, 450, 800, 40));
+                    pieces.Add(new Terrain(0, 0, 25, 500));
+                    pieces.Add(new Terrain(775, 0, 25, 300));
+                    pieces.Add(new Terrain(150, 200, 70, 100));
+                    pieces.Add(new Terrain(50, 150, 50, 50));
+                    break;
+                case 2:
+                    // clear the list
+                    pieces.Clear();
+                    // add new terrain pieces
+                    pieces.Add(new Terrain(0, 0, 800, 40)); 
+                    pieces.Add(new Terrain(0, 450, 800, 40));
+                    pieces.Add(new Terrain(0, 0, 25, 300));
+                    pieces.Add(new Terrain(775, 0, 25, 500));
+                    pieces.Add(new Terrain(500, 430, 100, 10));
+                    break;
+            }
+            return pieces;
+        }
     }
 }
