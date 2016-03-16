@@ -19,6 +19,8 @@ namespace BreakingTheFourth
         private bool isFalling;
         private bool isJumping; //variable for determining if player jumped recently
         private int startingY; //variable for Y before jumping
+        int screenCounter = 1;
+        Level1 level1 = new Level1();
 
         // FileIO object
         FileIO movement = new FileIO();
@@ -69,7 +71,7 @@ namespace BreakingTheFourth
             get { return startingY; }
             set { startingY = value; }
         }
-        public void Update(KeyboardState kbState, KeyboardState previousKbState, List<Terrain> terrain)
+        public void Update(KeyboardState kbState, KeyboardState previousKbState, List<Terrain> terrain, SpecialTerrain st)
         {
             //x-axis movement determined by keyboard input
             if (kbState.IsKeyDown(Keys.A))
@@ -83,7 +85,7 @@ namespace BreakingTheFourth
             //collision detection
             for (int i = 0; i < terrain.Count; i++)
             {
-                if (terrain[i].CollisionDetected(position) == true)
+                if (terrain[i].CollisionDetected(position) == true || st.CollisionDetected(position))
                 {
                     //stops no clip issues
                     //Offset(terrain, kbState, i);
@@ -123,6 +125,8 @@ namespace BreakingTheFourth
                 position.Y -= 4;
                 isJumping = true;
             }
+
+            
         }
         public void Gravity()
         {

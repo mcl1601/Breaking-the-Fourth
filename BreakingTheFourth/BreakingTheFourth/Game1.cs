@@ -23,6 +23,8 @@ namespace BreakingTheFourth
         KeyboardState previousKbState;
         List<Terrain> terrain;
         Level1 level1;
+        int screenCounter;
+        SpecialTerrain st;
 
         public Game1()
         {
@@ -42,6 +44,8 @@ namespace BreakingTheFourth
             player = new Player(50, 50, 50, 80);
             terrain = new List<Terrain>();
             level1 =  new Level1();
+            st = new SpecialTerrain(400, 399, 75, 75);
+            screenCounter = 1;
             base.Initialize();
         }
         public void CreateTerrain()
@@ -70,12 +74,19 @@ namespace BreakingTheFourth
 
             //load in player texture
             stickFigure = Content.Load<Texture2D>("Stickman_Handgun.png");
+            /*for (int x = 0; x < terrain.Count; x++)
+            {
+                terrain[x].Image = Content.Load<Texture2D>("terrain.png");
+            }*/
+            player.PlayerTexture = stickFigure;
+            st.Image = Content.Load<Texture2D>("terrain.png");
+            // make textures for the level1
+            terrain = level1.NextScreen(1);
             for (int x = 0; x < terrain.Count; x++)
             {
                 terrain[x].Image = Content.Load<Texture2D>("terrain.png");
             }
-            player.PlayerTexture = stickFigure;
-            CreateTerrain();
+            //CreateTerrain();
         }
 
         /// <summary>
@@ -100,7 +111,21 @@ namespace BreakingTheFourth
             kbState = Keyboard.GetState();
             //CreateTerrain();
             //add player update for movement
-            player.Update(kbState, previousKbState, terrain);
+            player.Update(kbState, previousKbState, terrain, st);
+            st.Update();
+            if(player.X > GraphicsDevice.Viewport.Width)
+            {
+                screenCounter++;
+                terrain.Clear();
+                terrain = level1.NextScreen(screenCounter);
+                for (int x = 0; x < terrain.Count; x++)
+                {
+                    terrain[x].Image = Content.Load<Texture2D>("terrain.png");
+                }
+                player.X = 50;
+                player.Y = 350;
+            }
+            
 
             //level1.CreateLevelOne(player.Position.X);
 
@@ -123,6 +148,7 @@ namespace BreakingTheFourth
             {
                 terrain[x].Draw(spriteBatch);
             }
+            st.Draw(spriteBatch);
             spriteBatch.End();
 
             base.Draw(gameTime);

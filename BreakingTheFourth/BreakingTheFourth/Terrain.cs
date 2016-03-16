@@ -17,8 +17,8 @@ namespace BreakingTheFourth
         //Do we make the ground a Rectangle? This will probably be the trickiest class.
 
 
-        Texture2D image;
-        Rectangle position;
+        private Texture2D image;
+        private Rectangle position;
         public Terrain(int x, int y, int width, int height)
         {
             position = new Rectangle(x, y, width, height);
