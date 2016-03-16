@@ -85,11 +85,11 @@ namespace BreakingTheFourth
             {
                 if (terrain[i].CollisionDetected(position) == true)
                 {
+                    //stops no clip issues
+                    Offset(terrain, kbState, i);
                     isFalling = false;
                     isJumping = false;
                     startingY = position.Y;
-                    //stops no clip issues
-                    Offset(terrain);
                 }
                 else if(IsJumping == false)
                 {
@@ -139,18 +139,39 @@ namespace BreakingTheFourth
         //Need method for checking collisions with walls and other objects - in terrain
         //Need to decide whether to make player move around level or level move around player
         
-        public void Offset(List<Terrain> terrain)
+        public void Offset(List<Terrain> terrain, KeyboardState kbState, int count)
         {
-            int i = 0;
-            if (X >= terrain[i].X && X <= (terrain[i].X + terrain[i].Width))
-            {
-                ////////////////////////////////////////////////////////////////////////////////////////////////
-            }
-            if (Y >= terrain[i].Y && Y <= (terrain[i].Y + terrain[i].Height))
-            {
-                ////////////////////////////////////////////////////////////////////////////////////////////////need different sets of stuff from enter left vs. enter right
-            }
-            i++;
+                for (int i = 0; i < terrain.Count; i++)
+                {
+                    if(Y < terrain[i].Y + terrain[i].Height && Y > terrain[i].Y)//checks if top of rect is inside terrain
+                    {
+                        if (isFalling == true && Y + movement.Gravity > terrain[i].Y)//if gravity will put player inside 
+                        //terrain set em on top
+                        {
+                            if (X > terrain[i].X && X < terrain[i].X + terrain[i].Width)
+                            {
+                                Y = terrain[i].Y - position.Height;
+                            }
+
+                        }
+                        if (isJumping == true) //stops player from clipping through the bottom of terrain when jumping
+                        {
+                            Y = terrain[count].Y + terrain[count].Height;
+                        }
+                        if (kbState.IsKeyDown(Keys.A) && (X - movement.PlayerSpeed) < (terrain[i].X + terrain[i].Width))
+                        {
+                            if((X - movement.PlayerSpeed) < (terrain[i].X + terrain[i].Width))
+                            {
+                                X = terrain[i].X + terrain[i].Width;
+                            } 
+                        }
+                        if (kbState.IsKeyDown(Keys.D) && (X + movement.PlayerSpeed) < terrain[i].X)
+                        {
+                            X = terrain[i].X;
+                        }
+                    }
+                    
+                }//end for loop that checks terrain
         }
-    }
+    }//end of offset method
 }

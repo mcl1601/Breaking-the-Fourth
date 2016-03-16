@@ -75,6 +75,7 @@ namespace BreakingTheFourth
                 terrain[x].Image = Content.Load<Texture2D>("terrain.png");
             }
             player.PlayerTexture = stickFigure;
+            CreateTerrain();
         }
 
         /// <summary>
@@ -97,7 +98,7 @@ namespace BreakingTheFourth
                 Exit();
             previousKbState = kbState;
             kbState = Keyboard.GetState();
-            CreateTerrain();
+            //CreateTerrain();
             //add player update for movement
             player.Update(kbState, previousKbState, terrain);
 
