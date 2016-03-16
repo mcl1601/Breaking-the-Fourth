@@ -11,7 +11,7 @@ namespace BreakingTheFourth
 {
     class Level1
     {
-        public List<Terrain> terrain = new List<Terrain>();
+        /*public List<Terrain> terrain = new List<Terrain>();
         Game1 game1 = new Game1();
         int counter = 0;
         public void ScreenOne()
@@ -43,5 +43,6 @@ namespace BreakingTheFourth
             }
                 
         }
+        */
     }
 }

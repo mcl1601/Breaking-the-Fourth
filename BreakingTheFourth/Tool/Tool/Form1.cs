@@ -17,7 +17,7 @@ namespace Tool
         int playerSpeed;
         int bulletSpeed;
         int gravity;
-
+        Form2 secondForm;
 
         public Form1()
         {
@@ -27,19 +27,31 @@ namespace Tool
         private void PlayerBox_TextChanged(object sender, EventArgs e)
         {
             string input = PlayerBox.Text;
-            playerSpeed = int.Parse(input);
+            if(int.TryParse(input, out playerSpeed))
+            {
+                playerSuccess.Text = "Valid";
+            }
+            else { playerSuccess.Text = "Invalid Data"; }
         }
 
         private void BulletBox_TextChanged(object sender, EventArgs e)
         {
             string input = BulletBox.Text;
-            bulletSpeed = int.Parse(input);
+            if(int.TryParse(input, out bulletSpeed))
+            {
+                bulletSuccess.Text = "Valid";
+            }
+            else { bulletSuccess.Text = "Invalid Data"; }
         }
 
         private void GravityBox_TextChanged(object sender, EventArgs e)
         {
             string input = GravityBox.Text;
-            gravity = int.Parse(input);
+            if(int.TryParse(input, out gravity))
+            {
+                gravitySuccess.Text = "Valid";
+            }
+            else { gravitySuccess.Text = "Invalid Data"; }
         }
 
         // properties
@@ -62,6 +74,15 @@ namespace Tool
 
             // close the file
             output.Close();
+
+            // display a window signifying completion
+            if(secondForm == null)
+            {
+                secondForm = new Form2();
+            }
+
+            // show the form
+            secondForm.Show();
         }
     }
 }

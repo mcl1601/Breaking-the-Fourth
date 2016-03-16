@@ -39,15 +39,25 @@ namespace BreakingTheFourth
         protected override void Initialize()
         {
             //initialize player object
-            player = new Player(50, 200, 50, 80);
+            player = new Player(50, 50, 50, 80);
             terrain = new List<Terrain>();
             level1 =  new Level1();
             base.Initialize();
         }
         public void CreateTerrain()
         {
+            terrain.Add(new Terrain(50, 150, 50, 50));
             terrain.Add(new Terrain(0, GraphicsDevice.Viewport.Height-90, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height / 5));
+
            
+
+            //test platform
+            terrain.Add(new Terrain(150, 200, 70, 100));
+            for(int x=0; x<terrain.Count; x++)
+            {
+                terrain[x].Image = Content.Load<Texture2D>("terrain.png");
+            }
+
         }
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
@@ -60,9 +70,9 @@ namespace BreakingTheFourth
 
             //load in player texture
             stickFigure = Content.Load<Texture2D>("Stickman_Handgun.png");
-            for (int x = 0; x < level1.terrain.Count; x++)
+            for (int x = 0; x < terrain.Count; x++)
             {
-                level1.terrain[x].Image = Content.Load<Texture2D>("terrain.png");
+                terrain[x].Image = Content.Load<Texture2D>("terrain.png");
             }
             player.PlayerTexture = stickFigure;
         }
@@ -87,10 +97,13 @@ namespace BreakingTheFourth
                 Exit();
             previousKbState = kbState;
             kbState = Keyboard.GetState();
+            CreateTerrain();
             //add player update for movement
             player.Update(kbState, previousKbState, terrain);
-            level1.CreateLevelOne(player.Position.X);
-            //CreateTerrain();
+
+            //level1.CreateLevelOne(player.Position.X);
+
+
             base.Update(gameTime);
         }
 
@@ -105,9 +118,9 @@ namespace BreakingTheFourth
             spriteBatch.Begin();
             //drawing methods in here
             player.Draw(spriteBatch);
-            for (int x = 0; x < level1.terrain.Count; x++)
+            for (int x = 0; x < terrain.Count; x++)
             {
-                level1.terrain[x].Draw(spriteBatch);
+                terrain[x].Draw(spriteBatch);
             }
             spriteBatch.End();
 

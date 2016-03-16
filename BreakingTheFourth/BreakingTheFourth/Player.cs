@@ -80,20 +80,31 @@ namespace BreakingTheFourth
             {
                 X += movement.PlayerSpeed;
             }
-            if(isFalling == true)
+            //collision detection
+            for (int i = 0; i < terrain.Count; i++)
+            {
+                if (terrain[i].CollisionDetected(position) == true)
+                {
+                    isFalling = false;
+                    isJumping = false;
+                    startingY = position.Y;
+                    //stops no clip issues
+                    Offset(terrain);
+                }
+                else if(IsJumping == false)
+                {
+                    isFalling = true;
+                }
+
+                if(isFalling == false)
+                {
+                    break;
+                }
+            }
+            if (isFalling == true)
             {
                 //go down-gravity
                 Gravity();
-                //collision detection
-                for(int i = 0; i< terrain.Count; i++)
-                {
-                    if (terrain[i].CollisionDetected(position) == true)
-                    {
-                        isFalling = false;
-                        isJumping = false;
-                        startingY = position.Y;
-                    }
-                }
             }
             if(isJumping == true)
             {
@@ -125,7 +136,21 @@ namespace BreakingTheFourth
             spriteBatch.Draw(playerTexture, position, Color.White);
         }
         //We'll probably need math calculations for velocity and stuff
-        //Need method for checking collisions with walls and other objects
+        //Need method for checking collisions with walls and other objects - in terrain
         //Need to decide whether to make player move around level or level move around player
+        
+        public void Offset(List<Terrain> terrain)
+        {
+            int i = 0;
+            if (X >= terrain[i].X && X <= (terrain[i].X + terrain[i].Width))
+            {
+                ////////////////////////////////////////////////////////////////////////////////////////////////
+            }
+            if (Y >= terrain[i].Y && Y <= (terrain[i].Y + terrain[i].Height))
+            {
+                ////////////////////////////////////////////////////////////////////////////////////////////////need different sets of stuff from enter left vs. enter right
+            }
+            i++;
+        }
     }
 }
