@@ -44,5 +44,8 @@ namespace BreakingTheFourth
                 
         }
         */
+
+        // list to hold the terrain pieces
+        List<Terrain> pieces = new List<Terrain>();
     }
 }

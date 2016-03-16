@@ -50,6 +50,10 @@ namespace Tool
             if(int.TryParse(input, out gravity))
             {
                 gravitySuccess.Text = "Valid";
+                if(int.Parse(input) <= 4)
+                {
+                    gravitySuccess.Text = "Invalid Data";
+                }
             }
             else { gravitySuccess.Text = "Invalid Data"; }
         }
