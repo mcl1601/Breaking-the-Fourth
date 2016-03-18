@@ -53,7 +53,7 @@ namespace BreakingTheFourth
         {
             if(position.Intersects(entityPos))
             {
-                OffsetPlayer(entityPos);
+                //OffsetPlayer(entityPos);
                 return true;
             }
             else

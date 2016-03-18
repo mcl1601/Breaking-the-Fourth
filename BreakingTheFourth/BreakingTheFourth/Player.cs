@@ -144,23 +144,29 @@ namespace BreakingTheFourth
         //Need method for checking collisions with walls and other objects - in terrain
         //Need to decide whether to make player move around level or level move around player
 
-        public void Offset(List<Terrain> terrain, KeyboardState kbState, int count)
+        public void Offset(List<Terrain> terrain, KeyboardState kbState, int i)//////////////////////////broken as shit
         {
-            int i = 0;
-            if (position.Bottom > terrain[i].Position.Top)
+            if(terrain[i].Position.Top == position.Bottom)
             {
-                position.Offset(0, terrain[i].Position.Top - position.Bottom);
-                position.Y = Y + terrain[i].Position.Top - position.Bottom;
+                return;
             }
-            if (position.Top < terrain[i].Position.Bottom)
+            //if (position.Bottom > terrain[i].Position.Top)
+            //{
+                //position.Y = terrain[i].Position.Top - position.Height;
+                //return;
+            //}
+            if (position.Top < terrain[i].Position.Bottom && IsJumping == true)
             {
-                position.Offset(0, terrain[i].Position.Bottom - position.Top);
-                position.Y = Y + terrain[i].Position.Bottom - position.Top;
+                position.Y += terrain[i].Position.Bottom - position.Top;
+                isFalling = true;
             }
             if (position.Right > terrain[i].Position.Left)
             {
-                position.Offset(terrain[i].Position.Left - position.Right, 0);
-                position.X = X + terrain[i].Position.Left - position.Right;
+                position.X = terrain[i].Position.Left -1;
+            }
+            if (position.Left < terrain[i].Position.Right)
+            {
+                position.X = terrain[i].Position.Right + 1;
             }
             //set fields to simplify code
             /*int lyPlayer = Y + position.Height; //lower Y of player rect
