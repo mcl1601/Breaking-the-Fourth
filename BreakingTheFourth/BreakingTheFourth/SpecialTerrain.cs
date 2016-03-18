@@ -16,7 +16,7 @@ namespace BreakingTheFourth
         //Separate method for spikes?
 
         // Constructor
-        private Texture2D image;
+        //private Texture2D image;
         private Rectangle position;
         private bool movingUp;
 
@@ -68,7 +68,7 @@ namespace BreakingTheFourth
             }
         }*/
         // moving platforms
-        public void Update()
+        public override void Update()
         {
             if (movingUp == true)
             {

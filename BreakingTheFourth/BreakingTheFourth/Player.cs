@@ -71,7 +71,7 @@ namespace BreakingTheFourth
             get { return startingY; }
             set { startingY = value; }
         }
-        public void Update(KeyboardState kbState, KeyboardState previousKbState, List<Terrain> terrain, SpecialTerrain st)
+        public void Update(KeyboardState kbState, KeyboardState previousKbState, List<Terrain> terrain)
         {
             //x-axis movement determined by keyboard input
             if (kbState.IsKeyDown(Keys.A))
@@ -85,7 +85,7 @@ namespace BreakingTheFourth
             //collision detection
             for (int i = 0; i < terrain.Count; i++)
             {
-                if (terrain[i].CollisionDetected(position) == true || st.CollisionDetected(position)) /////special terrain is causing issue sonce not in list
+                if (terrain[i].CollisionDetected(position) == true )/////special terrain is causing issue still sometimes
                 {
                     //stops no clip issues
                     Offset(terrain, kbState, i);

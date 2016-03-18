@@ -49,11 +49,10 @@ namespace BreakingTheFourth
             spriteBatch.Draw(image, position, Color.White);
         }
         //method for collision detection for player and bullet
-        public bool CollisionDetected(Rectangle entityPos)
+        public bool CollisionDetected(Rectangle entity)
         {
-            if(position.Intersects(entityPos))
+            if(position.Intersects(entity))
             {
-                //OffsetPlayer(entityPos);
                 return true;
             }
             else
@@ -61,23 +60,9 @@ namespace BreakingTheFourth
                 return false;
             }
         }
-        public void OffsetPlayer(Rectangle entityPos)
+        public virtual void Update()
         {
-            if (entityPos.Bottom > position.Top)
-            {
-                entityPos.Offset(0, position.Top - entityPos.Bottom);
-                entityPos.Y = Y + position.Top - entityPos.Bottom;
-            }
-            if (entityPos.Top < position.Bottom)
-            {
-                entityPos.Offset(0, position.Bottom - entityPos.Top);
-                entityPos.Y = Y + position.Bottom - entityPos.Top;
-            }
-            if (entityPos.Right > position.Left)
-            {
-                entityPos.Offset(position.Left - entityPos.Right, 0);
-                entityPos.X = X + position.Left - entityPos.Right;
-            }
+
         }
     }
 }

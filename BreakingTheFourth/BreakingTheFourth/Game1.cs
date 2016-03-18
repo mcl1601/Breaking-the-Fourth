@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
+using System;
 
 namespace BreakingTheFourth
 {
@@ -28,7 +29,6 @@ namespace BreakingTheFourth
         List<Terrain> terrain;
         Level1 level1;
         int screenCounter;
-        SpecialTerrain st;
 
         public Game1()
         {
@@ -50,7 +50,6 @@ namespace BreakingTheFourth
             gun = new Gun(player.X + 40, player.Y + 40, 30, 30);
             terrain = new List<Terrain>();
             level1 =  new Level1();
-            st = new SpecialTerrain(400, 399, 75, 75);
             screenCounter = 1;
             base.Initialize();
         }
@@ -69,7 +68,6 @@ namespace BreakingTheFourth
             //load in gun texture
             telegun = Content.Load<Texture2D>("TeleGun_Handgun.png");
             gun.GunImage = telegun;
-            st.Image = Content.Load<Texture2D>("terrain.png");
             // make textures for the level1
             terrain = level1.NextScreen(1);
             for (int x = 0; x < terrain.Count; x++)
@@ -103,8 +101,14 @@ namespace BreakingTheFourth
             kbState = Keyboard.GetState();
             mouseState = Mouse.GetState();
             //add player update for movement
-            player.Update(kbState, previousKbState, terrain, st);
-            st.Update();
+            player.Update(kbState, previousKbState, terrain);
+            foreach(Terrain t in terrain)
+            {
+                if(t is SpecialTerrain)
+                {
+                    t.Update();
+                }
+            }
             if(player.X > GraphicsDevice.Viewport.Width)
             {
                 screenCounter++;
@@ -143,7 +147,6 @@ namespace BreakingTheFourth
             {
                 terrain[x].Draw(spriteBatch);
             }
-            st.Draw(spriteBatch);
             spriteBatch.End();
 
             base.Draw(gameTime);
