@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace BreakingTheFourth
 {
-    class SpecialTerrain
+    class SpecialTerrain : Terrain
     {
         //This class will inherit from Terrain
         //Since these will all likely be moving platforms, we will definitely need x and y coordinates and speed values for these
@@ -20,12 +20,12 @@ namespace BreakingTheFourth
         private Rectangle position;
         private bool movingUp;
 
-        public SpecialTerrain(int x, int y, int width, int height)
+        public SpecialTerrain(int x, int y, int width, int height) : base (x, y,width, height)
         {
             position = new Rectangle(x, y, width, height);
             movingUp = true;
         }
-        public Texture2D Image
+        /*public Texture2D Image
         {
             get { return image; }
             set { image = value; }
@@ -57,7 +57,7 @@ namespace BreakingTheFourth
             {
                 entity.Y += 10;
                 return true;
-            }*/
+            }
             if (position.Intersects(entity))
             {
                 return true;
@@ -66,7 +66,7 @@ namespace BreakingTheFourth
             {
                 return false;
             }
-        }
+        }*/
         // moving platforms
         public void Update()
         {

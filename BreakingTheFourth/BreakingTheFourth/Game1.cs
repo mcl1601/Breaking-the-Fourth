@@ -74,10 +74,6 @@ namespace BreakingTheFourth
 
             //load in player texture
             stickFigure = Content.Load<Texture2D>("Stickman_Handgun.png");
-            /*for (int x = 0; x < terrain.Count; x++)
-            {
-                terrain[x].Image = Content.Load<Texture2D>("terrain.png");
-            }*/
             player.PlayerTexture = stickFigure;
             st.Image = Content.Load<Texture2D>("terrain.png");
             // make textures for the level1
@@ -86,7 +82,6 @@ namespace BreakingTheFourth
             {
                 terrain[x].Image = Content.Load<Texture2D>("terrain.png");
             }
-            //CreateTerrain();
         }
 
         /// <summary>
@@ -109,7 +104,6 @@ namespace BreakingTheFourth
                 Exit();
             previousKbState = kbState;
             kbState = Keyboard.GetState();
-            //CreateTerrain();
             //add player update for movement
             player.Update(kbState, previousKbState, terrain, st);
             st.Update();
