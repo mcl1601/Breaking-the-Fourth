@@ -18,9 +18,13 @@ namespace BreakingTheFourth
         //add in player object and fields but don't intialize
         Player player;
         Texture2D stickFigure;
+        Gun gun;
+        Texture2D telegun;
         //fields for getting keyboard states
         KeyboardState kbState;
         KeyboardState previousKbState;
+        //Field for getting mouse state 
+        MouseState mouseState;
         List<Terrain> terrain;
         Level1 level1;
         int screenCounter;
@@ -42,26 +46,13 @@ namespace BreakingTheFourth
         {
             //initialize player object
             player = new Player(50, 50, 50, 80);
+            //initialize gun object
+            gun = new Gun(player.X + 40, player.Y + 40, 30, 30);
             terrain = new List<Terrain>();
             level1 =  new Level1();
             st = new SpecialTerrain(400, 399, 75, 75);
             screenCounter = 1;
             base.Initialize();
-        }
-        public void CreateTerrain()
-        {
-            terrain.Add(new Terrain(50, 150, 50, 50));
-            terrain.Add(new Terrain(0, GraphicsDevice.Viewport.Height-90, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height / 5));
-
-           
-
-            //test platform
-            terrain.Add(new Terrain(150, 200, 70, 100));
-            for(int x=0; x<terrain.Count; x++)
-            {
-                terrain[x].Image = Content.Load<Texture2D>("terrain.png");
-            }
-
         }
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
@@ -75,6 +66,9 @@ namespace BreakingTheFourth
             //load in player texture
             stickFigure = Content.Load<Texture2D>("Stickman_Handgun.png");
             player.PlayerTexture = stickFigure;
+            //load in gun texture
+            telegun = Content.Load<Texture2D>("TeleGun_Handgun.png");
+            gun.GunImage = telegun;
             st.Image = Content.Load<Texture2D>("terrain.png");
             // make textures for the level1
             terrain = level1.NextScreen(1);
@@ -82,7 +76,6 @@ namespace BreakingTheFourth
             {
                 terrain[x].Image = Content.Load<Texture2D>("terrain.png");
             }
-            //CreateTerrain();
         }
 
         /// <summary>
@@ -99,12 +92,16 @@ namespace BreakingTheFourth
         /// checking for collisions, gathering input, and playing audio.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        //Rotation stuffs
+
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             previousKbState = kbState;
+            //get keyboard and mouse states
             kbState = Keyboard.GetState();
+            mouseState = Mouse.GetState();
             //add player update for movement
             player.Update(kbState, previousKbState, terrain, st);
             st.Update();
@@ -120,7 +117,9 @@ namespace BreakingTheFourth
                 player.X = 50;
                 player.Y = 350;
             }
-            
+            //Keep the gun at the same position relative to the player
+            gun.X = player.X + 30;
+            gun.Y = player.Y + 20;
 
             //level1.CreateLevelOne(player.Position.X);
 
@@ -139,6 +138,7 @@ namespace BreakingTheFourth
             spriteBatch.Begin();
             //drawing methods in here
             player.Draw(spriteBatch);
+            gun.Draw(spriteBatch);
             for (int x = 0; x < terrain.Count; x++)
             {
                 terrain[x].Draw(spriteBatch);

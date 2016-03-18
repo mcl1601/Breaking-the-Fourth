@@ -64,6 +64,7 @@ namespace BreakingTheFourth
                     pieces.Add(new Terrain(775, 0, 25, 300));
                     pieces.Add(new Terrain(150, 200, 70, 100));
                     pieces.Add(new Terrain(50, 150, 50, 50));
+                    pieces.Add(new SpecialTerrain(400, 399, 75, 75));
                     break;
                 case 2:
                     // clear the list
