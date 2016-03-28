@@ -163,13 +163,12 @@ namespace BreakingTheFourth
             }
             else if (position.Bottom > terrain[i].Position.Top + 5)
             {
-                if (position.Right > terrain[i].Position.Left)
+                if (position.Right > terrain[i].Position.Left && kbState.IsKeyDown(Keys.D))
                 {
-                    //position.X = terrain[i].Position.Left;
                     position.X = terrain[i].Position.Left - position.Width;
                     //position.X -= movement.PlayerSpeed;
                 }
-                if (position.Left < terrain[i].Position.Right)
+                if (position.Left < terrain[i].Position.Right && kbState.IsKeyDown(Keys.A))
                 {
                     position.X = terrain[i].Position.Right;
                     //position.X += movement.PlayerSpeed;
