@@ -82,6 +82,7 @@ namespace BreakingTheFourth
             {
                 X += movement.PlayerSpeed;
             }
+            bool collided = false;
             //collision detection
             for (int i = 0; i < terrain.Count; i++)
             {
@@ -91,9 +92,10 @@ namespace BreakingTheFourth
                     Offset(terrain, kbState, i);
                     isFalling = false;
                     isJumping = false;
+                    collided = true;
                     startingY = position.Y;
                 }
-                else if (IsJumping == false)
+                /*else if (IsJumping == false)
                 {
                     isFalling = true;
                 }
@@ -102,7 +104,11 @@ namespace BreakingTheFourth
                 {
                     
                     break;
-                }
+                }*/
+            }
+            if(isJumping ==false && collided ==false)
+            {
+                isFalling = true;
             }
             if (isFalling == true)
             {
