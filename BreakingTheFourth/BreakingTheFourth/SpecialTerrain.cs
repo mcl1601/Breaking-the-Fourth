@@ -25,48 +25,7 @@ namespace BreakingTheFourth
             position = new Rectangle(x, y, width, height);
             movingUp = true;
         }
-        /*public Texture2D Image
-        {
-            get { return image; }
-            set { image = value; }
-        }
-        public Rectangle Position
-        {
-            get { return position; }
-        }
-        public int X
-        {
-            get { return position.X; }
-            set { position.X = value; }
-        }
-        public int Y
-        {
-            get { return position.Y; }
-            set { position.Y = value; }
-        }
-        public int Width { get { return position.Width; } }
-        public int Height { get { return position.Height; } }
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(image, position, Color.White);
-        }
-        //method for collision detection for player and bullet
-        public bool CollisionDetected(Rectangle entity)
-        {
-            /*if (position.Intersects(entity) && movingUp == true)
-            {
-                entity.Y += 10;
-                return true;
-            }
-            if (position.Intersects(entity))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }*/
+
         // moving platforms
         public override void Update()
         {
