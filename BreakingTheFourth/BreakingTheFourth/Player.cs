@@ -86,7 +86,7 @@ namespace BreakingTheFourth
             //collision detection
             for (int i = 0; i < terrain.Count; i++)
             {
-                if (terrain[i].CollisionDetected(position) == true )/////special terrain is causing issue still sometimes
+                if (terrain[i].CollisionDetected(position) == true )/////special terrain is causing issue still when going down
                 {
                     //stops no clip issues
                     Offset(terrain, kbState, i);
@@ -95,16 +95,14 @@ namespace BreakingTheFourth
                     collided = true;
                     startingY = position.Y;
                 }
-                /*else if (IsJumping == false)
+                if(!(position.Left > terrain[i].Position.Right) && !(position.Right < terrain[i].Position.Left))
                 {
-                    isFalling = true;
+                    if (position.Bottom == terrain[i].Position.Top)
+                    {
+                        collided = true;
+                    }
                 }
-
-                if (isFalling == false)
-                {
-                    
-                    break;
-                }*/
+                
             }
             if(isJumping ==false && collided ==false)
             {
@@ -157,11 +155,7 @@ namespace BreakingTheFourth
             {
                 return;
             }
-            if (position.Top < terrain[i].Position.Bottom && IsJumping == true)
-            {
-                position.Y += terrain[i].Position.Bottom - position.Top;
-            }
-            else if (position.Bottom > terrain[i].Position.Top + 5)
+            if (position.Bottom > terrain[i].Position.Top + movement.Gravity)
             {
                 if (position.Right > terrain[i].Position.Left && kbState.IsKeyDown(Keys.D))
                 {
@@ -173,6 +167,14 @@ namespace BreakingTheFourth
                     position.X = terrain[i].Position.Right;
                     //position.X += movement.PlayerSpeed;
                 }
+            }
+            if(position.Bottom <= terrain[i].Position.Top + movement.Gravity && position.Bottom > terrain[i].Position.Top)
+            {
+                position.Y -= position.Bottom - terrain[i].Position.Top;
+            }
+            else if (position.Top < terrain[i].Position.Bottom && IsJumping == true && position.Top > terrain[i].Position.Top)
+            {
+                position.Y += terrain[i].Position.Bottom - position.Top;
             }
         }//end of offset method
     }
