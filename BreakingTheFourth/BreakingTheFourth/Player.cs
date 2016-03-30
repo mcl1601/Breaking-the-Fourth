@@ -18,7 +18,7 @@ namespace BreakingTheFourth
         //also needs field to detect falling
         private bool isFalling;
         private bool isJumping; //variable for determining if player jumped recently
-        private int startingY; //variable for Y before jumping
+        private int startingY; //variable for Y before jumpingd
         int screenCounter = 1;
         Level1 level1 = new Level1();
 
@@ -90,7 +90,7 @@ namespace BreakingTheFourth
                 {
                     //stops no clip issues
                     Offset(terrain, kbState, i);
-                    isFalling = false;
+                    //isFalling = false;
                     isJumping = false;
                     collided = true;
                     startingY = position.Y;
@@ -171,11 +171,32 @@ namespace BreakingTheFourth
             if(position.Bottom <= terrain[i].Position.Top + movement.Gravity && position.Bottom > terrain[i].Position.Top)
             {
                 position.Y -= position.Bottom - terrain[i].Position.Top;
+                isFalling = false;
             }
-            else if (position.Top < terrain[i].Position.Bottom && IsJumping == true && position.Top > terrain[i].Position.Top)
+            
+            if(startingY - position.Height > terrain[i].Position.Bottom && IsJumping == true) // starts below the object
             {
-                position.Y += terrain[i].Position.Bottom - position.Top;
+                if (position.Top < terrain[i].Position.Bottom && IsJumping == true && position.Top > terrain[i].Position.Top)
+                {
+                    position.Y += terrain[i].Position.Bottom - position.Top;
+                }
             }
+            else if(startingY - position.Height < terrain[i].Position.Bottom && IsJumping == true) // jumps and hits an object from the side
+            {
+                if (position.Right > terrain[i].Position.Left && kbState.IsKeyDown(Keys.D))
+                {
+                    position.X = terrain[i].Position.Left - position.Width;
+                    //position.X -= movement.PlayerSpeed;
+                }
+                if (position.Left < terrain[i].Position.Right && kbState.IsKeyDown(Keys.A))
+                {
+                    position.X = terrain[i].Position.Right;
+                    //position.X += movement.PlayerSpeed;
+                }
+            }
+
+
+            
         }//end of offset method
     }
 }
