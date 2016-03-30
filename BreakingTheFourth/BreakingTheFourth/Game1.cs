@@ -12,6 +12,15 @@ namespace BreakingTheFourth
     /// //I assumed most of our methods will be in other classes, but the most recent homework may have proved otherwise
     /// //Will need space for loading content, initialization, etc.
     /// </summary>
+    
+    enum GameState
+    {
+        Main,
+        Controls,
+        Game,
+        Paused,
+        GameOver
+    }
     public class Game1 : Game
     {
         GraphicsDeviceManager graphics;
@@ -29,6 +38,8 @@ namespace BreakingTheFourth
         List<Terrain> terrain;
         Level1 level1;
         int screenCounter;
+        //fields for finite state machines
+        private GameState gamestate;
 
         public Game1()
         {
@@ -48,9 +59,12 @@ namespace BreakingTheFourth
             player = new Player(50, 50, 50, 80);
             //initialize gun object
             gun = new Gun(player.X + 40, player.Y + 40, 30, 30);
+            //initialize terrain and levels
             terrain = new List<Terrain>();
             level1 =  new Level1();
             screenCounter = 1;
+            //initialize game state
+            gamestate = GameState.Main;
             base.Initialize();
         }
         /// <summary>
@@ -102,6 +116,7 @@ namespace BreakingTheFourth
             mouseState = Mouse.GetState();
             //add player update for movement
             player.Update(kbState, previousKbState, terrain);
+            //update for moving terrain
             foreach(Terrain t in terrain)
             {
                 if(t is SpecialTerrain)
@@ -109,6 +124,7 @@ namespace BreakingTheFourth
                     t.Update();
                 }
             }
+            //changes screen when player passes far right of viewport
             if(player.X > GraphicsDevice.Viewport.Width)
             {
                 screenCounter++;
@@ -119,7 +135,20 @@ namespace BreakingTheFourth
                     terrain[x].Image = Content.Load<Texture2D>("terrain.png");
                 }
                 player.X = 50;
-                player.Y = 350;
+                player.Y = 370;
+            }
+            //allows player to return to previous screen if exits viewport to left
+            if (player.X < GraphicsDevice.Viewport.X)
+            {
+                screenCounter--;
+                terrain.Clear();
+                terrain = level1.NextScreen(screenCounter);
+                for (int x = 0; x < terrain.Count; x++)
+                {
+                    terrain[x].Image = Content.Load<Texture2D>("terrain.png");
+                }
+                player.X = GraphicsDevice.Viewport.Width - 50;
+                player.Y = 370;
             }
             //Keep the gun at the same position relative to the player
             gun.X = player.X + 30;
