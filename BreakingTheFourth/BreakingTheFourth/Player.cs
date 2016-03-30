@@ -90,11 +90,11 @@ namespace BreakingTheFourth
                 {
                     //stops no clip issues
                     Offset(terrain, kbState, i);
-                    //isFalling = false;
+                    //halts jumping after colliding
                     isJumping = false;
                     collided = true;
-                    startingY = position.Y;
                 }
+                //checks if player is standing on terrain & counts that as colliding
                 if(!(position.Left > terrain[i].Position.Right) && !(position.Right < terrain[i].Position.Left))
                 {
                     if (position.Bottom == terrain[i].Position.Top)
@@ -151,10 +151,6 @@ namespace BreakingTheFourth
 
         public void Offset(List<Terrain> terrain, KeyboardState kbState, int i)
         {
-            if (position.Bottom == terrain[i].Position.Top)
-            {
-                return;
-            }
             if (position.Bottom > terrain[i].Position.Top + movement.Gravity)
             {
                 if (position.Right > terrain[i].Position.Left && kbState.IsKeyDown(Keys.D))
@@ -168,13 +164,14 @@ namespace BreakingTheFourth
                     //position.X += movement.PlayerSpeed;
                 }
             }
-            if(position.Bottom <= terrain[i].Position.Top + movement.Gravity && position.Bottom > terrain[i].Position.Top)
+            if(position.Bottom <= terrain[i].Position.Top + movement.Gravity && position.Bottom > terrain[i].Position.Top)//sets player on top of terrain if fell
             {
                 position.Y -= position.Bottom - terrain[i].Position.Top;
                 isFalling = false;
+                startingY = position.Y;
             }
             
-            if(startingY - position.Height > terrain[i].Position.Bottom && IsJumping == true) // starts below the object
+            if(startingY > terrain[i].Position.Bottom && IsJumping == true) // starts below the object & jumps
             {
                 if (position.Top < terrain[i].Position.Bottom && IsJumping == true && position.Top > terrain[i].Position.Top)
                 {
