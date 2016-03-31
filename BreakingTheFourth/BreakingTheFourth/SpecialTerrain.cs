@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace BreakingTheFourth
 {
+    //Contributors:
+    //Kat Weis - did inheriting from terrain and adjustments to make that work
     class SpecialTerrain : Terrain
     {
         //This class will inherit from Terrain

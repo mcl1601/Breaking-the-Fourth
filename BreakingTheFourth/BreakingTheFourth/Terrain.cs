@@ -9,6 +9,8 @@ using Microsoft.Xna.Framework.Input;
 
 namespace BreakingTheFourth
 {
+    //Contributors:
+    //Kat Weis - did collision detection and tweaked so special terrain could inherit
     class Terrain
     {
         //Here's where we get to the meat of the collision detection

@@ -9,6 +9,8 @@ using Microsoft.Xna.Framework.Input;
 
 namespace BreakingTheFourth
 {
+    //Contributors:
+    //Kat Weis - basically everything so far
     class Player
     {
         //Here is the code for the player

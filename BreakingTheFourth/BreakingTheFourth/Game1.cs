@@ -6,6 +6,10 @@ using System;
 
 namespace BreakingTheFourth
 {
+    //Contributors:
+    //Kat Weis - enums for gamestates, player related stuff, keyboard states, placeholder font, case statements, 
+    //moving back to previous screen of level, updates and draws for player and menus
+
     /// <summary>
     /// This is the main type for your game.
     /// //This is the main game class, will be used to call methods and of course run the game. 
@@ -40,6 +44,9 @@ namespace BreakingTheFourth
         int screenCounter;
         //fields for finite state machines
         private GameState gamestate;
+        //fields for font
+        SpriteFont font;
+        Vector2 fontPosition;
 
         public Game1()
         {
@@ -65,6 +72,7 @@ namespace BreakingTheFourth
             screenCounter = 1;
             //initialize game state
             gamestate = GameState.Main;
+            fontPosition = new Vector2(5, 5);
             base.Initialize();
         }
         /// <summary>
@@ -88,6 +96,8 @@ namespace BreakingTheFourth
             {
                 terrain[x].Image = Content.Load<Texture2D>("terrain.png");
             }
+            //load in font
+            font = Content.Load<SpriteFont>("Ebrima_14");
         }
 
         /// <summary>
@@ -108,53 +118,92 @@ namespace BreakingTheFourth
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+            
             previousKbState = kbState;
             //get keyboard and mouse states
             kbState = Keyboard.GetState();
             mouseState = Mouse.GetState();
-            //add player update for movement
-            player.Update(kbState, previousKbState, terrain);
-            //update for moving terrain
-            foreach(Terrain t in terrain)
+            switch(gamestate)
             {
-                if(t is SpecialTerrain)
-                {
-                    t.Update();
-                }
-            }
-            //changes screen when player passes far right of viewport
-            if(player.X > GraphicsDevice.Viewport.Width)
-            {
-                screenCounter++;
-                terrain.Clear();
-                terrain = level1.NextScreen(screenCounter);
-                for (int x = 0; x < terrain.Count; x++)
-                {
-                    terrain[x].Image = Content.Load<Texture2D>("terrain.png");
-                }
-                player.X = 50;
-                player.Y = 370;
-            }
-            //allows player to return to previous screen if exits viewport to left
-            if (player.X < GraphicsDevice.Viewport.X)
-            {
-                screenCounter--;
-                terrain.Clear();
-                terrain = level1.NextScreen(screenCounter);
-                for (int x = 0; x < terrain.Count; x++)
-                {
-                    terrain[x].Image = Content.Load<Texture2D>("terrain.png");
-                }
-                player.X = GraphicsDevice.Viewport.Width - 50;
-                player.Y = 370;
-            }
-            //Keep the gun at the same position relative to the player
-            gun.X = player.X + 30;
-            gun.Y = player.Y + 20;
+                case GameState.Main:
+                    {
+                        if(kbState.IsKeyDown(Keys.Enter)==true && previousKbState.IsKeyUp(Keys.Enter))
+                        {
+                            gamestate = GameState.Game;
+                        }
+                        if (kbState.IsKeyDown(Keys.Escape) && previousKbState.IsKeyUp(Keys.Escape))
+                        {
+                            Exit();
+                        }
+                    }
+                    break;
+                case GameState.Controls:
+                    break;
+                case GameState.Game:
+                    {
+                        if (kbState.IsKeyDown(Keys.Escape) == true && previousKbState.IsKeyUp(Keys.Escape))
+                        {
+                            gamestate = GameState.Paused;
+                        }
+                        //add player update for movement
+                        player.Update(kbState, previousKbState, terrain);
+                        //update for moving terrain
+                        foreach (Terrain t in terrain)
+                        {
+                            if (t is SpecialTerrain)
+                            {
+                                t.Update();
+                            }
+                        }
+                        //changes screen when player passes far right of viewport
+                        if (player.X > GraphicsDevice.Viewport.Width)
+                        {
+                            screenCounter++;
+                            terrain.Clear();
+                            terrain = level1.NextScreen(screenCounter);
+                            for (int x = 0; x < terrain.Count; x++)
+                            {
+                                terrain[x].Image = Content.Load<Texture2D>("terrain.png");
+                            }
+                            player.X = 50;
+                            player.Y = 370;
+                        }
+                        //allows player to return to previous screen if exits viewport to left
+                        if (player.X < GraphicsDevice.Viewport.X)
+                        {
+                            screenCounter--;
+                            terrain.Clear();
+                            terrain = level1.NextScreen(screenCounter);
+                            for (int x = 0; x < terrain.Count; x++)
+                            {
+                                terrain[x].Image = Content.Load<Texture2D>("terrain.png");
+                            }
+                            player.X = GraphicsDevice.Viewport.Width - 50;
+                            player.Y = 370;
+                        }
+                        //Keep the gun at the same position relative to the player
+                        gun.X = player.X + 30;
+                        gun.Y = player.Y + 20;
 
-            //level1.CreateLevelOne(player.Position.X);
+                        //level1.CreateLevelOne(player.Position.X);
+                    }
+                    break;
+                case GameState.Paused:
+                    {
+                        if (kbState.IsKeyDown(Keys.Escape) == true && previousKbState.IsKeyUp(Keys.Escape))
+                        {
+                            gamestate = GameState.Main;
+                        }
+                        if (kbState.IsKeyDown(Keys.Enter) == true && previousKbState.IsKeyUp(Keys.Enter))
+                        {
+                            gamestate = GameState.Game;
+                        }
+                    }
+                    break;
+                case GameState.GameOver:
+                    break;
+            }
+
 
 
             base.Update(gameTime);
@@ -169,13 +218,38 @@ namespace BreakingTheFourth
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
-            //drawing methods in here
-            player.Draw(spriteBatch);
-            gun.Draw(spriteBatch);
-            for (int x = 0; x < terrain.Count; x++)
+            //case statement for gamestates in draw
+            switch (gamestate)
             {
-                terrain[x].Draw(spriteBatch);
+                case GameState.Main:
+                    {
+                        string welcome = "Welcome to Breaking the Fourth \n Press Enter to Begin";
+                        spriteBatch.DrawString(font, welcome, fontPosition, Color.Black);
+                    }
+                    break;
+                case GameState.Controls:
+                    break;
+                case GameState.Game:
+                    {
+                        //drawing methods in here
+                        player.Draw(spriteBatch);
+                        gun.Draw(spriteBatch);
+                        for (int x = 0; x < terrain.Count; x++)
+                        {
+                            terrain[x].Draw(spriteBatch);
+                        }
+                    }
+                    break;
+                case GameState.Paused:
+                    {
+                        string paused = "PAUSED \n Press Esc to got to the main menu \n Press Enter to return to the game";
+                        spriteBatch.DrawString(font, paused, fontPosition, Color.Black);
+                    }
+                    break;
+                case GameState.GameOver:
+                    break;
             }
+
             spriteBatch.End();
 
             base.Draw(gameTime);
