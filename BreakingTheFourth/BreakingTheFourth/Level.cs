@@ -7,6 +7,8 @@ namespace BreakingTheFourth
 {
     class Level
     {
+        //Mike O'Donnell - I added these comments, but I'm not even sure if we're gonna use this class. Can't hurt to keep it around.
+       
         //Here we have the parent level class.
         //Not even gonna make the child classes until we know exactly what we're doing with this one.
         //Do we make the LEVEL a Rectangle? Probably not. But then how do we fit the textures in? 

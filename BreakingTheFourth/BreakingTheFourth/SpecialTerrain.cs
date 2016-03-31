@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace BreakingTheFourth
 {
     //Contributors:
+    //Mike O'Donnell - Helped plan on logic for getting the block to move up and down a constant distance. Also added the beginning comments for outlining
     //Kat Weis - did inheriting from terrain and adjustments to make that work
     class SpecialTerrain : Terrain
     {

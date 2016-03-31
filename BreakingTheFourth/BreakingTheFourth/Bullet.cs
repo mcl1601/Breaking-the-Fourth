@@ -7,6 +7,8 @@ namespace BreakingTheFourth
 {
     class Bullet
     {
+        //Mike O'Donnell - Added these comments, no work on it so far though.
+
         //Here we have the bullet
         //We might wanna make this a vector2, and save it's current position as well as a few previous ones
         //Will need a method to check collision.

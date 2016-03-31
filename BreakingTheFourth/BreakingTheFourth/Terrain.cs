@@ -11,6 +11,7 @@ namespace BreakingTheFourth
 {
     //Contributors:
     //Kat Weis - did collision detection and tweaked so special terrain could inherit
+    //Mike O'Donnell - Created Rectangle and Texture and decided to put each block of Terrain in a list. And added beginning comments to outline.
     class Terrain
     {
         //Here's where we get to the meat of the collision detection

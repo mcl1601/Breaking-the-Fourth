@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 namespace BreakingTheFourth
 {
+    //Mike O'Donnell - everything here
     class Gun
     {
         //properties for the texture and the rectangle
@@ -30,6 +32,7 @@ namespace BreakingTheFourth
             get { return gunPosition; }
         }
         //Field for rotation
+
         public int X
         {
             get { return gunPosition.X; }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace BreakingTheFourth
 {
+    //Mike O'Donnell - Worked on base code and logic for generating level, came up with the idea to divide levels into screens that change when player hits stage right.
     class Level1
     {
         /*public List<Terrain> terrain = new List<Terrain>();
