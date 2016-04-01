@@ -10,6 +10,7 @@ namespace BreakingTheFourth
     //Contributors:
     //Mike O'Donnell - Helped plan on logic for getting the block to move up and down a constant distance. Also added the beginning comments for outlining
     //Kat Weis - did inheriting from terrain and adjustments to make that work
+    //Matt Lienhard - worked on moving platforms mainly
     class SpecialTerrain : Terrain
     {
         //This class will inherit from Terrain

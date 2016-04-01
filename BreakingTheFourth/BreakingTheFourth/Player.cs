@@ -11,6 +11,7 @@ namespace BreakingTheFourth
 {
     //Contributors:
     //Kat Weis - basically everything so far
+    // Matt Lienhard - helped with Offset method
     class Player
     {
         //Here is the code for the player

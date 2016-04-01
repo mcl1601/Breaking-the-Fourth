@@ -11,6 +11,9 @@ using System.IO;
 
 namespace Tool
 {
+    // Created by Matt Lienhard
+
+
     public partial class Form1 : Form
     {
         // fields

@@ -6,6 +6,8 @@ using System.IO;
 
 namespace BreakingTheFourth
 {
+    // Contributors 
+    // Matt Lienhard - did the whole thing since I was in charge of the tool
     class FileIO
     {
         // fields
