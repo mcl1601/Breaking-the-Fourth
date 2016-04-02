@@ -67,7 +67,7 @@ namespace BreakingTheFourth
                     pieces.Add(new Terrain(775, 0, 25, 300));
                     pieces.Add(new Terrain(150, 200, 70, 100));
                     pieces.Add(new Terrain(50, 150, 50, 50));
-                    pieces.Add(new SpecialTerrain(400, 399, 75, 75));
+                    pieces.Add(new SpecialTerrain(400, 399, 75, 75, 300, 450));
                     break;
                 case 2:
                     // clear the list
@@ -76,8 +76,19 @@ namespace BreakingTheFourth
                     pieces.Add(new Terrain(0, 0, 800, 40)); 
                     pieces.Add(new Terrain(0, 450, 800, 40));
                     pieces.Add(new Terrain(0, 0, 25, 300));
-                    pieces.Add(new Terrain(775, 0, 25, 500));
+                    pieces.Add(new Terrain(775, 0, 25, 300));
                     pieces.Add(new Terrain(500, 430, 100, 10));
+                    break;
+                case 3:
+                    // clear the list
+                    pieces.Clear();
+                    // add new pieces
+                    pieces.Add(new Terrain(0, 0, 800, 40)); //top
+                    pieces.Add(new Terrain(0, 450, 300, 40)); // left floor
+                    pieces.Add(new Terrain(0, 0, 25, 300)); // left wall
+                    pieces.Add(new Terrain(775, 0, 25, 500)); // right wall
+                    pieces.Add(new Terrain(475, 450, 400, 40)); // right floor
+                    pieces.Add(new SpecialTerrain(350, 450, 75, 40, 250, 470)); // moving platform
                     break;
             }
             return pieces;

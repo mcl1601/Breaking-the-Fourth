@@ -23,11 +23,28 @@ namespace BreakingTheFourth
         //private Texture2D image;
         private Rectangle position;
         private bool movingUp;
+        private int maxY;
+        private int minY;
 
-        public SpecialTerrain(int x, int y, int width, int height) : base (x, y,width, height)
+        public SpecialTerrain(int x, int y, int width, int height, int max, int min) : base (x, y,width, height)
         {
             position = new Rectangle(x, y, width, height);
             movingUp = true;
+            maxY = max;
+            minY = min;
+        }
+
+        // properties
+        public int MaxY
+        {
+            get { return maxY; }
+            set { maxY = value; }
+        }
+
+        public int MinY
+        {
+            get { return minY; }
+            set { minY = value; }
         }
 
         // moving platforms
@@ -36,7 +53,7 @@ namespace BreakingTheFourth
             if (movingUp == true)
             {
                 Y--;
-                if(Y == 300)
+                if(Y == MaxY)
                 {
                     movingUp = false;
                 }
@@ -44,7 +61,7 @@ namespace BreakingTheFourth
             else
             {
                 Y++;
-                if(Y == 450)
+                if(Y == MinY)
                 {
                     movingUp = true;
                 }

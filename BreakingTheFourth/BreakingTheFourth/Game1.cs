@@ -188,6 +188,12 @@ namespace BreakingTheFourth
                         gun.Y = player.Y + 20;
 
                         //level1.CreateLevelOne(player.Position.X);
+
+                        // player falls to their death
+                        if(player.Y > GraphicsDevice.Viewport.Height)
+                        {
+                            gamestate = GameState.GameOver;
+                        }
                     }
                     break;
                 case GameState.Paused:
@@ -203,6 +209,16 @@ namespace BreakingTheFourth
                     }
                     break;
                 case GameState.GameOver:
+                    {
+                        if (kbState.IsKeyDown(Keys.Escape) == true && previousKbState.IsKeyUp(Keys.Escape))
+                        {
+                            gamestate = GameState.Main;
+                        }
+                        if (kbState.IsKeyDown(Keys.Enter) == true && previousKbState.IsKeyUp(Keys.Enter))
+                        {
+                            gamestate = GameState.Game;
+                        }
+                    }
                     break;
             }
 
@@ -249,6 +265,10 @@ namespace BreakingTheFourth
                     }
                     break;
                 case GameState.GameOver:
+                    {
+                        string death = "GAME OVER\n Press Esc to go to the main menu \n Press Enter to start over";
+                        spriteBatch.DrawString(font, death, fontPosition, Color.Red);
+                    }
                     break;
             }
 
