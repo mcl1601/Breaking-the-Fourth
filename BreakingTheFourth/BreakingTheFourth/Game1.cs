@@ -46,6 +46,7 @@ namespace BreakingTheFourth
         int screenCounter;
         //fields for finite state machines
         private GameState gamestate;
+        private GameState previousGamestate;
         //fields for font
         SpriteFont font;
         Vector2 fontPosition;
@@ -131,11 +132,16 @@ namespace BreakingTheFourth
                     {
                         if(kbState.IsKeyDown(Keys.Enter)==true && previousKbState.IsKeyUp(Keys.Enter))
                         {
+                            previousGamestate = gamestate;
                             gamestate = GameState.Game;
                         }
-                        if (kbState.IsKeyDown(Keys.Escape) && previousKbState.IsKeyUp(Keys.Escape))
+                        else if (kbState.IsKeyDown(Keys.Escape) && previousKbState.IsKeyUp(Keys.Escape))
                         {
                             Exit();
+                        }
+                        else
+                        {
+                            previousGamestate = gamestate;
                         }
                     }
                     break;
@@ -143,9 +149,31 @@ namespace BreakingTheFourth
                     break;
                 case GameState.Game:
                     {
+                        if(previousGamestate == GameState.Main || previousGamestate == GameState.GameOver) //restarts level
+                        {
+                            screenCounter = 1;
+                            terrain = level1.NextScreen(screenCounter);
+                            for (int x = 0; x < terrain.Count; x++)
+                            {
+                                terrain[x].Image = Content.Load<Texture2D>("terrain.png");
+                            }
+                            player.X = 50;
+                            player.Y = 50;
+                        }
                         if (kbState.IsKeyDown(Keys.Escape) == true && previousKbState.IsKeyUp(Keys.Escape))
                         {
+                            previousGamestate = gamestate;
                             gamestate = GameState.Paused;
+                        }
+                        // player falls to their death
+                        else if (player.Y > GraphicsDevice.Viewport.Height)
+                        {
+                            previousGamestate = gamestate;
+                            gamestate = GameState.GameOver;
+                        }
+                        else
+                        {
+                            previousGamestate = gamestate;
                         }
                         //add player update for movement
                         player.Update(kbState, previousKbState, terrain);
@@ -189,22 +217,24 @@ namespace BreakingTheFourth
 
                         //level1.CreateLevelOne(player.Position.X);
 
-                        // player falls to their death
-                        if(player.Y > GraphicsDevice.Viewport.Height)
-                        {
-                            gamestate = GameState.GameOver;
-                        }
+                       
                     }
                     break;
                 case GameState.Paused:
                     {
                         if (kbState.IsKeyDown(Keys.Escape) == true && previousKbState.IsKeyUp(Keys.Escape))
                         {
+                            previousGamestate = gamestate;
                             gamestate = GameState.Main;
                         }
-                        if (kbState.IsKeyDown(Keys.Enter) == true && previousKbState.IsKeyUp(Keys.Enter))
+                        else if (kbState.IsKeyDown(Keys.Enter) == true && previousKbState.IsKeyUp(Keys.Enter))
                         {
+                            previousGamestate = gamestate;
                             gamestate = GameState.Game;
+                        }
+                        else
+                        {
+                            previousGamestate = gamestate;
                         }
                     }
                     break;
@@ -212,11 +242,17 @@ namespace BreakingTheFourth
                     {
                         if (kbState.IsKeyDown(Keys.Escape) == true && previousKbState.IsKeyUp(Keys.Escape))
                         {
+                            previousGamestate = gamestate;
                             gamestate = GameState.Main;
                         }
-                        if (kbState.IsKeyDown(Keys.Enter) == true && previousKbState.IsKeyUp(Keys.Enter))
+                        else if (kbState.IsKeyDown(Keys.Enter) == true && previousKbState.IsKeyUp(Keys.Enter))
                         {
+                            previousGamestate = gamestate;
                             gamestate = GameState.Game;
+                        }
+                        else
+                        {
+                            previousGamestate = gamestate;
                         }
                     }
                     break;
