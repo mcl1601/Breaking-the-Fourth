@@ -184,9 +184,31 @@ namespace BreakingTheFourth
                             player.Y = 370;
                         }
                         //Keep the gun at the same position relative to the player
-                        gun.X = player.X + 30;
-                        gun.Y = player.Y + 20;
+                        /*gun.X = player.X + 30;
+                        gun.Y = player.Y + 20;*/
+                        if (player.PState == Player.PlayerState.walkLeft)
+                        {
+                            gun.X = player.X - 10;
+                            gun.Y = player.Y + 20;
+                        }
+                        
+                        if(player.PState == Player.PlayerState.walkRight)
+                        {
+                            gun.X = player.X + 30;
+                            gun.Y = player.Y + 20;
+                        }
 
+                        if(player.PState == Player.PlayerState.faceLeft)
+                        {
+                            gun.X = player.X - 10;
+                            gun.Y = player.Y + 20;
+                        }
+
+                        if(player.PState == Player.PlayerState.faceRight)
+                        {
+                            gun.X = player.X + 30;
+                            gun.Y = player.Y + 20;
+                        }
                         //level1.CreateLevelOne(player.Position.X);
 
                         // player falls to their death
@@ -251,7 +273,7 @@ namespace BreakingTheFourth
                     {
                         //drawing methods in here
                         player.Draw(spriteBatch);
-                        gun.Draw(spriteBatch);
+                        gun.Draw(spriteBatch, player);
                         for (int x = 0; x < terrain.Count; x++)
                         {
                             terrain[x].Draw(spriteBatch);

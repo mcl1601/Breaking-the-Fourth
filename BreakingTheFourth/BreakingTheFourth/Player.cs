@@ -12,6 +12,8 @@ namespace BreakingTheFourth
     //Contributors:
     //Kat Weis - basically everything so far
     // Matt Lienhard - helped with Offset method
+
+    
     class Player
     {
         //Here is the code for the player
@@ -24,6 +26,15 @@ namespace BreakingTheFourth
         private int startingY; //variable for Y before jumpingd
         int screenCounter = 1;
         Level1 level1 = new Level1();
+        
+        public enum PlayerState
+        {
+            faceLeft,
+            faceRight,
+            walkLeft,
+            walkRight 
+        }
+        private PlayerState pState;
 
         // FileIO object
         FileIO movement = new FileIO();
@@ -35,6 +46,7 @@ namespace BreakingTheFourth
             startingY = y;
             isJumping = false;
             isFalling = false;
+            pState = PlayerState.faceRight;
         }
         //make properties for the texture and the position & X , Y coords
         public Texture2D PlayerTexture
@@ -62,6 +74,10 @@ namespace BreakingTheFourth
             get { return isFalling; }
             set { isFalling = value; }
         }
+        public PlayerState PState
+        {
+            get { return pState; }
+        }
         //property for isJumping
         public bool IsJumping
         {
@@ -76,15 +92,71 @@ namespace BreakingTheFourth
         }
         public void Update(KeyboardState kbState, KeyboardState previousKbState, List<Terrain> terrain)
         {
+            // determining movement and player orientation
+            switch (pState)
+            {
+                case PlayerState.faceRight:
+                    if(kbState.IsKeyDown(Keys.D))
+                    {
+                        pState = PlayerState.walkRight;                 
+                    }
+                    if(kbState.IsKeyDown(Keys.A))
+                    {
+                        pState = PlayerState.faceLeft;
+                    }
+                    break;
+
+                case PlayerState.faceLeft:
+                    if(kbState.IsKeyDown(Keys.A))
+                    {
+                        pState = PlayerState.walkLeft;                       
+                    }
+                    if(kbState.IsKeyDown(Keys.D))
+                    {
+                        pState = PlayerState.faceRight;
+                    }
+                    break;
+
+                case PlayerState.walkRight:
+                    if(kbState.IsKeyDown(Keys.D))
+                    {
+                        X += movement.PlayerSpeed;
+                    }
+                    if (kbState.IsKeyUp(Keys.D))
+                    {
+                        pState = PlayerState.faceRight;                       
+                    }
+                    if(kbState.IsKeyDown(Keys.A))
+                    {
+                        pState = PlayerState.faceLeft;
+                    }
+                    break;
+
+                case PlayerState.walkLeft:
+                    if(kbState.IsKeyDown(Keys.A))
+                    {
+                        X -= movement.PlayerSpeed;
+                    }
+                    if (kbState.IsKeyUp(Keys.A))
+                    {
+                        pState = PlayerState.faceLeft;                        
+                    }
+                    if(kbState.IsKeyDown(Keys.D))
+                    {
+                        pState = PlayerState.faceRight;
+                    }
+                    break;
+
+            }
             //x-axis movement determined by keyboard input
-            if (kbState.IsKeyDown(Keys.A))
+            /*if (kbState.IsKeyDown(Keys.A))
             {
                 X -= movement.PlayerSpeed;
             }
             if (kbState.IsKeyDown(Keys.D))
             {
                 X += movement.PlayerSpeed;
-            }
+            }*/
             bool collided = false;
             //collision detection
             for (int i = 0; i < terrain.Count; i++)
@@ -140,13 +212,42 @@ namespace BreakingTheFourth
         {
             position.Y += movement.Gravity;
         }
+        
+        // draw the character when they're facing left
+        public void DrawPlayerStanding(SpriteEffects effect, SpriteBatch sb)
+        {
+            sb.Draw(playerTexture, position, null, Color.White, 0, Vector2.Zero, effect, 0);
+        }
+
         /// <summary>
         /// draws the player to the screen
         /// </summary>
         /// <param name="spriteBatch"></param>
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(playerTexture, position, Color.White);
+            //spriteBatch.Draw(playerTexture, position, Color.White);
+            
+            // draw the character based on their orientation
+            switch (pState)
+            {
+                case PlayerState.faceRight:
+                    DrawPlayerStanding(SpriteEffects.None, spriteBatch);
+                    break;
+
+                case PlayerState.faceLeft:
+                    DrawPlayerStanding(SpriteEffects.FlipHorizontally, spriteBatch);
+                    break;
+
+                case PlayerState.walkRight:
+                    // will be a DrawWalking merhod here when we have animation
+                    DrawPlayerStanding(SpriteEffects.None, spriteBatch);
+                    break;
+
+                case PlayerState.walkLeft:
+                    // will be a DrawWalking merhod here when we have animation
+                    DrawPlayerStanding(SpriteEffects.FlipHorizontally, spriteBatch);
+                    break;
+            }
         }
         //We'll probably need math calculations for velocity and stuff
         //Need method for checking collisions with walls and other objects - in terrain

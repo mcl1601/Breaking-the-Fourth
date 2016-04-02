@@ -14,6 +14,7 @@ namespace BreakingTheFourth
         //properties for the texture and the rectangle
         private Texture2D gunImage;
         private Rectangle gunPosition;
+
         //property for rotation
         //Constructor to call
         public Gun(int x, int y, int width, int height)
@@ -43,10 +44,24 @@ namespace BreakingTheFourth
             get { return gunPosition.Y; }
             set { gunPosition.Y = value; }
         }
-        //Draw method
-        public void Draw(SpriteBatch spritebatch)
+
+        public void DrawGun(SpriteEffects effect, SpriteBatch sb)
         {
-            spritebatch.Draw(gunImage, gunPosition, Color.White);
+            sb.Draw(gunImage, gunPosition, null, Color.White, 0, Vector2.Zero, effect, 0);
+        }
+        //Draw method
+        public void Draw(SpriteBatch spritebatch, Player player)
+        {
+            //spritebatch.Draw(gunImage, gunPosition, Color.White);
+            if(player.PState == Player.PlayerState.faceRight || player.PState == Player.PlayerState.walkRight)
+            {
+                DrawGun(SpriteEffects.None, spritebatch);
+            }
+
+            if(player.PState == Player.PlayerState.faceLeft || player.PState == Player.PlayerState.walkLeft)
+            {
+                DrawGun(SpriteEffects.FlipHorizontally, spritebatch);
+            }
         }
     }
 }
