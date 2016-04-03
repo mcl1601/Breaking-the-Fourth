@@ -50,6 +50,10 @@ namespace BreakingTheFourth
         //fields for font
         SpriteFont font;
         Vector2 fontPosition;
+        //variable to track the mouse position
+        Vector2 mousePosition;
+        //variable for the rotation
+        public float rotation;
 
         public Game1()
         {
@@ -126,7 +130,10 @@ namespace BreakingTheFourth
             //get keyboard and mouse states
             kbState = Keyboard.GetState();
             mouseState = Mouse.GetState();
-            switch(gamestate)
+            //Put the coordinates into the position variable then calculate the rotation (not yet sure if this equation will work)
+            mousePosition = new Vector2(mouseState.X, mouseState.Y);
+            rotation = (float)Math.Atan2(mousePosition.X, mousePosition.Y);
+            switch (gamestate)
             {
                 case GameState.Main:
                     {
@@ -279,9 +286,6 @@ namespace BreakingTheFourth
                     }
                     break;
             }
-
-
-
             base.Update(gameTime);
         }
 
@@ -314,6 +318,9 @@ namespace BreakingTheFourth
                         {
                             terrain[x].Draw(spriteBatch);
                         }
+                        //THIS SHOULD BE TRACKING THE MOUSE POSITION BUT IT ISN'T AND I HATE IT! For some reason the mouseState is never changing...
+                        string mouse = ("Mouse X: " + mouseState.X + " Mouse Y: " + mouseState.Y);
+                        spriteBatch.DrawString(font, mouse, fontPosition, Color.Red);
                     }
                     break;
                 case GameState.Paused:

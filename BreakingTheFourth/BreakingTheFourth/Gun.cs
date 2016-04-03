@@ -11,6 +11,7 @@ namespace BreakingTheFourth
     //Mike O'Donnell - everything here
     class Gun
     {
+        Game1 game = new Game1();
         //properties for the texture and the rectangle
         private Texture2D gunImage;
         private Rectangle gunPosition;
@@ -47,7 +48,7 @@ namespace BreakingTheFourth
 
         public void DrawGun(SpriteEffects effect, SpriteBatch sb)
         {
-            sb.Draw(gunImage, gunPosition, null, Color.White, 0, Vector2.Zero, effect, 0);
+            sb.Draw(gunImage, gunPosition, null, Color.White, game.rotation, Vector2.Zero, effect, 0);
         }
         //Draw method
         public void Draw(SpriteBatch spritebatch, Player player)
