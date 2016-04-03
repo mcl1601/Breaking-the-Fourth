@@ -52,6 +52,8 @@ namespace BreakingTheFourth
         Vector2 fontPosition;
         //variable to track the mouse position
         Vector2 mousePosition;
+        Rectangle mouse;
+        Texture2D crosshare;
         //variable for the rotation
         public float rotation;
 
@@ -103,6 +105,8 @@ namespace BreakingTheFourth
             {
                 terrain[x].Image = Content.Load<Texture2D>("terrain.png");
             }
+            //texture for mouse
+            //crosshare = Content.Load<Texture2D>("crosshare.png");////////////////////////////////load in texture for mouse here
             //load in font
             font = Content.Load<SpriteFont>("Ebrima_14");
         }
@@ -129,7 +133,8 @@ namespace BreakingTheFourth
             previousKbState = kbState;
             //get keyboard and mouse states
             kbState = Keyboard.GetState();
-            mouseState = Mouse.GetState();
+            //mouseState = Mouse.GetState();
+            mouseState = Mouse.GetState(Window);
             //Put the coordinates into the position variable then calculate the rotation (not yet sure if this equation will work)
             mousePosition = new Vector2(mouseState.X, mouseState.Y);
             rotation = (float)Math.Atan2(mousePosition.X, mousePosition.Y);
@@ -219,31 +224,7 @@ namespace BreakingTheFourth
                             player.Y = 370;
                         }
                         //Keep the gun at the same position relative to the player
-                        /*gun.X = player.X + 30;
-                        gun.Y = player.Y + 20;*/
-                        if (player.PState == Player.PlayerState.walkLeft)
-                        {
-                            gun.X = player.X - 10;
-                            gun.Y = player.Y + 20;
-                        }
-                        
-                        if(player.PState == Player.PlayerState.walkRight)
-                        {
-                            gun.X = player.X + 30;
-                            gun.Y = player.Y + 20;
-                        }
-
-                        if(player.PState == Player.PlayerState.faceLeft)
-                        {
-                            gun.X = player.X - 10;
-                            gun.Y = player.Y + 20;
-                        }
-
-                        if(player.PState == Player.PlayerState.faceRight)
-                        {
-                            gun.X = player.X + 30;
-                            gun.Y = player.Y + 20;
-                        }
+                        gun.Update(player);
                         //level1.CreateLevelOne(player.Position.X);
 
                        
@@ -298,6 +279,8 @@ namespace BreakingTheFourth
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
+            //draw mouse
+            //spriteBatch.Draw(crosshare, mousePosition, Color.White); ///////////////////////////need texture
             //case statement for gamestates in draw
             switch (gamestate)
             {
