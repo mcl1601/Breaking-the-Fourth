@@ -137,7 +137,7 @@ namespace BreakingTheFourth
             mouseState = Mouse.GetState(Window);
             //Put the coordinates into the position variable then calculate the rotation (not yet sure if this equation will work)
             mousePosition = new Vector2(mouseState.X, mouseState.Y);
-            rotation = (float)Math.Atan2(mousePosition.X, mousePosition.Y);
+            rotation = (float)Math.Atan2(mouseState.Y,mouseState.X);
             switch (gamestate)
             {
                 case GameState.Main:
@@ -296,7 +296,7 @@ namespace BreakingTheFourth
                     {
                         //drawing methods in here
                         player.Draw(spriteBatch);
-                        gun.Draw(spriteBatch, player);
+                        gun.Draw(spriteBatch, player, rotation);
                         for (int x = 0; x < terrain.Count; x++)
                         {
                             terrain[x].Draw(spriteBatch);

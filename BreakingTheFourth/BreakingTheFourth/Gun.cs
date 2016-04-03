@@ -11,10 +11,11 @@ namespace BreakingTheFourth
     //Mike O'Donnell - everything here
     class Gun
     {
-        Game1 game = new Game1();
+        
         //properties for the texture and the rectangle
         private Texture2D gunImage;
         private Rectangle gunPosition;
+        
 
         //property for rotation
         //Constructor to call
@@ -46,22 +47,23 @@ namespace BreakingTheFourth
             set { gunPosition.Y = value; }
         }
 
-        public void DrawGun(SpriteEffects effect, SpriteBatch sb)
+        public void DrawGun(SpriteEffects effect, SpriteBatch sb, float rotation)
         {
-            sb.Draw(gunImage, gunPosition, null, Color.White, game.rotation, Vector2.Zero, effect, 0);
+            sb.Draw(gunImage, gunPosition, null, Color.White, rotation, Vector2.Zero, effect, 0);
         }
         //Draw method
-        public void Draw(SpriteBatch spritebatch, Player player)
+        public void Draw(SpriteBatch spritebatch, Player player, float rotation)
         {
+            
             //spritebatch.Draw(gunImage, gunPosition, Color.White);
             if(player.PState == Player.PlayerState.faceRight || player.PState == Player.PlayerState.walkRight)
             {
-                DrawGun(SpriteEffects.None, spritebatch);
+                DrawGun(SpriteEffects.None, spritebatch, rotation);
             }
 
             if(player.PState == Player.PlayerState.faceLeft || player.PState == Player.PlayerState.walkLeft)
             {
-                DrawGun(SpriteEffects.FlipHorizontally, spritebatch);
+                DrawGun(SpriteEffects.FlipHorizontally, spritebatch, rotation);
             }
         }
         //Update method
