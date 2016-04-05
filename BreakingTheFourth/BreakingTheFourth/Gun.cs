@@ -70,8 +70,6 @@ namespace BreakingTheFourth
         public void Update(Player player)
         {
             //Keep the gun at the same position relative to the player
-            /*gun.X = player.X + 30;
-            gun.Y = player.Y + 20;*/
             if (player.PState == Player.PlayerState.walkLeft)
             {
                 X = player.X - 10;

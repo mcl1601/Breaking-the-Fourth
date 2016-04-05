@@ -23,7 +23,7 @@ namespace BreakingTheFourth
         //also needs field to detect falling
         private bool isFalling;
         private bool isJumping; //variable for determining if player jumped recently
-        private int startingY; //variable for Y before jumpingd
+        private int startingY; //variable for Y before jumping
         int screenCounter = 1;
         Level1 level1 = new Level1();
         
@@ -148,15 +148,6 @@ namespace BreakingTheFourth
                     break;
 
             }
-            //x-axis movement determined by keyboard input
-            /*if (kbState.IsKeyDown(Keys.A))
-            {
-                X -= movement.PlayerSpeed;
-            }
-            if (kbState.IsKeyDown(Keys.D))
-            {
-                X += movement.PlayerSpeed;
-            }*/
             bool collided = false;
             //collision detection
             for (int i = 0; i < terrain.Count; i++)
@@ -255,7 +246,7 @@ namespace BreakingTheFourth
 
         public void Offset(List<Terrain> terrain, KeyboardState kbState, int i)
         {
-            if (position.Bottom > terrain[i].Position.Top + movement.Gravity)
+            if (position.Bottom > terrain[i].Position.Top + movement.Gravity && isJumping == false)
             {
                 if (position.Right > terrain[i].Position.Left && kbState.IsKeyDown(Keys.D))
                 {

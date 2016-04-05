@@ -41,6 +41,7 @@ namespace BreakingTheFourth
         KeyboardState previousKbState;
         //Field for getting mouse state 
         MouseState mouseState;
+        MouseState previousMState;
         List<Terrain> terrain;
         Level1 level1;
         int screenCounter;
@@ -56,6 +57,8 @@ namespace BreakingTheFourth
         Texture2D crosshare;
         //variable for the rotation
         public float rotation;
+        //bullet fields
+        Bullet bullet;
 
         public Game1()
         {
@@ -81,7 +84,10 @@ namespace BreakingTheFourth
             screenCounter = 1;
             //initialize game state
             gamestate = GameState.Main;
+            //initialize font
             fontPosition = new Vector2(5, 5);
+            //initialize bullet object
+            bullet = new Bullet(player.X, player.Y, 20, 20);
             base.Initialize();
         }
         /// <summary>
@@ -107,6 +113,8 @@ namespace BreakingTheFourth
             }
             //texture for mouse
             //crosshare = Content.Load<Texture2D>("crosshare.png");////////////////////////////////load in texture for mouse here
+            //texture for bullet
+            bullet.BulletTexture = Content.Load<Texture2D>("Bullet.png");
             //load in font
             font = Content.Load<SpriteFont>("Ebrima_14");
         }
@@ -133,7 +141,7 @@ namespace BreakingTheFourth
             previousKbState = kbState;
             //get keyboard and mouse states
             kbState = Keyboard.GetState();
-            //mouseState = Mouse.GetState();
+            previousMState = mouseState;
             mouseState = Mouse.GetState(Window);
             //Put the coordinates into the position variable then calculate the rotation (not yet sure if this equation will work)
             mousePosition = new Vector2(mouseState.X, mouseState.Y);
@@ -225,7 +233,8 @@ namespace BreakingTheFourth
                         }
                         //Keep the gun at the same position relative to the player
                         gun.Update(player);
-                        //level1.CreateLevelOne(player.Position.X);
+                        //update the bullet
+                        bullet.Update(terrain, gun, player, mouseState, previousMState, rotation);
 
                        
                     }
@@ -304,6 +313,11 @@ namespace BreakingTheFourth
                         //THIS SHOULD BE TRACKING THE MOUSE POSITION BUT IT ISN'T AND I HATE IT! For some reason the mouseState is never changing...
                         string mouse = ("Mouse X: " + mouseState.X + " Mouse Y: " + mouseState.Y);
                         spriteBatch.DrawString(font, mouse, fontPosition, Color.Red);
+                        //draw bullet if it has been fired
+                        if(bullet.BState == Bullet.BulletState.justFired || bullet.BState == Bullet.BulletState.airborne)
+                        {
+                            bullet.Draw(spriteBatch, player);
+                        }
                     }
                     break;
                 case GameState.Paused:
