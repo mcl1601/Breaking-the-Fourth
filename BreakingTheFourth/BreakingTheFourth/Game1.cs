@@ -59,6 +59,8 @@ namespace BreakingTheFourth
         public float rotation;
         //bullet fields
         Bullet bullet;
+        float directionX;
+        float directionY;
 
         public Game1()
         {
@@ -145,7 +147,9 @@ namespace BreakingTheFourth
             mouseState = Mouse.GetState(Window);
             //Put the coordinates into the position variable then calculate the rotation (not yet sure if this equation will work)
             mousePosition = new Vector2(mouseState.X, mouseState.Y);
-            rotation = (float)Math.Atan2(mouseState.Y,mouseState.X);
+            directionX = gun.GunPosition.X - mouseState.X;
+            directionY = gun.GunPosition.Y - mouseState.Y;
+            rotation = (float)Math.Atan2(directionY , directionX);
             switch (gamestate)
             {
                 case GameState.Main:
