@@ -15,6 +15,7 @@ namespace BreakingTheFourth
         //properties for the texture and the rectangle
         private Texture2D gunImage;
         private Rectangle gunPosition;
+        private float rotation;
         
 
         //property for rotation
@@ -22,6 +23,7 @@ namespace BreakingTheFourth
         public Gun(int x, int y, int width, int height)
         {
             gunPosition = new Rectangle(x, y, width, height);
+            rotation = 0;
         }
         //Field for image
         public Texture2D GunImage
@@ -34,6 +36,7 @@ namespace BreakingTheFourth
         {
             get { return gunPosition; }
         }
+       
         //Field for rotation
 
         public int X
@@ -47,6 +50,12 @@ namespace BreakingTheFourth
             set { gunPosition.Y = value; }
         }
 
+        public float Rotation
+        {
+            get { return rotation; }
+            set { rotation = value; }
+        }
+
         public void DrawGun(SpriteEffects effect, SpriteBatch sb, float rotation, Vector2 origin)
         {
             sb.Draw(gunImage, gunPosition, null, Color.White, rotation, origin, effect, 0);
@@ -58,7 +67,7 @@ namespace BreakingTheFourth
             //spritebatch.Draw(gunImage, gunPosition, Color.White);
             if(player.PState == Player.PlayerState.faceRight || player.PState == Player.PlayerState.walkRight)
             {
-                DrawGun(SpriteEffects.None, spritebatch, rotation, origin);
+                DrawGun(SpriteEffects.FlipHorizontally, spritebatch, rotation, origin);
             }
 
             if(player.PState == Player.PlayerState.faceLeft || player.PState == Player.PlayerState.walkLeft)

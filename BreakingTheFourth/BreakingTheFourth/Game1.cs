@@ -55,10 +55,10 @@ namespace BreakingTheFourth
         Vector2 mousePosition;
         Rectangle mouse;
         Texture2D crosshare;
-        //variable for the rotation
-        public float rotation;
         //bullet fields
         Bullet bullet;
+        float directionX;
+        float directionY;
 
         public Game1()
         {
@@ -146,7 +146,9 @@ namespace BreakingTheFourth
             mouseState = Mouse.GetState(Window);
             //Put the coordinates into the position variable then calculate the rotation (not yet sure if this equation will work)
             mousePosition = new Vector2(mouseState.X, mouseState.Y);
-            rotation = (float)Math.Atan2(mouseState.Y,mouseState.X);
+            directionX = gun.GunPosition.X - mouseState.X;
+            directionY = gun.GunPosition.Y - mouseState.Y;
+            gun.Rotation = (float)Math.Atan2(directionY , directionX);
             switch (gamestate)
             {
                 case GameState.Main:
@@ -197,7 +199,7 @@ namespace BreakingTheFourth
                             previousGamestate = gamestate;
                         }
                         //add player update for movement
-                        player.Update(kbState, previousKbState, terrain);
+                        player.Update(kbState, previousKbState, terrain, gun);
                         //update for moving terrain
                         foreach (Terrain t in terrain)
                         {
@@ -235,7 +237,7 @@ namespace BreakingTheFourth
                         //Keep the gun at the same position relative to the player
                         gun.Update(player);
                         //update the bullet
-                        bullet.Update(terrain, gun, player, mouseState, previousMState, rotation);
+                        bullet.Update(terrain, gun, player, mouseState, previousMState, gun.Rotation);
 
                        
                     }
@@ -306,7 +308,7 @@ namespace BreakingTheFourth
                     {
                         //drawing methods in here
                         player.Draw(spriteBatch);
-                        gun.Draw(spriteBatch, player, rotation, new Vector2(325, 325));
+                        gun.Draw(spriteBatch, player, gun.Rotation, new Vector2(325, 325));
                         for (int x = 0; x < terrain.Count; x++)
                         {
                             terrain[x].Draw(spriteBatch);
