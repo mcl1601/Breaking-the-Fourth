@@ -234,7 +234,7 @@ namespace BreakingTheFourth
                         //Keep the gun at the same position relative to the player
                         gun.Update(player);
                         //update the bullet
-                        bullet.Update(terrain, gun, player, mouseState, previousMState, rotation);
+                        bullet.Update(terrain, gun, player, mouseState, previousMState, rotation, kbState);
 
                        
                     }
