@@ -88,6 +88,7 @@ namespace BreakingTheFourth
             fontPosition = new Vector2(5, 5);
             //initialize bullet object
             bullet = new Bullet(player.X, player.Y, 20, 20);
+            IsMouseVisible = true;
             base.Initialize();
         }
         /// <summary>
@@ -305,7 +306,7 @@ namespace BreakingTheFourth
                     {
                         //drawing methods in here
                         player.Draw(spriteBatch);
-                        gun.Draw(spriteBatch, player, rotation);
+                        gun.Draw(spriteBatch, player, rotation, new Vector2(325, 325));
                         for (int x = 0; x < terrain.Count; x++)
                         {
                             terrain[x].Draw(spriteBatch);
@@ -333,7 +334,7 @@ namespace BreakingTheFourth
                     }
                     break;
             }
-
+            
             spriteBatch.End();
 
             base.Draw(gameTime);

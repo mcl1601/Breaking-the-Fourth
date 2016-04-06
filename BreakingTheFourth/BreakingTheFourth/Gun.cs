@@ -47,23 +47,23 @@ namespace BreakingTheFourth
             set { gunPosition.Y = value; }
         }
 
-        public void DrawGun(SpriteEffects effect, SpriteBatch sb, float rotation)
+        public void DrawGun(SpriteEffects effect, SpriteBatch sb, float rotation, Vector2 origin)
         {
-            sb.Draw(gunImage, gunPosition, null, Color.White, rotation, Vector2.Zero, effect, 0);
+            sb.Draw(gunImage, gunPosition, null, Color.White, rotation, origin, effect, 0);
         }
         //Draw method
-        public void Draw(SpriteBatch spritebatch, Player player, float rotation)
+        public void Draw(SpriteBatch spritebatch, Player player, float rotation, Vector2 origin)
         {
             
             //spritebatch.Draw(gunImage, gunPosition, Color.White);
             if(player.PState == Player.PlayerState.faceRight || player.PState == Player.PlayerState.walkRight)
             {
-                DrawGun(SpriteEffects.None, spritebatch, rotation);
+                DrawGun(SpriteEffects.None, spritebatch, rotation, origin);
             }
 
             if(player.PState == Player.PlayerState.faceLeft || player.PState == Player.PlayerState.walkLeft)
             {
-                DrawGun(SpriteEffects.FlipHorizontally, spritebatch, rotation);
+                DrawGun(SpriteEffects.FlipHorizontally, spritebatch, rotation, origin);
             }
         }
         //Update method
@@ -72,26 +72,26 @@ namespace BreakingTheFourth
             //Keep the gun at the same position relative to the player
             if (player.PState == Player.PlayerState.walkLeft)
             {
-                X = player.X - 10;
-                Y = player.Y + 20;
+                X = player.X;
+                Y = player.Y + 38;
             }
 
             if (player.PState == Player.PlayerState.walkRight)
             {
-                X = player.X + 30;
-                Y = player.Y + 20;
+                X = player.X + 50;
+                Y = player.Y + 38;
             }
 
             if (player.PState == Player.PlayerState.faceLeft)
             {
-                X = player.X - 10;
-                Y = player.Y + 20;
+                X = player.X;
+                Y = player.Y + 38;
             }
 
             if (player.PState == Player.PlayerState.faceRight)
             {
-                X = player.X + 30;
-                Y = player.Y + 20;
+                X = player.X + 50;
+                Y = player.Y + 38;
             }
         }
     }
