@@ -45,6 +45,11 @@ namespace BreakingTheFourth
             set { position = value; }
         }
 
+        public bool FacingLeft
+        {
+            get { return facingLeft; }
+        }
+
         //constructor
         public Bullet(int x, int y, int width, int height)
         {
@@ -57,7 +62,7 @@ namespace BreakingTheFourth
             bState = BulletState.justFired;
             rotation = rot;
         }
-        public void Update(List<Terrain> terrain, Gun gun, Player player, MouseState mouseState, MouseState previousMState, float rot)
+        public void Update(List<Terrain> terrain, Gun gun, Player player, MouseState mouseState, MouseState previousMState, float rot, KeyboardState kbState)
         {
             switch (bState)
             {
@@ -75,6 +80,9 @@ namespace BreakingTheFourth
                         if (terrain[i].CollisionDetected(position) == true) //collision detection causes the bullet to disappear
                         {
                             bState = BulletState.ready;
+                            player.X = position.X;
+                            player.Y = position.Y - 30;
+                            player.OffsetTele(terrain, i, this);
                         }
                     }//end of for loop
                     break;

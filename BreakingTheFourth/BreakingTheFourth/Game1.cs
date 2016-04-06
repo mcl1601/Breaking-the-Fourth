@@ -199,7 +199,7 @@ namespace BreakingTheFourth
                             previousGamestate = gamestate;
                         }
                         //add player update for movement
-                        player.Update(kbState, previousKbState, terrain, gun);
+                        player.Update(kbState, previousKbState, terrain);
                         //update for moving terrain
                         foreach (Terrain t in terrain)
                         {
@@ -237,7 +237,7 @@ namespace BreakingTheFourth
                         //Keep the gun at the same position relative to the player
                         gun.Update(player);
                         //update the bullet
-                        bullet.Update(terrain, gun, player, mouseState, previousMState, gun.Rotation);
+                        bullet.Update(terrain, gun, player, mouseState, previousMState, gun.Rotation, kbState);
 
                        
                     }
