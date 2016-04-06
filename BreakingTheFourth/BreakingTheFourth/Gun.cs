@@ -34,6 +34,7 @@ namespace BreakingTheFourth
         {
             get { return gunPosition; }
         }
+       
         //Field for rotation
 
         public int X
@@ -58,7 +59,7 @@ namespace BreakingTheFourth
             //spritebatch.Draw(gunImage, gunPosition, Color.White);
             if(player.PState == Player.PlayerState.faceRight || player.PState == Player.PlayerState.walkRight)
             {
-                DrawGun(SpriteEffects.None, spritebatch, rotation);
+                DrawGun(SpriteEffects.FlipHorizontally, spritebatch, rotation);
             }
 
             if(player.PState == Player.PlayerState.faceLeft || player.PState == Player.PlayerState.walkLeft)
