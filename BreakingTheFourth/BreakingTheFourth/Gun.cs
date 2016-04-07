@@ -15,6 +15,7 @@ namespace BreakingTheFourth
         //properties for the texture and the rectangle
         private Texture2D gunImage;
         private Rectangle gunPosition;
+        private float rotation;
         
 
         //property for rotation
@@ -22,6 +23,7 @@ namespace BreakingTheFourth
         public Gun(int x, int y, int width, int height)
         {
             gunPosition = new Rectangle(x, y, width, height);
+            rotation = 0;
         }
         //Field for image
         public Texture2D GunImage
@@ -48,23 +50,29 @@ namespace BreakingTheFourth
             set { gunPosition.Y = value; }
         }
 
-        public void DrawGun(SpriteEffects effect, SpriteBatch sb, float rotation)
+        public float Rotation
         {
-            sb.Draw(gunImage, gunPosition, null, Color.White, rotation, Vector2.Zero, effect, 0);
+            get { return rotation; }
+            set { rotation = value; }
+        }
+
+        public void DrawGun(SpriteEffects effect, SpriteBatch sb, float rotation, Vector2 origin)
+        {
+            sb.Draw(gunImage, gunPosition, null, Color.White, rotation, origin, effect, 0);
         }
         //Draw method
-        public void Draw(SpriteBatch spritebatch, Player player, float rotation)
+        public void Draw(SpriteBatch spritebatch, Player player, float rotation, Vector2 origin)
         {
             
             //spritebatch.Draw(gunImage, gunPosition, Color.White);
             if(player.PState == Player.PlayerState.faceRight || player.PState == Player.PlayerState.walkRight)
             {
-                DrawGun(SpriteEffects.FlipHorizontally, spritebatch, rotation);
+                DrawGun(SpriteEffects.FlipHorizontally, spritebatch, rotation, origin);
             }
 
             if(player.PState == Player.PlayerState.faceLeft || player.PState == Player.PlayerState.walkLeft)
             {
-                DrawGun(SpriteEffects.FlipHorizontally, spritebatch, rotation);
+                DrawGun(SpriteEffects.FlipHorizontally, spritebatch, rotation, origin);
             }
         }
         //Update method
@@ -73,26 +81,26 @@ namespace BreakingTheFourth
             //Keep the gun at the same position relative to the player
             if (player.PState == Player.PlayerState.walkLeft)
             {
-                X = player.X - 10;
-                Y = player.Y + 20;
+                X = player.X;
+                Y = player.Y + 38;
             }
 
             if (player.PState == Player.PlayerState.walkRight)
             {
-                X = player.X + 30;
-                Y = player.Y + 20;
+                X = player.X + 50;
+                Y = player.Y + 38;
             }
 
             if (player.PState == Player.PlayerState.faceLeft)
             {
-                X = player.X - 10;
-                Y = player.Y + 20;
+                X = player.X;
+                Y = player.Y + 38;
             }
 
             if (player.PState == Player.PlayerState.faceRight)
             {
-                X = player.X + 30;
-                Y = player.Y + 20;
+                X = player.X + 50;
+                Y = player.Y + 38;
             }
         }
     }

@@ -86,7 +86,7 @@ namespace BreakingTheFourth
                             player.OffsetTele(terrain, i, this);
                         }
                     }//end of for loop
-                    if(position.X > GraphicsDevice.Viewport.Width)
+                    if(position.X > GraphicsDevice.Viewport.Width || position.X < GraphicsDevice.Viewport.X)
                     {
                         bState = BulletState.ready;
                     }

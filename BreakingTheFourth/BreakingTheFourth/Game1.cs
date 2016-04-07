@@ -55,8 +55,6 @@ namespace BreakingTheFourth
         Vector2 mousePosition;
         Rectangle mouse;
         Texture2D crosshare;
-        //variable for the rotation
-        public float rotation;
         //bullet fields
         Bullet bullet;
         float directionX;
@@ -90,6 +88,7 @@ namespace BreakingTheFourth
             fontPosition = new Vector2(5, 5);
             //initialize bullet object
             bullet = new Bullet(player.X, player.Y, 20, 20);
+            IsMouseVisible = true;
             base.Initialize();
         }
         /// <summary>
@@ -149,7 +148,7 @@ namespace BreakingTheFourth
             mousePosition = new Vector2(mouseState.X, mouseState.Y);
             directionX = gun.GunPosition.X - mouseState.X;
             directionY = gun.GunPosition.Y - mouseState.Y;
-            rotation = (float)Math.Atan2(directionY , directionX);
+            gun.Rotation = (float)Math.Atan2(directionY , directionX);
             switch (gamestate)
             {
                 case GameState.Main:
@@ -238,7 +237,7 @@ namespace BreakingTheFourth
                         //Keep the gun at the same position relative to the player
                         gun.Update(player);
                         //update the bullet
-                        bullet.Update(terrain, gun, player, mouseState, previousMState, rotation, kbState, GraphicsDevice);
+                        bullet.Update(terrain, gun, player, mouseState, previousMState, gun.Rotation, kbState, GraphicsDevice);
 
                        
                     }
@@ -309,7 +308,7 @@ namespace BreakingTheFourth
                     {
                         //drawing methods in here
                         player.Draw(spriteBatch);
-                        gun.Draw(spriteBatch, player, rotation);
+                        gun.Draw(spriteBatch, player, gun.Rotation, new Vector2(325, 325));
                         for (int x = 0; x < terrain.Count; x++)
                         {
                             terrain[x].Draw(spriteBatch);
@@ -337,7 +336,7 @@ namespace BreakingTheFourth
                     }
                     break;
             }
-
+            
             spriteBatch.End();
 
             base.Draw(gameTime);
