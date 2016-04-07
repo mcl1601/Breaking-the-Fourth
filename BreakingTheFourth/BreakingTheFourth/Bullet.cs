@@ -71,10 +71,26 @@ namespace BreakingTheFourth
                     if (facingLeft == true)
                     {
                         position.X -= movement.BulletSpeed;
+                        if(rotation > 0)//bullet moves upward
+                        {
+                            position.Y -= movement.BulletSpeed;
+                        }
+                        else if(rotation < 0)//bullet moves downward
+                        {
+                            position.Y += movement.BulletSpeed;
+                        }
                     }
                     else if (facingLeft == false)
                     {
                         position.X += movement.BulletSpeed;
+                        if (rotation > 0)//bullet moves upward
+                        {
+                            position.Y -= movement.BulletSpeed;
+                        }
+                        else if (rotation < 0)//bullet moves downward
+                        {
+                            position.Y += movement.BulletSpeed;
+                        }
                     }
                     for (int i = 0; i < terrain.Count; i++)
                     {
@@ -83,7 +99,7 @@ namespace BreakingTheFourth
                             bState = BulletState.ready;
                             player.X = position.X;
                             player.Y = position.Y - 30;
-                            player.OffsetTele(terrain, i, this);
+                            //player.OffsetTele(terrain, i, this);
                         }
                     }//end of for loop
                     if(position.X > GraphicsDevice.Viewport.Width || position.X < GraphicsDevice.Viewport.X)

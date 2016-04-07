@@ -314,7 +314,7 @@ namespace BreakingTheFourth
                             terrain[x].Draw(spriteBatch);
                         }
                         //THIS SHOULD BE TRACKING THE MOUSE POSITION BUT IT ISN'T AND I HATE IT! For some reason the mouseState is never changing...
-                        string mouse = ("Mouse X: " + mouseState.X + " Mouse Y: " + mouseState.Y);
+                        string mouse = ("Mouse X: " + mouseState.X + " Mouse Y: " + mouseState.Y + "Rotation: " + gun.Rotation);
                         spriteBatch.DrawString(font, mouse, fontPosition, Color.Red);
                         //draw bullet if it has been fired
                         if(bullet.BState == Bullet.BulletState.justFired || bullet.BState == Bullet.BulletState.airborne)
