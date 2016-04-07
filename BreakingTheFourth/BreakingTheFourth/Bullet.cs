@@ -62,7 +62,8 @@ namespace BreakingTheFourth
             bState = BulletState.justFired;
             rotation = rot;
         }
-        public void Update(List<Terrain> terrain, Gun gun, Player player, MouseState mouseState, MouseState previousMState, float rot, KeyboardState kbState)
+        public void Update(List<Terrain> terrain, Gun gun, Player player, MouseState mouseState, MouseState previousMState, 
+            float rot, KeyboardState kbState, GraphicsDevice GraphicsDevice)
         {
             switch (bState)
             {
@@ -85,6 +86,10 @@ namespace BreakingTheFourth
                             player.OffsetTele(terrain, i, this);
                         }
                     }//end of for loop
+                    if(position.X > GraphicsDevice.Viewport.Width)
+                    {
+                        bState = BulletState.ready;
+                    }
                     break;
                 case Bullet.BulletState.empty:
                     break;

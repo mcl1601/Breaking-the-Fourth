@@ -290,19 +290,25 @@ namespace BreakingTheFourth
 
             
         }//end of offset method
-        public void OffsetTele(List<Terrain> terrain, int i, Bullet bullet)
+        /// <summary>
+        /// offset method specifically for teleporting
+        /// </summary>
+        /// <param name="terrain">list of terrain</param>
+        /// <param name="i">index of terrain list the player is currently colliding with</param>
+        /// <param name="bullet"></param>
+        public void OffsetTele(List<Terrain> terrain, int i, Bullet bullet)//maybe do y offset first?
         {
             if (position.Bottom > terrain[i].Position.Top + position.Height)
             {
                 if (position.Right > terrain[i].Position.Left && bullet.FacingLeft == false)
                 {
+                    //offset when teleporting right
                     position.X = terrain[i].Position.Left - position.Width;
-                    //position.X -= movement.PlayerSpeed;
                 }
                 if (position.Left < terrain[i].Position.Right && bullet.FacingLeft == true)
                 {
+                    //offset when teleporting left
                     position.X = terrain[i].Position.Right;
-                    //position.X += movement.PlayerSpeed;
                 }
             }
             /*if (position.Bottom > terrain[i].Position.Top && position.Top < terrain[i].Position.Top)//sets player on top of terrain if fell
