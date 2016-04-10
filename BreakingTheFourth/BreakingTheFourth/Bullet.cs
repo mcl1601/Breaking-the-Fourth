@@ -68,37 +68,29 @@ namespace BreakingTheFourth
             switch (bState)
             {
                 case Bullet.BulletState.airborne:
+                    //assigns amount of movement to the y direction
+                    double movementY = (Math.Round(Math.Sin(rotation) * movement.BulletSpeed));
+                    //assigns amount of movement to the x direction
+                    double movementX = (Math.Round(Math.Cos(rotation) * movement.BulletSpeed));
                     if (facingLeft == true)
                     {
-                        position.X -= movement.BulletSpeed;
-                        if(rotation > 0)//bullet moves upward
-                        {
-                            position.Y -= movement.BulletSpeed;
-                        }
-                        else if(rotation < 0)//bullet moves downward
-                        {
-                            position.Y += movement.BulletSpeed;
-                        }
+                        //position.X -= movement.BulletSpeed;
+                        position.X -= (int)movementX;
+                        position.Y -= (int)movementY;
                     }
                     else if (facingLeft == false)
                     {
-                        position.X += movement.BulletSpeed;
-                        if (rotation > 0)//bullet moves upward
-                        {
-                            position.Y -= movement.BulletSpeed;
-                        }
-                        else if (rotation < 0)//bullet moves downward
-                        {
-                            position.Y += movement.BulletSpeed;
-                        }
+                        //position.X += movement.BulletSpeed;
+                        position.X += (int)movementX;
+                        position.Y -= (int)movementY;
                     }
                     for (int i = 0; i < terrain.Count; i++)
                     {
                         if (terrain[i].CollisionDetected(position) == true) //collision detection causes the bullet to disappear
                         {
                             bState = BulletState.ready;
-                            player.X = position.X;
-                            player.Y = position.Y - 30;
+                            //player.X = position.X;
+                            //player.Y = position.Y - 30;
                             //player.OffsetTele(terrain, i, this);
                         }
                     }//end of for loop
