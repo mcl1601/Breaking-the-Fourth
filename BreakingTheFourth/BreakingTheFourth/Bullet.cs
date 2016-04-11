@@ -75,14 +75,14 @@ namespace BreakingTheFourth
                     if (facingLeft == true)
                     {
                         //position.X -= movement.BulletSpeed;
-                        position.X -= (int)movementX;
-                        position.Y -= (int)movementY;
+                        position.X -= Convert.ToInt32(movementX);
+                        position.Y -= Convert.ToInt32(movementY);
                     }
                     else if (facingLeft == false)
                     {
                         //position.X += movement.BulletSpeed;
-                        position.X += (int)movementX;
-                        position.Y -= (int)movementY;
+                        position.X += Convert.ToInt32(movementX);
+                        position.Y -= Convert.ToInt32(movementY);
                     }
                     for (int i = 0; i < terrain.Count; i++)
                     {

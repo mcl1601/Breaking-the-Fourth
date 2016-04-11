@@ -88,7 +88,7 @@ namespace BreakingTheFourth
             fontPosition = new Vector2(5, 5);
             //initialize bullet object
             bullet = new Bullet(player.X, player.Y, 20, 20);
-            IsMouseVisible = true;
+            mouse = new Rectangle(mouseState.X, mouseState.Y, 30, 30);
             base.Initialize();
         }
         /// <summary>
@@ -113,7 +113,7 @@ namespace BreakingTheFourth
                 terrain[x].Image = Content.Load<Texture2D>("terrain.png");
             }
             //texture for mouse
-            //crosshare = Content.Load<Texture2D>("crosshare.png");////////////////////////////////load in texture for mouse here
+            crosshare = Content.Load<Texture2D>("Crosshair.png");////////////////////////////////load in texture for mouse here
             //texture for bullet
             bullet.BulletTexture = Content.Load<Texture2D>("Bullet.png");
             //load in font
@@ -149,6 +149,9 @@ namespace BreakingTheFourth
             directionX = gun.GunPosition.X - mouseState.X;
             directionY = gun.GunPosition.Y - mouseState.Y;
             gun.Rotation = (float)Math.Atan2(directionY , directionX);
+            //update mouse
+            mouse.X = mouseState.X - 15;
+            mouse.Y = mouseState.Y - 15;
             switch (gamestate)
             {
                 case GameState.Main:
@@ -289,10 +292,10 @@ namespace BreakingTheFourth
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
             spriteBatch.Begin();
             //draw mouse
-            //spriteBatch.Draw(crosshare, mousePosition, Color.White); ///////////////////////////need texture
+            //Vector2 origin = new Vector2(crosshare.Width / 2, crosshare.Height/2);
+            spriteBatch.Draw(crosshare, mouse, Color.White); ///////////////////////////need texture
             //case statement for gamestates in draw
             switch (gamestate)
             {
