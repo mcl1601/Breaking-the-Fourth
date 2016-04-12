@@ -113,7 +113,7 @@ namespace BreakingTheFourth
                 terrain[x].Image = Content.Load<Texture2D>("Textures/terrain.png");
             }
             //texture for mouse
-            crosshare = Content.Load<Texture2D>("Textures/Crosshair.png");////////////////////////////////load in texture for mouse here
+            crosshare = Content.Load<Texture2D>("Textures/Crosshair.png");
             //texture for bullet
             bullet.BulletTexture = Content.Load<Texture2D>("Textures/Bullet.png");
             //load in font
@@ -158,11 +158,13 @@ namespace BreakingTheFourth
                     {
                         if(kbState.IsKeyDown(Keys.Enter)==true && previousKbState.IsKeyUp(Keys.Enter))
                         {
+                            //changes game state to game if enter is pressed
                             previousGamestate = gamestate;
                             gamestate = GameState.Game;
                         }
                         else if (kbState.IsKeyDown(Keys.Escape) && previousKbState.IsKeyUp(Keys.Escape))
                         {
+                            //exits game if esc is pressed at main menu
                             Exit();
                         }
                         else

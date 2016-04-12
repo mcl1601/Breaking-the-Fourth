@@ -170,7 +170,7 @@ namespace BreakingTheFourth
                 }
                 
             }
-            if(isJumping ==false && collided ==false)
+            if(isJumping == false && collided == false)
             {
                 isFalling = true;
             }
@@ -183,8 +183,9 @@ namespace BreakingTheFourth
             if (isJumping == true)
             {
                 position.Y -= 4;
-                if (position.Y <= (startingY - (.5 * position.Height)))
+                if (position.Y <= (startingY - (.5 * position.Height))) //keeps jumps to being half the player's height
                 {
+                    //starts the player falling after jump is complete
                     isFalling = true;
                 }
             }
@@ -195,10 +196,11 @@ namespace BreakingTheFourth
                 //go up
                 position.Y -= 4;
                 isJumping = true;
-            }
-
-            
-        }
+            }  
+        }//end of update method
+        /// <summary>
+        /// enacts falling upon the player
+        /// </summary>
         public void Gravity()
         {
             position.Y += movement.Gravity;
@@ -265,7 +267,6 @@ namespace BreakingTheFourth
                 isFalling = false;
                 startingY = position.Y;
             }
-            
             if(startingY > terrain[i].Position.Bottom && IsJumping == true) // starts below the object & jumps
             {
                 if (position.Top < terrain[i].Position.Bottom && IsJumping == true && position.Top > terrain[i].Position.Top)
@@ -286,10 +287,8 @@ namespace BreakingTheFourth
                     //position.X += movement.PlayerSpeed;
                 }
             }
-
-
-            
         }//end of offset method
+
         /// <summary>
         /// offset method specifically for teleporting
         /// </summary>
