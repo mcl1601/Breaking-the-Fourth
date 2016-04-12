@@ -19,7 +19,7 @@ namespace BreakingTheFourth
     /// //Will need space for loading content, initialization, etc.
     /// </summary>
     
-    enum GameState
+    public enum GameState
     {
         Main,
         Controls,
