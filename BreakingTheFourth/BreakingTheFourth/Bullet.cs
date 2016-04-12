@@ -104,7 +104,7 @@ namespace BreakingTheFourth
                 case Bullet.BulletState.justFired:
                     {
                         //sets up bullet position to be right before gun
-                        position.Y = gun.GunPosition.Top;
+                        position.Y = gun.GunPosition.Top;//can't fix it with a simple hardcoded offset, due to rot
                         //shift bulletstate
                         bState = BulletState.airborne;
                         //bool that says whether it is left or right
