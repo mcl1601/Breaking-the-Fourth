@@ -59,7 +59,6 @@ namespace BreakingTheFourth
         Bullet bullet;
         float directionX;
         float directionY;
-
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -108,12 +107,24 @@ namespace BreakingTheFourth
             gun.GunImage = telegun;
             // make textures for the level1
             terrain = level1.NextScreen(1);
-            for (int x = 0; x < terrain.Count; x++)
-            {
-                terrain[x].Image = Content.Load<Texture2D>("Textures/terrain.png");
-            }
+           // for (int x = 0; x < terrain.Count; x++)
+            //{
+               // terrain[x].Image = Content.Load<Texture2D>("Textures/terrain.png");
+            //}
             //texture for mouse
             crosshare = Content.Load<Texture2D>("Textures/Crosshair.png");////////////////////////////////load in texture for mouse here
+            foreach (Terrain t in terrain)
+            {
+                //Will need to be fixed eventually.
+                if (t is DeathObject)
+                {
+                    t.Image = Content.Load<Texture2D>("Textures/Spikes.png");
+                }
+                else
+                {
+                    t.Image = Content.Load<Texture2D>("Textures/terrain.png");
+                }
+            }
             //texture for bullet
             bullet.BulletTexture = Content.Load<Texture2D>("Textures/Bullet.png");
             //load in font
@@ -181,13 +192,14 @@ namespace BreakingTheFourth
                             terrain = level1.NextScreen(screenCounter);
                             for (int x = 0; x < terrain.Count; x++)
                             {
-                                terrain[x].Image = Content.Load<Texture2D>("Textures/terrain.png");
-                            }
-                            foreach(Terrain t in terrain)
-                            {
-                                if(t is DeathObject)
+                                //terrain[x].Image = Content.Load<Texture2D>("Textures/terrain.png");
+                                if (terrain[x] is DeathObject)
                                 {
-                                    t.Image = Content.Load<Texture2D>("Spikes.png");
+                                    terrain[x].Image = Content.Load<Texture2D>("Textures/Spikes.png");
+                                }
+                                else
+                                {
+                                    terrain[x].Image = Content.Load<Texture2D>("Textures/terrain.png");
                                 }
                             }
                             player.X = 50;
@@ -208,8 +220,6 @@ namespace BreakingTheFourth
                         {
                             previousGamestate = gamestate;
                         }
-                        //add player update for movement
-                        player.Update(kbState, previousKbState, terrain, gun);
                         //update for moving terrain
                         foreach (Terrain t in terrain)
                         {
@@ -225,6 +235,8 @@ namespace BreakingTheFourth
                                 }
                             }
                         }
+                        //add player update for movement
+                        player.Update(kbState, previousKbState, terrain, gun, gamestate);
                         //changes screen when player passes far right of viewport
                         if (player.X > GraphicsDevice.Viewport.Width)
                         {
@@ -233,7 +245,15 @@ namespace BreakingTheFourth
                             terrain = level1.NextScreen(screenCounter);
                             for (int x = 0; x < terrain.Count; x++)
                             {
-                                terrain[x].Image = Content.Load<Texture2D>("Textures/terrain.png");
+                                //terrain[x].Image = Content.Load<Texture2D>("Textures/terrain.png");
+                                if (terrain[x] is DeathObject)
+                                {
+                                    terrain[x].Image = Content.Load<Texture2D>("Textures/Spikes.png");
+                                }
+                                else
+                                {
+                                    terrain[x].Image = Content.Load<Texture2D>("Textures/terrain.png");
+                                }
                             }
                             player.X = 50;
                             player.Y = 370;
@@ -246,7 +266,15 @@ namespace BreakingTheFourth
                             terrain = level1.NextScreen(screenCounter);
                             for (int x = 0; x < terrain.Count; x++)
                             {
-                                terrain[x].Image = Content.Load<Texture2D>("Textures/terrain.png");
+                                //terrain[x].Image = Content.Load<Texture2D>("Textures/terrain.png");
+                                if (terrain[x] is DeathObject)
+                                {
+                                    terrain[x].Image = Content.Load<Texture2D>("Textures/Spikes.png");
+                                }
+                                else
+                                {
+                                    terrain[x].Image = Content.Load<Texture2D>("Textures/terrain.png");
+                                }
                             }
                             player.X = GraphicsDevice.Viewport.Width - 50;
                             player.Y = 370;
