@@ -298,7 +298,19 @@ namespace BreakingTheFourth
         /// <param name="bullet"></param>
         public void OffsetTele(List<Terrain> terrain, int i, Bullet bullet)//maybe do y offset first?
         {
-            if (position.Bottom > terrain[i].Position.Top)// + position.Height)
+            //sets player on top of terrain if teleporting downwards
+            if (position.Bottom > terrain[i].Position.Top && position.Top < terrain[i].Position.Top && startingY < position.Y)
+            {
+                position.Y -= position.Bottom - terrain[i].Position.Top;
+                isFalling = false;
+                startingY = position.Y;
+            }
+            //deals with teleporting upwards into bottom of platform
+            else if (position.Top < terrain[i].Position.Bottom && startingY > terrain[i].Position.Bottom)
+            {
+                position.Y += terrain[i].Position.Bottom - position.Top;
+            }
+            else if (position.Bottom > terrain[i].Position.Top)
             {
                 if (position.Right > terrain[i].Position.Left && bullet.FacingLeft == false)
                 {
@@ -311,34 +323,6 @@ namespace BreakingTheFourth
                     position.X = terrain[i].Position.Right;
                 }
             }
-            /*if (position.Bottom > terrain[i].Position.Top && position.Top < terrain[i].Position.Top)//sets player on top of terrain if fell
-            {
-                position.Y -= position.Bottom - terrain[i].Position.Top;
-                isFalling = false;
-                startingY = position.Y;
-            }
-
-            if (startingY > terrain[i].Position.Bottom) // starts below the object & jumps
-            {
-                if (position.Top < terrain[i].Position.Bottom && position.Top > terrain[i].Position.Top)
-                {
-                    position.Y += terrain[i].Position.Bottom - position.Top;
-                }
-            }
-            if (startingY - position.Height < terrain[i].Position.Bottom) // jumps and hits an object from the side
-            {
-                if (position.Right > terrain[i].Position.Left && bullet.FacingLeft == false)
-                {
-                    position.X = terrain[i].Position.Left - position.Width;
-                    //position.X -= movement.PlayerSpeed;
-                }
-                if (position.Left < terrain[i].Position.Right && bullet.FacingLeft == true)
-                {
-                    position.X = terrain[i].Position.Right;
-                    //position.X += movement.PlayerSpeed;
-                }
-                position.Y -= terrain[i].Position.Bottom - (startingY - position.Height);
-            }*/
-        }
+        }//end of offset tele method
     }
 }

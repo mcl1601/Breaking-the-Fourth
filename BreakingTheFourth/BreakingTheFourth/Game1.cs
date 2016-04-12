@@ -293,9 +293,6 @@ namespace BreakingTheFourth
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
-            //draw mouse
-            //Vector2 origin = new Vector2(crosshare.Width / 2, crosshare.Height/2);
-            spriteBatch.Draw(crosshare, mouse, Color.White); ///////////////////////////need texture
             //case statement for gamestates in draw
             switch (gamestate)
             {
@@ -317,7 +314,7 @@ namespace BreakingTheFourth
                             terrain[x].Draw(spriteBatch);
                         }
                         //THIS SHOULD BE TRACKING THE MOUSE POSITION BUT IT ISN'T AND I HATE IT! For some reason the mouseState is never changing...
-                        string mouse = ("Mouse X: " + mouseState.X + " Mouse Y: " + mouseState.Y + "Rotation: " + gun.Rotation);
+                        string mouse = ("Mouse X: " + mouseState.X + " Mouse Y: " + mouseState.Y + " Rotation: " + gun.Rotation);
                         spriteBatch.DrawString(font, mouse, fontPosition, Color.Red);
                         //draw bullet if it has been fired
                         if(bullet.BState == Bullet.BulletState.justFired || bullet.BState == Bullet.BulletState.airborne)
@@ -338,8 +335,10 @@ namespace BreakingTheFourth
                         spriteBatch.DrawString(font, death, fontPosition, Color.Red);
                     }
                     break;
-            }
-            
+            }//end of switch statement
+            //draw mouse
+            spriteBatch.Draw(crosshare, mouse, Color.White);
+            //end spritebatch
             spriteBatch.End();
 
             base.Draw(gameTime);

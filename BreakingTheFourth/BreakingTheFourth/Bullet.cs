@@ -90,7 +90,7 @@ namespace BreakingTheFourth
                         {
                             bState = BulletState.ready;
                             player.X = position.X;
-                            //player.Y = position.Y - 30;
+                            player.Y = position.Y - 40;
                             player.OffsetTele(terrain, i, this);
                         }
                     }//end of for loop
