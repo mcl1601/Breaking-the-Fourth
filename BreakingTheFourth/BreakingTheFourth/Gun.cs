@@ -53,7 +53,7 @@ namespace BreakingTheFourth
         public float Rotation
         {
             get { return rotation; }
-            set { rotation = value; }
+            set { rotation = value; }//maybe set limits on rotation?
         }
 
         public void DrawGun(SpriteEffects effect, SpriteBatch sb, float rotation, Vector2 origin)
@@ -67,7 +67,7 @@ namespace BreakingTheFourth
             //spritebatch.Draw(gunImage, gunPosition, Color.White);
             if(player.PState == Player.PlayerState.faceRight || player.PState == Player.PlayerState.walkRight)
             {
-                DrawGun(SpriteEffects.FlipHorizontally, spritebatch, rotation, origin);
+                DrawGun(SpriteEffects.FlipHorizontally, spritebatch, rotation, origin); //needs to flip both horizontally and vertically
             }
 
             if(player.PState == Player.PlayerState.faceLeft || player.PState == Player.PlayerState.walkLeft)

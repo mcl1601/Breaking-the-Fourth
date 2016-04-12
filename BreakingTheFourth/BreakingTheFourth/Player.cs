@@ -90,7 +90,7 @@ namespace BreakingTheFourth
             get { return startingY; }
             set { startingY = value; }
         }
-        public void Update(KeyboardState kbState, KeyboardState previousKbState, List<Terrain> terrain)
+        public void Update(KeyboardState kbState, KeyboardState previousKbState, List<Terrain> terrain, Gun gun)
         {
             // determining movement and player orientation
             switch (pState)
@@ -100,7 +100,7 @@ namespace BreakingTheFourth
                     {
                         pState = PlayerState.walkRight;                 
                     }
-                    if(kbState.IsKeyDown(Keys.A))
+                    if(kbState.IsKeyDown(Keys.A) )//|| gun.Rotation > Math.PI/2)
                     {
                         pState = PlayerState.faceLeft;
                     }
@@ -111,7 +111,7 @@ namespace BreakingTheFourth
                     {
                         pState = PlayerState.walkLeft;                       
                     }
-                    if(kbState.IsKeyDown(Keys.D))
+                    if(kbState.IsKeyDown(Keys.D) )//|| gun.Rotation > Math.PI / 2)
                     {
                         pState = PlayerState.faceRight;
                     }
@@ -298,7 +298,7 @@ namespace BreakingTheFourth
         /// <param name="bullet"></param>
         public void OffsetTele(List<Terrain> terrain, int i, Bullet bullet)//maybe do y offset first?
         {
-            if (position.Bottom > terrain[i].Position.Top + position.Height)
+            if (position.Bottom > terrain[i].Position.Top)// + position.Height)
             {
                 if (position.Right > terrain[i].Position.Left && bullet.FacingLeft == false)
                 {

@@ -69,9 +69,9 @@ namespace BreakingTheFourth
             {
                 case Bullet.BulletState.airborne:
                     //assigns amount of movement to the y direction
-                    double movementY = (Math.Round(Math.Sin(rotation) * movement.BulletSpeed));
-                    //assigns amount of movement to the x direction
-                    double movementX = (Math.Round(Math.Cos(rotation) * movement.BulletSpeed));
+                    double movementY = (Math.Round(Math.Sin(rotation) * movement.BulletSpeed));//rotation determines where bullet goes
+                    //assigns amount of movement to the x direction                            //rotation is determined by gun
+                    double movementX = (Math.Round(Math.Cos(rotation) * movement.BulletSpeed));//gun is broken w/ the states in right direction
                     if (facingLeft == true)
                     {
                         //position.X -= movement.BulletSpeed;
@@ -89,9 +89,9 @@ namespace BreakingTheFourth
                         if (terrain[i].CollisionDetected(position) == true) //collision detection causes the bullet to disappear
                         {
                             bState = BulletState.ready;
-                            //player.X = position.X;
+                            player.X = position.X;
                             //player.Y = position.Y - 30;
-                            //player.OffsetTele(terrain, i, this);
+                            player.OffsetTele(terrain, i, this);
                         }
                     }//end of for loop
                     if(position.X > GraphicsDevice.Viewport.Width || position.X < GraphicsDevice.Viewport.X)
@@ -142,10 +142,6 @@ namespace BreakingTheFourth
             {
                 spritebatch.Draw(bulletTexture, position, null, Color.White, rotation, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
             }
-        }
-        public void Velocity()
-        {
-
         }
         //Here we have the bullet
         //We might wanna make this a vector2, and save it's current position as well as a few previous ones

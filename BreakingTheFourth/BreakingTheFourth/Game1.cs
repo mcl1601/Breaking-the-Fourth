@@ -101,21 +101,21 @@ namespace BreakingTheFourth
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             //load in player texture
-            stickFigure = Content.Load<Texture2D>("Stickman_Handgun.png");
+            stickFigure = Content.Load<Texture2D>("Textures/Stickman_Handgun.png");
             player.PlayerTexture = stickFigure;
             //load in gun texture
-            telegun = Content.Load<Texture2D>("TeleGun_Handgun.png");
+            telegun = Content.Load<Texture2D>("Textures/TeleGun_Handgun.png");
             gun.GunImage = telegun;
             // make textures for the level1
             terrain = level1.NextScreen(1);
             for (int x = 0; x < terrain.Count; x++)
             {
-                terrain[x].Image = Content.Load<Texture2D>("terrain.png");
+                terrain[x].Image = Content.Load<Texture2D>("Textures/terrain.png");
             }
             //texture for mouse
-            crosshare = Content.Load<Texture2D>("Crosshair.png");////////////////////////////////load in texture for mouse here
+            crosshare = Content.Load<Texture2D>("Textures/Crosshair.png");////////////////////////////////load in texture for mouse here
             //texture for bullet
-            bullet.BulletTexture = Content.Load<Texture2D>("Bullet.png");
+            bullet.BulletTexture = Content.Load<Texture2D>("Textures/Bullet.png");
             //load in font
             font = Content.Load<SpriteFont>("Ebrima_14");
         }
@@ -181,7 +181,7 @@ namespace BreakingTheFourth
                             terrain = level1.NextScreen(screenCounter);
                             for (int x = 0; x < terrain.Count; x++)
                             {
-                                terrain[x].Image = Content.Load<Texture2D>("terrain.png");
+                                terrain[x].Image = Content.Load<Texture2D>("Textures/terrain.png");
                             }
                             player.X = 50;
                             player.Y = 50;
@@ -202,7 +202,7 @@ namespace BreakingTheFourth
                             previousGamestate = gamestate;
                         }
                         //add player update for movement
-                        player.Update(kbState, previousKbState, terrain);
+                        player.Update(kbState, previousKbState, terrain, gun);
                         //update for moving terrain
                         foreach (Terrain t in terrain)
                         {
@@ -219,7 +219,7 @@ namespace BreakingTheFourth
                             terrain = level1.NextScreen(screenCounter);
                             for (int x = 0; x < terrain.Count; x++)
                             {
-                                terrain[x].Image = Content.Load<Texture2D>("terrain.png");
+                                terrain[x].Image = Content.Load<Texture2D>("Textures/terrain.png");
                             }
                             player.X = 50;
                             player.Y = 370;
@@ -232,7 +232,7 @@ namespace BreakingTheFourth
                             terrain = level1.NextScreen(screenCounter);
                             for (int x = 0; x < terrain.Count; x++)
                             {
-                                terrain[x].Image = Content.Load<Texture2D>("terrain.png");
+                                terrain[x].Image = Content.Load<Texture2D>("Textures/terrain.png");
                             }
                             player.X = GraphicsDevice.Viewport.Width - 50;
                             player.Y = 370;
