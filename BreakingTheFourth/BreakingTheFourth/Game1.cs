@@ -112,6 +112,7 @@ namespace BreakingTheFourth
                // terrain[x].Image = Content.Load<Texture2D>("Textures/terrain.png");
             //}
             //texture for mouse
+
             crosshare = Content.Load<Texture2D>("Textures/Crosshair.png");////////////////////////////////load in texture for mouse here
             foreach (Terrain t in terrain)
             {
@@ -169,11 +170,13 @@ namespace BreakingTheFourth
                     {
                         if(kbState.IsKeyDown(Keys.Enter)==true && previousKbState.IsKeyUp(Keys.Enter))
                         {
+                            //changes game state to game if enter is pressed
                             previousGamestate = gamestate;
                             gamestate = GameState.Game;
                         }
                         else if (kbState.IsKeyDown(Keys.Escape) && previousKbState.IsKeyUp(Keys.Escape))
                         {
+                            //exits game if esc is pressed at main menu
                             Exit();
                         }
                         else
@@ -335,9 +338,6 @@ namespace BreakingTheFourth
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
-            //draw mouse
-            //Vector2 origin = new Vector2(crosshare.Width / 2, crosshare.Height/2);
-            spriteBatch.Draw(crosshare, mouse, Color.White); ///////////////////////////need texture
             //case statement for gamestates in draw
             switch (gamestate)
             {
@@ -359,7 +359,6 @@ namespace BreakingTheFourth
                             terrain[x].Draw(spriteBatch);
                         }
                         //THIS SHOULD BE TRACKING THE MOUSE POSITION BUT IT ISN'T AND I HATE IT! For some reason the mouseState is never changing...
-
                         string mouse = ("Mouse X: " + mouseState.X + " Mouse Y: " + mouseState.Y + "Rotation: " + gun.Rotation);
                         spriteBatch.DrawString(font, mouse, fontPosition, Color.Red);
                         //draw bullet if it has been fired
@@ -381,8 +380,10 @@ namespace BreakingTheFourth
                         spriteBatch.DrawString(font, death, fontPosition, Color.Red);
                     }
                     break;
-            }
-            
+            }//end of switch statement
+            //draw mouse
+            spriteBatch.Draw(crosshare, mouse, Color.White);
+            //end spritebatch
             spriteBatch.End();
 
             base.Draw(gameTime);

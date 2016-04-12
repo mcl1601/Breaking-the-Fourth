@@ -22,7 +22,7 @@ namespace BreakingTheFourth
         private Texture2D bulletTexture;
         private BulletState bState;
         private Rectangle position;
-        private bool facingLeft = false;
+        private bool facingLeft = false; //whether player is facing left or right
         private float rotation;
         // FileIO object
         FileIO movement = new FileIO();
@@ -89,11 +89,14 @@ namespace BreakingTheFourth
                         if (terrain[i].CollisionDetected(position) == true) //collision detection causes the bullet to disappear
                         {
                             bState = BulletState.ready;
+                            //actual teleporting
                             player.X = position.X;
-                            //player.Y = position.Y - 30;
+                            player.Y = position.Y - 40;
+                            //stops no clip
                             player.OffsetTele(terrain, i, this);
                         }
                     }//end of for loop
+                    //handles if the bullet leaves the screen
                     if(position.X > GraphicsDevice.Viewport.Width || position.X < GraphicsDevice.Viewport.X)
                     {
                         bState = BulletState.ready;
@@ -142,12 +145,14 @@ namespace BreakingTheFourth
             {
                 spritebatch.Draw(bulletTexture, position, null, Color.White, rotation, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
             }
-        }
+        }//end of draw method
+
         //Here we have the bullet
-        //We might wanna make this a vector2, and save it's current position as well as a few previous ones
-        //Will need a method to check collision.
+        //We might wanna make this a vector2, and save it's current position as well as a few previous ones - needs to be rectangle
+        //in order to do collision detection
+        //Will need a method to check collision - in terrain class
         //Do we need a parameterized constructor for just a vector2? Probably.
-        //Will need seperate values to not only calculate x and y position, but also speed
+        //Will need seperate values to not only calculate x and y position, but also speed - speed determined by tool
         //And of course the method for the actual teleporting, which we'll use the previous vector2's for
     }
 }
