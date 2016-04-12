@@ -181,6 +181,13 @@ namespace BreakingTheFourth
                             {
                                 terrain[x].Image = Content.Load<Texture2D>("terrain.png");
                             }
+                            foreach(Terrain t in terrain)
+                            {
+                                if(t is DeathObject)
+                                {
+                                    t.Image = Content.Load<Texture2D>("Spikes.png");
+                                }
+                            }
                             player.X = 50;
                             player.Y = 50;
                         }
@@ -204,9 +211,16 @@ namespace BreakingTheFourth
                         //update for moving terrain
                         foreach (Terrain t in terrain)
                         {
-                            if (t is SpecialTerrain)
+                            if (t is SpecialTerrain || t is DeathObject)
                             {
                                 t.Update();
+                            }
+                            if(t is DeathObject)
+                            {
+                                if(t.CollisionDetected(player.Position)==true)
+                                {
+                                    gamestate = GameState.GameOver;
+                                }
                             }
                         }
                         //changes screen when player passes far right of viewport
@@ -315,7 +329,7 @@ namespace BreakingTheFourth
                             terrain[x].Draw(spriteBatch);
                         }
                         //THIS SHOULD BE TRACKING THE MOUSE POSITION BUT IT ISN'T AND I HATE IT! For some reason the mouseState is never changing...
-                        string mouse = ("Mouse X: " + mouseState.X + " Mouse Y: " + mouseState.Y);
+                        string mouse = ("Mouse X: " + mouseState.X + " Mouse Y: " + mouseState.Y + "\n Rotation: "+rotation);
                         spriteBatch.DrawString(font, mouse, fontPosition, Color.Red);
                         //draw bullet if it has been fired
                         if(bullet.BState == Bullet.BulletState.justFired || bullet.BState == Bullet.BulletState.airborne)
