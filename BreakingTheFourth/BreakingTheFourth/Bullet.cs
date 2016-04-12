@@ -45,6 +45,11 @@ namespace BreakingTheFourth
             set { position = value; }
         }
 
+        public bool FacingLeft
+        {
+            get { return facingLeft; }
+        }
+
         //constructor
         public Bullet(int x, int y, int width, int height)
         {
@@ -57,33 +62,49 @@ namespace BreakingTheFourth
             bState = BulletState.justFired;
             rotation = rot;
         }
-        public void Update(List<Terrain> terrain, Gun gun, Player player, MouseState mouseState, MouseState previousMState, float rot)
+        public void Update(List<Terrain> terrain, Gun gun, Player player, MouseState mouseState, MouseState previousMState, 
+            float rot, KeyboardState kbState, GraphicsDevice GraphicsDevice)
         {
             switch (bState)
             {
                 case Bullet.BulletState.airborne:
+                    //assigns amount of movement to the y direction
+                    double movementY = (Math.Round(Math.Sin(rotation) * movement.BulletSpeed));//rotation determines where bullet goes
+                    //assigns amount of movement to the x direction                            //rotation is determined by gun
+                    double movementX = (Math.Round(Math.Cos(rotation) * movement.BulletSpeed));//gun is broken w/ the states in right direction
                     if (facingLeft == true)
                     {
-                        position.X -= movement.BulletSpeed;
+                        //position.X -= movement.BulletSpeed;
+                        position.X -= Convert.ToInt32(movementX);
+                        position.Y -= Convert.ToInt32(movementY);
                     }
                     else if (facingLeft == false)
                     {
-                        position.X += movement.BulletSpeed;
+                        //position.X += movement.BulletSpeed;
+                        position.X += Convert.ToInt32(movementX);
+                        position.Y -= Convert.ToInt32(movementY);
                     }
                     for (int i = 0; i < terrain.Count; i++)
                     {
                         if (terrain[i].CollisionDetected(position) == true) //collision detection causes the bullet to disappear
                         {
                             bState = BulletState.ready;
+                            player.X = position.X;
+                            //player.Y = position.Y - 30;
+                            player.OffsetTele(terrain, i, this);
                         }
                     }//end of for loop
+                    if(position.X > GraphicsDevice.Viewport.Width || position.X < GraphicsDevice.Viewport.X)
+                    {
+                        bState = BulletState.ready;
+                    }
                     break;
                 case Bullet.BulletState.empty:
                     break;
                 case Bullet.BulletState.justFired:
                     {
                         //sets up bullet position to be right before gun
-                        position.Y = gun.GunPosition.Top;
+                        position.Y = gun.GunPosition.Top;//can't fix it with a simple hardcoded offset, due to rot
                         //shift bulletstate
                         bState = BulletState.airborne;
                         //bool that says whether it is left or right
@@ -121,10 +142,6 @@ namespace BreakingTheFourth
             {
                 spritebatch.Draw(bulletTexture, position, null, Color.White, rotation, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
             }
-        }
-        public void Velocity()
-        {
-
         }
         //Here we have the bullet
         //We might wanna make this a vector2, and save it's current position as well as a few previous ones

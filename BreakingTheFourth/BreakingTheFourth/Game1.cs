@@ -55,8 +55,6 @@ namespace BreakingTheFourth
         Vector2 mousePosition;
         Rectangle mouse;
         Texture2D crosshare;
-        //variable for the rotation
-        public float rotation;
         //bullet fields
         Bullet bullet;
         float directionX;
@@ -90,6 +88,7 @@ namespace BreakingTheFourth
             fontPosition = new Vector2(5, 5);
             //initialize bullet object
             bullet = new Bullet(player.X, player.Y, 20, 20);
+            mouse = new Rectangle(mouseState.X, mouseState.Y, 30, 30);
             base.Initialize();
         }
         /// <summary>
@@ -102,21 +101,21 @@ namespace BreakingTheFourth
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             //load in player texture
-            stickFigure = Content.Load<Texture2D>("Stickman_Handgun.png");
+            stickFigure = Content.Load<Texture2D>("Textures/Stickman_Handgun.png");
             player.PlayerTexture = stickFigure;
             //load in gun texture
-            telegun = Content.Load<Texture2D>("TeleGun_Handgun.png");
+            telegun = Content.Load<Texture2D>("Textures/TeleGun_Handgun.png");
             gun.GunImage = telegun;
             // make textures for the level1
             terrain = level1.NextScreen(1);
             for (int x = 0; x < terrain.Count; x++)
             {
-                terrain[x].Image = Content.Load<Texture2D>("terrain.png");
+                terrain[x].Image = Content.Load<Texture2D>("Textures/terrain.png");
             }
             //texture for mouse
-            //crosshare = Content.Load<Texture2D>("crosshare.png");////////////////////////////////load in texture for mouse here
+            crosshare = Content.Load<Texture2D>("Textures/Crosshair.png");////////////////////////////////load in texture for mouse here
             //texture for bullet
-            bullet.BulletTexture = Content.Load<Texture2D>("Bullet.png");
+            bullet.BulletTexture = Content.Load<Texture2D>("Textures/Bullet.png");
             //load in font
             font = Content.Load<SpriteFont>("Ebrima_14");
         }
@@ -149,7 +148,10 @@ namespace BreakingTheFourth
             mousePosition = new Vector2(mouseState.X, mouseState.Y);
             directionX = gun.GunPosition.X - mouseState.X;
             directionY = gun.GunPosition.Y - mouseState.Y;
-            rotation = (float)Math.Atan2(directionY , directionX);
+            gun.Rotation = (float)Math.Atan2(directionY , directionX);
+            //update mouse
+            mouse.X = mouseState.X - 15;
+            mouse.Y = mouseState.Y - 15;
             switch (gamestate)
             {
                 case GameState.Main:
@@ -179,7 +181,7 @@ namespace BreakingTheFourth
                             terrain = level1.NextScreen(screenCounter);
                             for (int x = 0; x < terrain.Count; x++)
                             {
-                                terrain[x].Image = Content.Load<Texture2D>("terrain.png");
+                                terrain[x].Image = Content.Load<Texture2D>("Textures/terrain.png");
                             }
                             foreach(Terrain t in terrain)
                             {
@@ -207,7 +209,7 @@ namespace BreakingTheFourth
                             previousGamestate = gamestate;
                         }
                         //add player update for movement
-                        player.Update(kbState, previousKbState, terrain);
+                        player.Update(kbState, previousKbState, terrain, gun);
                         //update for moving terrain
                         foreach (Terrain t in terrain)
                         {
@@ -231,7 +233,7 @@ namespace BreakingTheFourth
                             terrain = level1.NextScreen(screenCounter);
                             for (int x = 0; x < terrain.Count; x++)
                             {
-                                terrain[x].Image = Content.Load<Texture2D>("terrain.png");
+                                terrain[x].Image = Content.Load<Texture2D>("Textures/terrain.png");
                             }
                             player.X = 50;
                             player.Y = 370;
@@ -244,7 +246,7 @@ namespace BreakingTheFourth
                             terrain = level1.NextScreen(screenCounter);
                             for (int x = 0; x < terrain.Count; x++)
                             {
-                                terrain[x].Image = Content.Load<Texture2D>("terrain.png");
+                                terrain[x].Image = Content.Load<Texture2D>("Textures/terrain.png");
                             }
                             player.X = GraphicsDevice.Viewport.Width - 50;
                             player.Y = 370;
@@ -252,7 +254,7 @@ namespace BreakingTheFourth
                         //Keep the gun at the same position relative to the player
                         gun.Update(player);
                         //update the bullet
-                        bullet.Update(terrain, gun, player, mouseState, previousMState, rotation);
+                        bullet.Update(terrain, gun, player, mouseState, previousMState, gun.Rotation, kbState, GraphicsDevice);
 
                        
                     }
@@ -304,10 +306,10 @@ namespace BreakingTheFourth
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
             spriteBatch.Begin();
             //draw mouse
-            //spriteBatch.Draw(crosshare, mousePosition, Color.White); ///////////////////////////need texture
+            //Vector2 origin = new Vector2(crosshare.Width / 2, crosshare.Height/2);
+            spriteBatch.Draw(crosshare, mouse, Color.White); ///////////////////////////need texture
             //case statement for gamestates in draw
             switch (gamestate)
             {
@@ -323,13 +325,14 @@ namespace BreakingTheFourth
                     {
                         //drawing methods in here
                         player.Draw(spriteBatch);
-                        gun.Draw(spriteBatch, player, rotation);
+                        gun.Draw(spriteBatch, player, gun.Rotation, new Vector2(325, 325));
                         for (int x = 0; x < terrain.Count; x++)
                         {
                             terrain[x].Draw(spriteBatch);
                         }
                         //THIS SHOULD BE TRACKING THE MOUSE POSITION BUT IT ISN'T AND I HATE IT! For some reason the mouseState is never changing...
-                        string mouse = ("Mouse X: " + mouseState.X + " Mouse Y: " + mouseState.Y + "\n Rotation: "+rotation);
+
+                        string mouse = ("Mouse X: " + mouseState.X + " Mouse Y: " + mouseState.Y + "Rotation: " + gun.Rotation);
                         spriteBatch.DrawString(font, mouse, fontPosition, Color.Red);
                         //draw bullet if it has been fired
                         if(bullet.BState == Bullet.BulletState.justFired || bullet.BState == Bullet.BulletState.airborne)
@@ -351,7 +354,7 @@ namespace BreakingTheFourth
                     }
                     break;
             }
-
+            
             spriteBatch.End();
 
             base.Draw(gameTime);

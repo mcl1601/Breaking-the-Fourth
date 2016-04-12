@@ -90,7 +90,7 @@ namespace BreakingTheFourth
             get { return startingY; }
             set { startingY = value; }
         }
-        public void Update(KeyboardState kbState, KeyboardState previousKbState, List<Terrain> terrain)
+        public void Update(KeyboardState kbState, KeyboardState previousKbState, List<Terrain> terrain, Gun gun)
         {
             // determining movement and player orientation
             switch (pState)
@@ -100,7 +100,7 @@ namespace BreakingTheFourth
                     {
                         pState = PlayerState.walkRight;                 
                     }
-                    if(kbState.IsKeyDown(Keys.A))
+                    if(kbState.IsKeyDown(Keys.A) )//|| gun.Rotation > Math.PI/2)
                     {
                         pState = PlayerState.faceLeft;
                     }
@@ -111,7 +111,7 @@ namespace BreakingTheFourth
                     {
                         pState = PlayerState.walkLeft;                       
                     }
-                    if(kbState.IsKeyDown(Keys.D))
+                    if(kbState.IsKeyDown(Keys.D) )//|| gun.Rotation > Math.PI / 2)
                     {
                         pState = PlayerState.faceRight;
                     }
@@ -290,5 +290,55 @@ namespace BreakingTheFourth
 
             
         }//end of offset method
+        /// <summary>
+        /// offset method specifically for teleporting
+        /// </summary>
+        /// <param name="terrain">list of terrain</param>
+        /// <param name="i">index of terrain list the player is currently colliding with</param>
+        /// <param name="bullet"></param>
+        public void OffsetTele(List<Terrain> terrain, int i, Bullet bullet)//maybe do y offset first?
+        {
+            if (position.Bottom > terrain[i].Position.Top)// + position.Height)
+            {
+                if (position.Right > terrain[i].Position.Left && bullet.FacingLeft == false)
+                {
+                    //offset when teleporting right
+                    position.X = terrain[i].Position.Left - position.Width;
+                }
+                if (position.Left < terrain[i].Position.Right && bullet.FacingLeft == true)
+                {
+                    //offset when teleporting left
+                    position.X = terrain[i].Position.Right;
+                }
+            }
+            /*if (position.Bottom > terrain[i].Position.Top && position.Top < terrain[i].Position.Top)//sets player on top of terrain if fell
+            {
+                position.Y -= position.Bottom - terrain[i].Position.Top;
+                isFalling = false;
+                startingY = position.Y;
+            }
+
+            if (startingY > terrain[i].Position.Bottom) // starts below the object & jumps
+            {
+                if (position.Top < terrain[i].Position.Bottom && position.Top > terrain[i].Position.Top)
+                {
+                    position.Y += terrain[i].Position.Bottom - position.Top;
+                }
+            }
+            if (startingY - position.Height < terrain[i].Position.Bottom) // jumps and hits an object from the side
+            {
+                if (position.Right > terrain[i].Position.Left && bullet.FacingLeft == false)
+                {
+                    position.X = terrain[i].Position.Left - position.Width;
+                    //position.X -= movement.PlayerSpeed;
+                }
+                if (position.Left < terrain[i].Position.Right && bullet.FacingLeft == true)
+                {
+                    position.X = terrain[i].Position.Right;
+                    //position.X += movement.PlayerSpeed;
+                }
+                position.Y -= terrain[i].Position.Bottom - (startingY - position.Height);
+            }*/
+        }
     }
 }
