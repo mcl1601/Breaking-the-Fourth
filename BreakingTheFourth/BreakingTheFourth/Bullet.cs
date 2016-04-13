@@ -80,7 +80,7 @@ namespace BreakingTheFourth
                     }
                     else if (facingLeft == false)
                     {
-                        //position.X += movement.BulletSpeed;
+                        movementX = -movementX; //shifts bullet direction to resemble where the player is facing
                         position.X += Convert.ToInt32(movementX);
                         position.Y -= Convert.ToInt32(movementY);
                     }
@@ -138,7 +138,7 @@ namespace BreakingTheFourth
             //spritebatch.Draw(bulletTexture, position, Color.White);
             if (facingLeft == false)
             {
-                spritebatch.Draw(bulletTexture, position, null, Color.White, rotation, Vector2.Zero, SpriteEffects.None, 0);
+                spritebatch.Draw(bulletTexture, position, null, Color.White, rotation, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
             }
 
             if (facingLeft == true)
