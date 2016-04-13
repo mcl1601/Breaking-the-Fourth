@@ -93,7 +93,7 @@ namespace BreakingTheFourth
             get { return startingY; }
             set { startingY = value; }
         }
-        public void Update(KeyboardState kbState, KeyboardState previousKbState, List<Terrain> terrain, Gun gun)
+        public void Update(KeyboardState kbState, KeyboardState previousKbState, List<Terrain> terrain, Gun gun, GameState gamestate)
         {
             mState = Mouse.GetState();
             // determining movement and player orientation
@@ -189,6 +189,10 @@ namespace BreakingTheFourth
             {
                 if (terrain[i].CollisionDetected(position) == true )/////special terrain is causing issue still when going down
                 {
+                    if(terrain[i] is DeathObject)
+                    {
+                        gamestate = GameState.GameOver;
+                    }
                     //stops no clip issues
                     Offset(terrain, kbState, i);
                     //halts jumping after colliding
@@ -267,7 +271,7 @@ namespace BreakingTheFourth
                     break;
 
                 case PlayerState.walkRight:
-                    // will be a DrawWalking merhod here when we have animation
+                    // will be a DrawWalking method here when we have animation
                     DrawPlayerStanding(SpriteEffects.None, spriteBatch);
                     break;
 
