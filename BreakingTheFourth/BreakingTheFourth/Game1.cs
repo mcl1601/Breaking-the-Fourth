@@ -189,7 +189,7 @@ namespace BreakingTheFourth
                             {
                                 if(t is DeathObject)
                                 {
-                                    t.Image = Content.Load<Texture2D>("Spikes.png");
+                                    t.Image = Content.Load<Texture2D>("Textures/Spikes.png");
                                 }
                             }
                             player.X = 50;

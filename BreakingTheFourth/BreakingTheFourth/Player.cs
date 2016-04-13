@@ -32,9 +32,12 @@ namespace BreakingTheFourth
             faceLeft,
             faceRight,
             walkLeft,
-            walkRight 
+            walkRight,
+            faceLeftWalkRight,
+            faceRightWalkLeft 
         }
         private PlayerState pState;
+        MouseState mState;
 
         // FileIO object
         FileIO movement = new FileIO();
@@ -92,6 +95,7 @@ namespace BreakingTheFourth
         }
         public void Update(KeyboardState kbState, KeyboardState previousKbState, List<Terrain> terrain, Gun gun)
         {
+            mState = Mouse.GetState();
             // determining movement and player orientation
             switch (pState)
             {
@@ -100,7 +104,11 @@ namespace BreakingTheFourth
                     {
                         pState = PlayerState.walkRight;                 
                     }
-                    if(kbState.IsKeyDown(Keys.A) )//|| gun.Rotation > Math.PI/2)
+                    if(kbState.IsKeyDown(Keys.A))
+                    {
+                        pState = PlayerState.faceRightWalkLeft;
+                    }
+                    if(mState.X <= X + 25)//|| gun.Rotation > Math.PI/2)
                     {
                         pState = PlayerState.faceLeft;
                     }
@@ -111,7 +119,11 @@ namespace BreakingTheFourth
                     {
                         pState = PlayerState.walkLeft;                       
                     }
-                    if(kbState.IsKeyDown(Keys.D) )//|| gun.Rotation > Math.PI / 2)
+                    if(kbState.IsKeyDown(Keys.D))
+                    {
+                        pState = PlayerState.faceLeftWalkRight;
+                    }
+                    if(mState.X > X + 25)//|| gun.Rotation > Math.PI / 2)
                     {
                         pState = PlayerState.faceRight;
                     }
@@ -126,9 +138,9 @@ namespace BreakingTheFourth
                     {
                         pState = PlayerState.faceRight;                       
                     }
-                    if(kbState.IsKeyDown(Keys.A))
+                    if(mState.X <= X + 25)
                     {
-                        pState = PlayerState.faceLeft;
+                        pState = PlayerState.faceLeftWalkRight;
                     }
                     break;
 
@@ -137,11 +149,34 @@ namespace BreakingTheFourth
                     {
                         X -= movement.PlayerSpeed;
                     }
+                    
                     if (kbState.IsKeyUp(Keys.A))
                     {
-                        pState = PlayerState.faceLeft;                        
+                        pState = PlayerState.faceLeft;
                     }
+                    if (mState.X > X + 25)
+                    {
+                        pState = PlayerState.faceRightWalkLeft;                        
+                    }
+                    break;
+
+                case PlayerState.faceLeftWalkRight:
                     if(kbState.IsKeyDown(Keys.D))
+                    {
+                        X += movement.PlayerSpeed;
+                    }
+                    if(kbState.IsKeyUp(Keys.D))
+                    {
+                        pState = PlayerState.faceLeft;
+                    }
+                    break;
+
+                case PlayerState.faceRightWalkLeft:
+                    if (kbState.IsKeyDown(Keys.A))
+                    {
+                        X -= movement.PlayerSpeed;
+                    }
+                    if (kbState.IsKeyUp(Keys.A))
                     {
                         pState = PlayerState.faceRight;
                     }
@@ -239,6 +274,14 @@ namespace BreakingTheFourth
                 case PlayerState.walkLeft:
                     // will be a DrawWalking merhod here when we have animation
                     DrawPlayerStanding(SpriteEffects.FlipHorizontally, spriteBatch);
+                    break;
+
+                case PlayerState.faceLeftWalkRight:
+                    DrawPlayerStanding(SpriteEffects.FlipHorizontally, spriteBatch);
+                    break;
+
+                case PlayerState.faceRightWalkLeft:
+                    DrawPlayerStanding(SpriteEffects.None, spriteBatch);
                     break;
             }
         }

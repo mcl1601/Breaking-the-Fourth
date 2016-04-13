@@ -65,12 +65,12 @@ namespace BreakingTheFourth
         {
             
             //spritebatch.Draw(gunImage, gunPosition, Color.White);
-            if(player.PState == Player.PlayerState.faceRight || player.PState == Player.PlayerState.walkRight)
+            if(player.PState == Player.PlayerState.faceRight || player.PState == Player.PlayerState.walkRight || player.PState == Player.PlayerState.faceRightWalkLeft)
             {
-                DrawGun(SpriteEffects.FlipHorizontally, spritebatch, rotation, origin); //needs to flip both horizontally and vertically
+                DrawGun(SpriteEffects.FlipVertically|SpriteEffects.FlipHorizontally, spritebatch, rotation, origin); //needs to flip both horizontally and vertically
             }
 
-            if(player.PState == Player.PlayerState.faceLeft || player.PState == Player.PlayerState.walkLeft)
+            if(player.PState == Player.PlayerState.faceLeft || player.PState == Player.PlayerState.walkLeft || player.PState == Player.PlayerState.faceLeftWalkRight)
             {
                 DrawGun(SpriteEffects.FlipHorizontally, spritebatch, rotation, origin);
             }
@@ -88,19 +88,19 @@ namespace BreakingTheFourth
             if (player.PState == Player.PlayerState.walkRight)
             {
                 X = player.X + 50;
-                Y = player.Y + 38;
+                Y = player.Y + 30;
             }
 
-            if (player.PState == Player.PlayerState.faceLeft)
+            if (player.PState == Player.PlayerState.faceLeft || player.PState == Player.PlayerState.faceLeftWalkRight)
             {
                 X = player.X;
                 Y = player.Y + 38;
             }
 
-            if (player.PState == Player.PlayerState.faceRight)
+            if (player.PState == Player.PlayerState.faceRight || player.PState == Player.PlayerState.faceRightWalkLeft)
             {
                 X = player.X + 50;
-                Y = player.Y + 38;
+                Y = player.Y + 30;
             }
         }
     }
