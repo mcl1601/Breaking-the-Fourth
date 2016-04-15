@@ -59,6 +59,32 @@ namespace BreakingTheFourth
                     pieces.Add(new Terrain(350, 350, 50, 100)); //second obstacle (bottom)
                     pieces.Add(new DeathObject(400, 400, 350, 50)); //spikes
                     break;
+                case 4:
+                    // clear the list
+                    pieces.Clear();
+                    // add new pieces
+                    pieces.Add(new Terrain(0, 450, 150, 40)); // left floor
+                    pieces.Add(new Terrain(0, 0, 25, 300)); // left wall
+                    pieces.Add(new SpecialTerrain(200, 440, 60, 60, 200, 440)); //moving platform
+                    pieces.Add(new Terrain(275, 0, 40, 200)); //first obstacle (top)
+                    pieces.Add(new Terrain(275, 260, 40, 60)); //first obstacle (middle)
+                    pieces.Add(new Terrain(275, 380, 40, 100)); //first obstacle (bottom)
+                    pieces.Add(new Terrain(470, 200, 20, 60)); //top floating platform (vertical)
+                    pieces.Add(new Terrain(370, 260, 120, 20)); //top floating platform (horizontal)
+                    pieces.Add(new Terrain(400, 320, 20, 60)); //bottom floating platform
+                    pieces.Add(new Terrain(500, 0, 800, 40)); //ceiling
+                    pieces.Add(new Terrain(500, 120, 40, 300)); // giant floating wall in the middle, ya can't miss it
+                    pieces.Add(new Terrain(500, 450, 350, 40)); //right floor
+                    pieces.Add(new Terrain(700, 200, 60, 30)); //top spike platform
+                    pieces.Add(new Terrain(540, 250, 80, 30)); //bottom spike platform
+                    pieces.Add(new Terrain(760, 0, 50, 280)); //right wall (top)
+                    pieces.Add(new Terrain(760, 340, 50, 400)); //right wall (bottom)
+                    pieces.Add(new Terrain(720, 340, 40, 20)); //bottom right wall cliff
+                    pieces.Add(new DeathObject(700, 170, 60, 30)); //top spikes
+                    pieces.Add(new DeathObject(540, 220, 80, 30)); //middle spikes
+                    pieces.Add(new DeathObject(500, 420, 260, 30)); //bottom spikes
+                    break;
+
             }
             return pieces;
         }
