@@ -63,7 +63,7 @@ namespace BreakingTheFourth
             rotation = rot;
         }
         public void Update(List<Terrain> terrain, Gun gun, Player player, MouseState mouseState, MouseState previousMState, 
-            float rot, KeyboardState kbState, GraphicsDevice GraphicsDevice)
+            float rot, KeyboardState kbState, GraphicsDevice GraphicsDevice, Game1 game)
         {
             switch (bState)
             {
@@ -88,6 +88,10 @@ namespace BreakingTheFourth
                     {
                         if (terrain[i].CollisionDetected(position) == true) //collision detection causes the bullet to disappear
                         {
+                            if(terrain[i] is DeathObject)
+                            {
+                                game.Gamestate = GameState.GameOver;
+                            }
                             bState = BulletState.ready;
                             //actual teleporting
                             player.X = position.X;
