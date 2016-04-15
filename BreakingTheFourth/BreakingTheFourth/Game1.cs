@@ -201,7 +201,6 @@ namespace BreakingTheFourth
                             terrain = level1.NextScreen(screenCounter);
                             for (int x = 0; x < terrain.Count; x++)
                             {
-                                //terrain[x].Image = Content.Load<Texture2D>("Textures/terrain.png");
                                 if (terrain[x] is DeathObject)
                                 {
                                     terrain[x].Image = spikes;
