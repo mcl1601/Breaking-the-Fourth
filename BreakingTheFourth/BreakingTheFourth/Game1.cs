@@ -62,6 +62,12 @@ namespace BreakingTheFourth
         //fields for terrain textures
         Texture2D spikes;
         Texture2D terrainBlock;
+        //property for gamestate
+        public GameState Gamestate
+        {
+            get { return gamestate;}
+            set { gamestate = value; }
+        }
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -206,7 +212,7 @@ namespace BreakingTheFourth
                                 }
                             }
                             player.X = 50;
-                            player.Y = 50;
+                            player.Y = 370;
                         }
                         if (kbState.IsKeyDown(Keys.Escape) == true && previousKbState.IsKeyUp(Keys.Escape))
                         {
@@ -241,7 +247,7 @@ namespace BreakingTheFourth
                         //add player update for movement
                         player.Update(kbState, previousKbState, terrain, gun, gamestate);
                         //update the bullet
-                        bullet.Update(terrain, gun, player, mouseState, previousMState, gun.Rotation, kbState, GraphicsDevice);
+                        bullet.Update(terrain, gun, player, mouseState, previousMState, gun.Rotation, kbState, GraphicsDevice, this);
                         //Keep the gun at the same position relative to the player
                         gun.Update(player);
                         //changes screen when player passes far right of viewport
