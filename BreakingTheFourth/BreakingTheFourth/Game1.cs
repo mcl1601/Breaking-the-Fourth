@@ -59,6 +59,9 @@ namespace BreakingTheFourth
         Bullet bullet;
         float directionX;
         float directionY;
+        //fields for terrain textures
+        Texture2D spikes;
+        Texture2D terrainBlock;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -86,7 +89,7 @@ namespace BreakingTheFourth
             //initialize font
             fontPosition = new Vector2(5, 5);
             //initialize bullet object
-            bullet = new Bullet(player.X, player.Y, 20, 20);
+            bullet = new Bullet(player.X, player.Y, 10, 10);
             mouse = new Rectangle(mouseState.X, mouseState.Y, 30, 30);
             base.Initialize();
         }
@@ -105,25 +108,22 @@ namespace BreakingTheFourth
             //load in gun texture
             telegun = Content.Load<Texture2D>("Textures/TeleGun_Handgun.png");
             gun.GunImage = telegun;
+            //texture for mouse
+            crosshare = Content.Load<Texture2D>("Textures/Crosshair.png");
             // make textures for the level1
             terrain = level1.NextScreen(1);
-           // for (int x = 0; x < terrain.Count; x++)
-            //{
-               // terrain[x].Image = Content.Load<Texture2D>("Textures/terrain.png");
-            //}
-            //texture for mouse
-
-            crosshare = Content.Load<Texture2D>("Textures/Crosshair.png");////////////////////////////////load in texture for mouse here
+            spikes = Content.Load<Texture2D>("Textures/Spikes.png");
+            terrainBlock = Content.Load<Texture2D>("Textures/terrain.png");
             foreach (Terrain t in terrain)
             {
                 //Will need to be fixed eventually.
                 if (t is DeathObject)
                 {
-                    t.Image = Content.Load<Texture2D>("Textures/Spikes.png");
+                    t.Image = spikes;
                 }
                 else
                 {
-                    t.Image = Content.Load<Texture2D>("Textures/terrain.png");
+                    t.Image = terrainBlock;
                 }
             }
             //texture for bullet
@@ -198,11 +198,11 @@ namespace BreakingTheFourth
                                 //terrain[x].Image = Content.Load<Texture2D>("Textures/terrain.png");
                                 if (terrain[x] is DeathObject)
                                 {
-                                    terrain[x].Image = Content.Load<Texture2D>("Textures/Spikes.png");
+                                    terrain[x].Image = spikes;
                                 }
                                 else
                                 {
-                                    terrain[x].Image = Content.Load<Texture2D>("Textures/terrain.png");
+                                    terrain[x].Image = terrainBlock;
                                 }
                             }
                             player.X = 50;
@@ -240,6 +240,10 @@ namespace BreakingTheFourth
                         }
                         //add player update for movement
                         player.Update(kbState, previousKbState, terrain, gun, gamestate);
+                        //update the bullet
+                        bullet.Update(terrain, gun, player, mouseState, previousMState, gun.Rotation, kbState, GraphicsDevice);
+                        //Keep the gun at the same position relative to the player
+                        gun.Update(player);
                         //changes screen when player passes far right of viewport
                         if (player.X > GraphicsDevice.Viewport.Width)
                         {
@@ -251,11 +255,11 @@ namespace BreakingTheFourth
                                 //terrain[x].Image = Content.Load<Texture2D>("Textures/terrain.png");
                                 if (terrain[x] is DeathObject)
                                 {
-                                    terrain[x].Image = Content.Load<Texture2D>("Textures/Spikes.png");
+                                    terrain[x].Image = spikes;
                                 }
                                 else
                                 {
-                                    terrain[x].Image = Content.Load<Texture2D>("Textures/terrain.png");
+                                    terrain[x].Image = terrainBlock;
                                 }
                             }
                             player.X = 50;
@@ -272,22 +276,16 @@ namespace BreakingTheFourth
                                 //terrain[x].Image = Content.Load<Texture2D>("Textures/terrain.png");
                                 if (terrain[x] is DeathObject)
                                 {
-                                    terrain[x].Image = Content.Load<Texture2D>("Textures/Spikes.png");
+                                    terrain[x].Image = spikes;
                                 }
                                 else
                                 {
-                                    terrain[x].Image = Content.Load<Texture2D>("Textures/terrain.png");
+                                    terrain[x].Image = terrainBlock;
                                 }
                             }
                             player.X = GraphicsDevice.Viewport.Width - 50;
                             player.Y = 370;
                         }
-                        //Keep the gun at the same position relative to the player
-                        gun.Update(player);
-                        //update the bullet
-                        bullet.Update(terrain, gun, player, mouseState, previousMState, gun.Rotation, kbState, GraphicsDevice);
-
-                       
                     }
                     break;
                 case GameState.Paused:
@@ -359,7 +357,7 @@ namespace BreakingTheFourth
                             terrain[x].Draw(spriteBatch);
                         }
                         //THIS SHOULD BE TRACKING THE MOUSE POSITION BUT IT ISN'T AND I HATE IT! For some reason the mouseState is never changing...
-                        string mouse = ("Mouse X: " + mouseState.X + " Mouse Y: " + mouseState.Y + "Rotation: " + gun.Rotation);
+                        string mouse = ("Mouse X: " + mouseState.X + " Mouse Y: " + mouseState.Y + " Rotation: " + gun.Rotation);
                         spriteBatch.DrawString(font, mouse, fontPosition, Color.Red);
                         //draw bullet if it has been fired
                         if(bullet.BState == Bullet.BulletState.justFired || bullet.BState == Bullet.BulletState.airborne)

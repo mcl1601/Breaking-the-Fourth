@@ -96,8 +96,18 @@ namespace BreakingTheFourth
                             player.OffsetTele(terrain, i, this);
                         }
                     }//end of for loop
-                    //handles if the bullet leaves the screen
+                    //handles if the bullet leaves the screen in x direction
                     if(position.X > GraphicsDevice.Viewport.Width || position.X < GraphicsDevice.Viewport.X)
+                    {
+                        bState = BulletState.ready;
+                    }
+                    //handles if billet leaves screen in y direction
+                    if(position.Y > GraphicsDevice.Viewport.Height || position.Y < GraphicsDevice.Viewport.Y)
+                    {
+                        bState = BulletState.ready;
+                    }
+                    //handles if player changes screen
+                    if(player.X > GraphicsDevice.Viewport.Width || player.X < GraphicsDevice.Viewport.X)
                     {
                         bState = BulletState.ready;
                     }
@@ -107,7 +117,7 @@ namespace BreakingTheFourth
                 case Bullet.BulletState.justFired:
                     {
                         //sets up bullet position to be right before gun
-                        position.Y = gun.GunPosition.Top;//can't fix it with a simple hardcoded offset, due to rot
+                        position.Y = gun.GunPosition.Top -5;//can't fix it with a simple hardcoded offset, due to rot
                         //shift bulletstate
                         bState = BulletState.airborne;
                         //bool that says whether it is left or right
