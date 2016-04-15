@@ -86,7 +86,7 @@ namespace BreakingTheFourth
             //initialize font
             fontPosition = new Vector2(5, 5);
             //initialize bullet object
-            bullet = new Bullet(player.X, player.Y, 20, 20);
+            bullet = new Bullet(player.X, player.Y, 10, 10);
             mouse = new Rectangle(mouseState.X, mouseState.Y, 30, 30);
             base.Initialize();
         }

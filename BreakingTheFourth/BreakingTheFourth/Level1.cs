@@ -77,12 +77,30 @@ namespace BreakingTheFourth
                     pieces.Add(new Terrain(500, 450, 350, 40)); //right floor
                     pieces.Add(new Terrain(700, 200, 60, 30)); //top spike platform
                     pieces.Add(new Terrain(540, 250, 80, 30)); //bottom spike platform
-                    pieces.Add(new Terrain(760, 0, 50, 280)); //right wall (top)
-                    pieces.Add(new Terrain(760, 340, 50, 400)); //right wall (bottom)
-                    pieces.Add(new Terrain(720, 340, 40, 20)); //bottom right wall cliff
+                    pieces.Add(new Terrain(760, 0, 50, 230)); //right wall (top)
+                    pieces.Add(new Terrain(760, 380, 50, 400)); //right wall (bottom)
+                    pieces.Add(new Terrain(720, 380, 40, 20)); //bottom right wall cliff
                     pieces.Add(new DeathObject(700, 170, 60, 30)); //top spikes
                     pieces.Add(new DeathObject(540, 220, 80, 30)); //middle spikes
                     pieces.Add(new DeathObject(500, 420, 260, 30)); //bottom spikes
+                    break;
+                case 5:
+                    //clear the list
+                    pieces.Clear();
+                    //add new pieces
+                    pieces.Add(new Terrain(0, 450, 225, 40)); // left floor
+                    pieces.Add(new Terrain(0, 0, 25, 300)); // left wall
+                    pieces.Add(new Terrain(225, 150, 50, 500)); //big wall
+                    pieces.Add(new Terrain(0, 0, 800, 40)); //ceiling
+                    pieces.Add(new SpecialTerrain(325, 90, 20, 20, 40, 120)); //tiny moving platform
+                    pieces.Add(new SpecialTerrain(450, 90, 50, 50, 40, 90)); //bigger moving platform
+                    pieces.Add(new Terrain(400, 140, 500, 30)); //platform that connects to bigger moving platform
+                    pieces.Add(new DeathObject(500, 110, 300, 30)); //YOU SHALL NOT PASS
+                    pieces.Add(new Terrain(500, 450, 300, 40)); //right floor
+                    pieces.Add(new DeathObject(600, 420, 100, 30)); //spikes on right floor
+                    pieces.Add(new Terrain(400, 170, 40, 130)); //wall thing
+
+
                     break;
 
             }
