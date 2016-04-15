@@ -204,6 +204,8 @@ namespace BreakingTheFourth
                 {
                     if (position.Bottom == terrain[i].Position.Top)
                     {
+                        isJumping = false;
+                        startingY = position.Y;
                         collided = true;
                     }
                 }
@@ -255,7 +257,7 @@ namespace BreakingTheFourth
         /// draws the player to the screen
         /// </summary>
         /// <param name="spriteBatch"></param>
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)//player width is 160 px/////////////////////////////////////////////////////////////////////////////////
         {
             //spriteBatch.Draw(playerTexture, position, Color.White);
             
@@ -302,7 +304,7 @@ namespace BreakingTheFourth
                     position.X = terrain[i].Position.Left - position.Width;
                     //position.X -= movement.PlayerSpeed;
                 }
-                if (position.Left < terrain[i].Position.Right && kbState.IsKeyDown(Keys.A))
+                else if (position.Left < terrain[i].Position.Right && kbState.IsKeyDown(Keys.A))
                 {
                     position.X = terrain[i].Position.Right;
                     //position.X += movement.PlayerSpeed;
