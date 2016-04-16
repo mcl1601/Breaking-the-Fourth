@@ -90,17 +90,17 @@ namespace BreakingTheFourth
                     //add new pieces
                     pieces.Add(new Terrain(0, 450, 225, 40)); // left floor
                     pieces.Add(new Terrain(0, 0, 25, 300)); // left wall
+                    pieces.Add(new Terrain(775, 0, 25, 500)); // right wall
                     pieces.Add(new Terrain(225, 150, 50, 500)); //big wall
                     pieces.Add(new Terrain(0, 0, 800, 40)); //ceiling
                     pieces.Add(new SpecialTerrain(325, 90, 20, 20, 40, 120)); //tiny moving platform
                     pieces.Add(new SpecialTerrain(450, 90, 50, 50, 40, 90)); //bigger moving platform
                     pieces.Add(new Terrain(400, 140, 500, 30)); //platform that connects to bigger moving platform
-                    pieces.Add(new DeathObject(500, 110, 300, 30)); //YOU SHALL NOT PASS
-                    pieces.Add(new Terrain(500, 450, 300, 40)); //right floor
+                    pieces.Add(new DeathObject(500, 110, 250, 30)); //YOU SHALL NOT PASS
+                    pieces.Add(new Terrain(500, 450, 275, 40)); //right floor
                     pieces.Add(new DeathObject(600, 420, 100, 30)); //spikes on right floor
                     pieces.Add(new Terrain(400, 170, 40, 130)); //wall thing
-
-
+                    pieces.Add(new LevelGoal(710, 360, 50, 50)); //Goal
                     break;
 
             }
