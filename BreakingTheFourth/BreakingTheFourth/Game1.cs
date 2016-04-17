@@ -25,6 +25,7 @@ namespace BreakingTheFourth
         Controls,
         Game,
         Paused,
+        LevelClear,
         GameOver
     }
     public class Game1 : Game
@@ -44,7 +45,9 @@ namespace BreakingTheFourth
         MouseState previousMState;
         List<Terrain> terrain;
         Level1 level1;
+        Level2 level2;
         int screenCounter;
+        int levelCounter;
         //fields for finite state machines
         private GameState gamestate;
         private GameState previousGamestate;
@@ -61,6 +64,16 @@ namespace BreakingTheFourth
         float directionY;
         //fields for menu
         Config menus;
+        //fields for terrain textures
+        Texture2D spikes;
+        Texture2D terrainBlock;
+        Color color;
+        //property for gamestate
+        public GameState Gamestate
+        {
+            get { return gamestate;}
+            set { gamestate = value; }
+        }
         //constructor
         public Game1()
         {
@@ -85,14 +98,17 @@ namespace BreakingTheFourth
             //initialize terrain and levels
             terrain = new List<Terrain>();
             level1 =  new Level1();
+            level2 = new Level2();
             screenCounter = 1;
+            levelCounter = 1;
             //initialize game state
             gamestate = GameState.Main;
             //initialize font
             fontPosition = new Vector2(5, 5);
             //initialize bullet object
-            bullet = new Bullet(player.X, player.Y, 20, 20);
+            bullet = new Bullet(player.X, player.Y, 10, 10);
             mouse = new Rectangle(mouseState.X, mouseState.Y, 30, 30);
+            color = Color.Red;
             base.Initialize();
         }
         /// <summary>
@@ -125,25 +141,22 @@ namespace BreakingTheFourth
             //load in gun texture
             telegun = Content.Load<Texture2D>("Textures/TeleGun_Handgun.png");
             gun.GunImage = telegun;
+            //texture for mouse
+            crosshare = Content.Load<Texture2D>("Textures/Crosshair.png");
             // make textures for the level1
             terrain = level1.NextScreen(1);
-           // for (int x = 0; x < terrain.Count; x++)
-            //{
-               // terrain[x].Image = Content.Load<Texture2D>("Textures/terrain.png");
-            //}
-            //texture for mouse
-
-            crosshare = Content.Load<Texture2D>("Textures/Crosshair.png");////////////////////////////////load in texture for mouse here
+            spikes = Content.Load<Texture2D>("Textures/Spikes.png");
+            terrainBlock = Content.Load<Texture2D>("Textures/terrain.png");
             foreach (Terrain t in terrain)
             {
                 //Will need to be fixed eventually.
                 if (t is DeathObject)
                 {
-                    t.Image = Content.Load<Texture2D>("Textures/Spikes.png");
+                    t.Image = spikes;
                 }
                 else
                 {
-                    t.Image = Content.Load<Texture2D>("Textures/terrain.png");
+                    t.Image = terrainBlock;
                 }
             }
             //texture for bullet
@@ -212,21 +225,52 @@ namespace BreakingTheFourth
                         if(previousGamestate == GameState.Main || previousGamestate == GameState.GameOver) //restarts level
                         {
                             screenCounter = 1;
-                            terrain = level1.NextScreen(screenCounter);
+                            if (levelCounter == 1)
+                            {
+                                terrain = level1.NextScreen(screenCounter);
+                            }
+                            if (levelCounter == 2)
+                            {
+                                terrain = level2.NextScreen(screenCounter);
+                            }
                             for (int x = 0; x < terrain.Count; x++)
                             {
-                                //terrain[x].Image = Content.Load<Texture2D>("Textures/terrain.png");
                                 if (terrain[x] is DeathObject)
                                 {
-                                    terrain[x].Image = Content.Load<Texture2D>("Textures/Spikes.png");
+                                    terrain[x].Image = spikes;
                                 }
                                 else
                                 {
-                                    terrain[x].Image = Content.Load<Texture2D>("Textures/terrain.png");
+                                    terrain[x].Image = terrainBlock;
                                 }
                             }
                             player.X = 50;
-                            player.Y = 50;
+                            player.Y = 370;
+                        }
+                        if (previousGamestate == GameState.LevelClear) //restarts level
+                        {
+                            screenCounter = 1;
+                            if(levelCounter == 1)
+                            {
+                                terrain = level1.NextScreen(screenCounter);
+                            }
+                            if(levelCounter == 2)
+                            {
+                                terrain = level2.NextScreen(screenCounter);
+                            }
+                            for (int x = 0; x < terrain.Count; x++)
+                            {
+                                if (terrain[x] is DeathObject)
+                                {
+                                    terrain[x].Image = spikes;
+                                }
+                                else
+                                {
+                                    terrain[x].Image = terrainBlock;
+                                }
+                            }
+                            player.X = 50;
+                            player.Y = 370;
                         }
                         if (kbState.IsKeyDown(Keys.Escape) == true && previousKbState.IsKeyUp(Keys.Escape))
                         {
@@ -246,7 +290,7 @@ namespace BreakingTheFourth
                         //update for moving terrain
                         foreach (Terrain t in terrain)
                         {
-                            if (t is SpecialTerrain || t is DeathObject)
+                            if (t is SpecialTerrain || t is DeathObject || t is LevelGoal)
                             {
                                 t.Update();
                             }
@@ -257,57 +301,76 @@ namespace BreakingTheFourth
                                     gamestate = GameState.GameOver;
                                 }
                             }
+                            if(t is LevelGoal)
+                            {
+                                if(t.CollisionDetected(player.Position)==true)
+                                {
+                                    gamestate = GameState.LevelClear;
+                                }
+                            }
                         }
                         //add player update for movement
                         player.Update(kbState, previousKbState, terrain, gun, gamestate);
+                        //update the bullet
+                        bullet.Update(terrain, gun, player, mouseState, previousMState, gun.Rotation, kbState, GraphicsDevice, this);
+                        //Keep the gun at the same position relative to the player
+                        gun.Update(player);
                         //changes screen when player passes far right of viewport
-                        if (player.X > GraphicsDevice.Viewport.Width)
+                        if (player.X > GraphicsDevice.Viewport.Width || (gamestate==GameState.Game) && (previousGamestate==GameState.LevelClear))
                         {
                             screenCounter++;
                             terrain.Clear();
-                            terrain = level1.NextScreen(screenCounter);
+                            if(levelCounter==1)
+                            {
+                                terrain = level1.NextScreen(screenCounter);
+                            }
+                            if(levelCounter==2)
+                            {
+                                terrain = level2.NextScreen(screenCounter);
+                            }
                             for (int x = 0; x < terrain.Count; x++)
                             {
                                 //terrain[x].Image = Content.Load<Texture2D>("Textures/terrain.png");
                                 if (terrain[x] is DeathObject)
                                 {
-                                    terrain[x].Image = Content.Load<Texture2D>("Textures/Spikes.png");
+                                    terrain[x].Image = spikes;
                                 }
                                 else
                                 {
-                                    terrain[x].Image = Content.Load<Texture2D>("Textures/terrain.png");
+                                    terrain[x].Image = terrainBlock;
                                 }
                             }
                             player.X = 50;
                             player.Y = 370;
                         }
                         //allows player to return to previous screen if exits viewport to left
-                        if (player.X < GraphicsDevice.Viewport.X)
+                        if (player.X < GraphicsDevice.Viewport.X || (gamestate == GameState.Game) && (previousGamestate == GameState.LevelClear))
                         {
                             screenCounter--;
                             terrain.Clear();
-                            terrain = level1.NextScreen(screenCounter);
+                            if (levelCounter == 1)
+                            {
+                                terrain = level1.NextScreen(screenCounter);
+                            }
+                            if (levelCounter == 2)
+                            {
+                                terrain = level2.NextScreen(screenCounter);
+                            }
                             for (int x = 0; x < terrain.Count; x++)
                             {
                                 //terrain[x].Image = Content.Load<Texture2D>("Textures/terrain.png");
                                 if (terrain[x] is DeathObject)
                                 {
-                                    terrain[x].Image = Content.Load<Texture2D>("Textures/Spikes.png");
+                                    terrain[x].Image = spikes;
                                 }
                                 else
                                 {
-                                    terrain[x].Image = Content.Load<Texture2D>("Textures/terrain.png");
+                                    terrain[x].Image = terrainBlock;
                                 }
                             }
                             player.X = GraphicsDevice.Viewport.Width - 50;
                             player.Y = 370;
                         }
-                        //Keep the gun at the same position relative to the player
-                        gun.Update(player);
-                        //update the bullet
-                        bullet.Update(terrain, gun, player, mouseState, previousMState, gun.Rotation, kbState, GraphicsDevice);
-
-                       
                     }
                     break;
                 case GameState.Paused:
@@ -320,6 +383,21 @@ namespace BreakingTheFourth
                         else if (kbState.IsKeyDown(Keys.Enter) == true && previousKbState.IsKeyUp(Keys.Enter))
                         {
                             previousGamestate = gamestate;
+                            gamestate = GameState.Game;
+                        }
+                        else
+                        {
+                            previousGamestate = gamestate;
+                        }
+                    }
+                    break;
+                case GameState.LevelClear:
+                    {
+                        if(kbState.IsKeyDown(Keys.Enter) == true && previousKbState.IsKeyUp(Keys.Enter))
+                        {
+                            previousGamestate = gamestate;
+                            levelCounter++;
+                            screenCounter = 1;
                             gamestate = GameState.Game;
                         }
                         else
@@ -377,9 +455,13 @@ namespace BreakingTheFourth
                         for (int x = 0; x < terrain.Count; x++)
                         {
                             terrain[x].Draw(spriteBatch);
+                            if(terrain[x] is LevelGoal)
+                            {
+                                terrain[x].Draw(spriteBatch);
+                            }
                         }
                         //THIS SHOULD BE TRACKING THE MOUSE POSITION BUT IT ISN'T AND I HATE IT! For some reason the mouseState is never changing...
-                        string mouse = ("Mouse X: " + mouseState.X + " Mouse Y: " + mouseState.Y + "Rotation: " + gun.Rotation);
+                        string mouse = ("Mouse X: " + mouseState.X + " Mouse Y: " + mouseState.Y + " Rotation: " + gun.Rotation + "\n Level: "+ levelCounter);
                         spriteBatch.DrawString(font, mouse, fontPosition, Color.Red);
                         //draw bullet if it has been fired
                         if(bullet.BState == Bullet.BulletState.justFired || bullet.BState == Bullet.BulletState.airborne)
@@ -392,6 +474,12 @@ namespace BreakingTheFourth
                     {
                         string paused = "PAUSED \n Press Esc to got to the main menu \n Press Enter to return to the game";
                         spriteBatch.DrawString(font, paused, fontPosition, Color.Black);
+                    }
+                    break;
+                case GameState.LevelClear:
+                    {
+                        string cleared = "Level Cleared! \n Press Enter to go to next level";
+                        spriteBatch.DrawString(font, cleared, fontPosition, Color.Black);
                     }
                     break;
                 case GameState.GameOver:

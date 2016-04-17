@@ -63,7 +63,7 @@ namespace BreakingTheFourth
             rotation = rot;
         }
         public void Update(List<Terrain> terrain, Gun gun, Player player, MouseState mouseState, MouseState previousMState, 
-            float rot, KeyboardState kbState, GraphicsDevice GraphicsDevice)
+            float rot, KeyboardState kbState, GraphicsDevice GraphicsDevice, Game1 game)
         {
             switch (bState)
             {
@@ -80,7 +80,7 @@ namespace BreakingTheFourth
                     }
                     else if (facingLeft == false)
                     {
-                        //position.X += movement.BulletSpeed;
+                        movementX = -movementX; //shifts bullet direction to resemble where the player is facing
                         position.X += Convert.ToInt32(movementX);
                         position.Y -= Convert.ToInt32(movementY);
                     }
@@ -88,6 +88,10 @@ namespace BreakingTheFourth
                     {
                         if (terrain[i].CollisionDetected(position) == true) //collision detection causes the bullet to disappear
                         {
+                            if(terrain[i] is DeathObject)
+                            {
+                                game.Gamestate = GameState.GameOver;
+                            }
                             bState = BulletState.ready;
                             //actual teleporting
                             player.X = position.X;
@@ -96,8 +100,18 @@ namespace BreakingTheFourth
                             player.OffsetTele(terrain, i, this);
                         }
                     }//end of for loop
-                    //handles if the bullet leaves the screen
+                    //handles if the bullet leaves the screen in x direction
                     if(position.X > GraphicsDevice.Viewport.Width || position.X < GraphicsDevice.Viewport.X)
+                    {
+                        bState = BulletState.ready;
+                    }
+                    //handles if billet leaves screen in y direction
+                    if(position.Y > GraphicsDevice.Viewport.Height || position.Y < GraphicsDevice.Viewport.Y)
+                    {
+                        bState = BulletState.ready;
+                    }
+                    //handles if player changes screen
+                    if(player.X > GraphicsDevice.Viewport.Width || player.X < GraphicsDevice.Viewport.X)
                     {
                         bState = BulletState.ready;
                     }
@@ -107,7 +121,7 @@ namespace BreakingTheFourth
                 case Bullet.BulletState.justFired:
                     {
                         //sets up bullet position to be right before gun
-                        position.Y = gun.GunPosition.Top;//can't fix it with a simple hardcoded offset, due to rot
+                        position.Y = gun.GunPosition.Top -5;//can't fix it with a simple hardcoded offset, due to rot
                         //shift bulletstate
                         bState = BulletState.airborne;
                         //bool that says whether it is left or right
@@ -138,7 +152,7 @@ namespace BreakingTheFourth
             //spritebatch.Draw(bulletTexture, position, Color.White);
             if (facingLeft == false)
             {
-                spritebatch.Draw(bulletTexture, position, null, Color.White, rotation, Vector2.Zero, SpriteEffects.None, 0);
+                spritebatch.Draw(bulletTexture, position, null, Color.White, rotation, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
             }
 
             if (facingLeft == true)

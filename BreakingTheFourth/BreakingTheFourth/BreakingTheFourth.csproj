@@ -46,6 +46,8 @@
     <Compile Include="Gun.cs" />
     <Compile Include="Level.cs" />
     <Compile Include="Level1.cs" />
+    <Compile Include="Level2.cs" />
+    <Compile Include="LevelGoal.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
