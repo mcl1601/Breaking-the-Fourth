@@ -16,6 +16,7 @@ namespace BreakingTheFourth
         public enum Buttons
         {
             Restart,
+            Start,
             Exit,
             Save,
             Load,
@@ -130,9 +131,13 @@ namespace BreakingTheFourth
             set { button = value; }
         }
         //make all the buttons separate methods???
-        public void Restart(int x, int y, MouseState mouseState)//need mouseState here or just when drawing?
+        public void Restart(int x, int y)
         {
             restartButton = new Rectangle(x, y, 75, 50);
+        }
+        public void Start(int x, int y)
+        {
+            startButton = new Rectangle(x, y, 75, 50);
         }
         public void Quit(int x, int y)
         {
@@ -150,7 +155,11 @@ namespace BreakingTheFourth
         {
             loadButton = new Rectangle(x, y, 75, 50);
         }
-        public void Draw(SpriteBatch spritebatch, MouseState mouse)
+        public void Menu(int x, int y)
+        {
+            menuButton = new Rectangle(x, y, 75, 50);
+        }
+        public void Draw(SpriteBatch spritebatch, MouseState mouse, Buttons button)
         {
             //switch statement that determines what to draw
             switch(button)
@@ -200,6 +209,18 @@ namespace BreakingTheFourth
                         else
                         {
                             spritebatch.Draw(RestartTexture, restartButton, Color.White);
+                        }
+                    }
+                    break;
+                case Buttons.Start:
+                    {
+                        if (startButton.Contains(mouse.X, mouse.Y))
+                        {
+                            spritebatch.Draw(StartOvrTexture, startButton, Color.White);
+                        }
+                        else
+                        {
+                            spritebatch.Draw(StartTexture, startButton, Color.White);
                         }
                     }
                     break;

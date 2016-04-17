@@ -201,7 +201,10 @@ namespace BreakingTheFourth
             {
                 case GameState.Main:
                     {
-                        if(kbState.IsKeyDown(Keys.Enter)==true && previousKbState.IsKeyUp(Keys.Enter))
+                        menus.Load(GraphicsDevice.Viewport.Width / 2 -40, 300);
+                        menus.Quit(GraphicsDevice.Viewport.Width / 2 - 40, 375);
+                        menus.Start(GraphicsDevice.Viewport.Width / 2 -40, 225);
+                        if (kbState.IsKeyDown(Keys.Enter)==true && previousKbState.IsKeyUp(Keys.Enter))
                         {
                             //changes game state to game if enter is pressed
                             previousGamestate = gamestate;
@@ -371,10 +374,14 @@ namespace BreakingTheFourth
                             player.X = GraphicsDevice.Viewport.Width - 50;
                             player.Y = 370;
                         }
-                    }
+                    }//end of game case
                     break;
                 case GameState.Paused:
                     {
+                        menus.Restart(GraphicsDevice.Viewport.Width / 2 - 40, 200);
+                        menus.Save(GraphicsDevice.Viewport.Width / 2 - 40, 275);
+                        menus.Resume(GraphicsDevice.Viewport.Width / 2 - 40, 125);
+                        menus.Menu(GraphicsDevice.Viewport.Width / 2 - 40, 350);
                         if (kbState.IsKeyDown(Keys.Escape) == true && previousKbState.IsKeyUp(Keys.Escape))
                         {
                             previousGamestate = gamestate;
@@ -408,6 +415,8 @@ namespace BreakingTheFourth
                     break;
                 case GameState.GameOver:
                     {
+                        menus.Restart(GraphicsDevice.Viewport.Width / 2 - 40, 125);
+                        menus.Menu(GraphicsDevice.Viewport.Width / 2 - 40, 200);
                         if (kbState.IsKeyDown(Keys.Escape) == true && previousKbState.IsKeyUp(Keys.Escape))
                         {
                             previousGamestate = gamestate;
@@ -443,6 +452,9 @@ namespace BreakingTheFourth
                     {
                         string welcome = "Welcome to Breaking the Fourth \n Press Enter to Begin";
                         spriteBatch.DrawString(font, welcome, fontPosition, Color.Black);
+                        menus.Draw(spriteBatch, mouseState, Config.Buttons.Start);
+                        menus.Draw(spriteBatch, mouseState, Config.Buttons.Load);
+                        menus.Draw(spriteBatch, mouseState, Config.Buttons.Exit);
                     }
                     break;
                 case GameState.Controls:
@@ -474,6 +486,10 @@ namespace BreakingTheFourth
                     {
                         string paused = "PAUSED \n Press Esc to got to the main menu \n Press Enter to return to the game";
                         spriteBatch.DrawString(font, paused, fontPosition, Color.Black);
+                        menus.Draw(spriteBatch, mouseState, Config.Buttons.Resume);
+                        menus.Draw(spriteBatch, mouseState, Config.Buttons.Restart);
+                        menus.Draw(spriteBatch, mouseState, Config.Buttons.Menu);
+                        menus.Draw(spriteBatch, mouseState, Config.Buttons.Save);
                     }
                     break;
                 case GameState.LevelClear:
@@ -486,6 +502,8 @@ namespace BreakingTheFourth
                     {
                         string death = "GAME OVER\n Press Esc to go to the main menu \n Press Enter to start over";
                         spriteBatch.DrawString(font, death, fontPosition, Color.Red);
+                        menus.Draw(spriteBatch, mouseState, Config.Buttons.Restart);
+                        menus.Draw(spriteBatch, mouseState, Config.Buttons.Menu);
                     }
                     break;
             }//end of switch statement
