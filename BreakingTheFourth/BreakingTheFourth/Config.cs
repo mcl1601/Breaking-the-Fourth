@@ -12,25 +12,122 @@ namespace BreakingTheFourth
     {
         //Mike O'Donnell - I added these comments, but I'm not even sure if we're gonna use this class. Can't hurt to keep it around.
 
-        //enums for different buttons?
-        //fields
-        Rectangle restartButton;
-        Rectangle quitButton;
-        Rectangle saveButton;
-        Rectangle loadButton;
-        Rectangle resumeButton;
-        Texture2D buttonTexture;//normal texture
-        Texture2D ovrBTexture;//texture for button when mouse is over the bounds
-        //properties
-        public Texture2D ButtonTexture
+        //enums for different buttons -yes
+        public enum Buttons
         {
-            get { return buttonTexture; }
-            set { buttonTexture = value; }
+            Restart,
+            Exit,
+            Save,
+            Load,
+            Resume,
+            Menu
         }
-        public Texture2D OvrBTexture
+        //fields
+        private Buttons button;
+        private Rectangle startButton;
+        private Rectangle restartButton;
+        private Rectangle quitButton;
+        private Rectangle saveButton;
+        private Rectangle loadButton;
+        private Rectangle resumeButton;
+        private Rectangle menuButton;
+        //restart button
+        private Texture2D restartTexture;//normal texture
+        private Texture2D restartOvrTexture;//texture for button when mouse is over the bounds
+        //start button
+        private Texture2D startTexture;
+        private Texture2D startOvrTexture;
+        //resume button
+        private Texture2D resumeTexture;
+        private Texture2D resumeOvrTexture;
+        //exit / quit button
+        private Texture2D exitTexture;
+        private Texture2D exitOvrTexture;
+        //save button
+        private Texture2D saveTexture;
+        private Texture2D saveOvrTexture;
+        //load button
+        private Texture2D loadTexture;
+        private Texture2D loadOvrTexture;
+        //menu button
+        private Texture2D menuTexture;
+        private Texture2D menuOvrTexture;
+        //properties
+        public Texture2D RestartTexture
         {
-            get { return ovrBTexture; }
-            set { ovrBTexture = value; }
+            get { return restartTexture; }
+            set { restartTexture = value; }
+        }
+        public Texture2D RestartOvrTexture
+        {
+            get { return restartOvrTexture; }
+            set { restartOvrTexture = value; }
+        }
+        public Texture2D StartTexture
+        {
+            get { return startTexture; }
+            set { startTexture = value; }
+        }
+        public Texture2D StartOvrTexture
+        {
+            get { return startOvrTexture; }
+            set { startOvrTexture = value; }
+        }
+        public Texture2D ResumeTexture
+        {
+            get { return resumeTexture; }
+            set { resumeTexture = value; }
+        }
+        public Texture2D ResumeOvrTexture
+        {
+            get { return resumeOvrTexture; }
+            set { resumeOvrTexture = value; }
+        }
+        public Texture2D ExitTexture
+        {
+            get { return exitTexture; }
+            set { exitTexture = value; }
+        }
+        public Texture2D ExitOvrTexture
+        {
+            get { return exitOvrTexture; }
+            set { exitOvrTexture = value; }
+        }
+        public Texture2D SaveTexture
+        {
+            get { return saveTexture; }
+            set { saveTexture = value; }
+        }
+        public Texture2D SaveOvrTexture
+        {
+            get { return saveOvrTexture; }
+            set { saveOvrTexture = value; }
+        }
+        public Texture2D LoadTexture
+        {
+            get { return loadTexture; }
+            set { loadTexture = value; }
+        }
+        public Texture2D LoadOvrTexture
+        {
+            get { return loadOvrTexture; }
+            set { loadOvrTexture = value; }
+        }
+        public Texture2D MenuTexture
+        {
+            get { return menuTexture; }
+            set { menuTexture = value; }
+        }
+        public Texture2D MenuOvrTexture
+        {
+            get { return menuOvrTexture; }
+            set { menuOvrTexture = value; }
+        }
+        //property for enum
+        public Buttons Button
+        {
+            get { return button; }
+            set { button = value; }
         }
         //make all the buttons separate methods???
         public void Restart(int x, int y, MouseState mouseState)//need mouseState here or just when drawing?
@@ -55,7 +152,82 @@ namespace BreakingTheFourth
         }
         public void Draw(SpriteBatch spritebatch, MouseState mouse)
         {
-
+            //switch statement that determines what to draw
+            switch(button)
+            {
+                case Buttons.Exit:
+                    {
+                        if(quitButton.Contains(mouse.X, mouse.Y))
+                        {
+                            spritebatch.Draw(ExitOvrTexture, quitButton, Color.White);
+                        }
+                        else
+                        {
+                            spritebatch.Draw(ExitTexture, quitButton, Color.White);
+                        }
+                    }
+                    break;
+                case Buttons.Load:
+                    {
+                        if (loadButton.Contains(mouse.X, mouse.Y))
+                        {
+                            spritebatch.Draw(LoadOvrTexture, loadButton, Color.White);
+                        }
+                        else
+                        {
+                            spritebatch.Draw(LoadTexture, loadButton, Color.White);
+                        }
+                    }
+                    break;
+                case Buttons.Menu:
+                    {
+                        if (menuButton.Contains(mouse.X, mouse.Y))
+                        {
+                            spritebatch.Draw(MenuOvrTexture, menuButton, Color.White);
+                        }
+                        else
+                        {
+                            spritebatch.Draw(MenuTexture, menuButton, Color.White);
+                        }
+                    }
+                    break;
+                case Buttons.Restart:
+                    {
+                        if (restartButton.Contains(mouse.X, mouse.Y))
+                        {
+                            spritebatch.Draw(RestartOvrTexture, restartButton, Color.White);
+                        }
+                        else
+                        {
+                            spritebatch.Draw(RestartTexture, restartButton, Color.White);
+                        }
+                    }
+                    break;
+                case Buttons.Resume:
+                    {
+                        if (resumeButton.Contains(mouse.X, mouse.Y))
+                        {
+                            spritebatch.Draw(ResumeOvrTexture, resumeButton, Color.White);
+                        }
+                        else
+                        {
+                            spritebatch.Draw(ResumeTexture, resumeButton, Color.White);
+                        }
+                    }
+                    break;
+                case Buttons.Save:
+                    {
+                        if (saveButton.Contains(mouse.X, mouse.Y))
+                        {
+                            spritebatch.Draw(SaveOvrTexture, saveButton, Color.White);
+                        }
+                        else
+                        {
+                            spritebatch.Draw(SaveTexture, saveButton, Color.White);
+                        }
+                    }
+                    break;
+            }
         }
         //I'm not even 100% sure this class is necessary.
         //It could be used for menus but we could just do that with State Machines in the Game Class.

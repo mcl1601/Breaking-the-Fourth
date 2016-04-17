@@ -59,6 +59,9 @@ namespace BreakingTheFourth
         Bullet bullet;
         float directionX;
         float directionY;
+        //fields for menu
+        Config menus;
+        //constructor
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -73,6 +76,8 @@ namespace BreakingTheFourth
         /// </summary>
         protected override void Initialize()
         {
+            //initialize config object
+            menus = new Config();
             //initialize player object
             player = new Player(50, 50, 50, 80);
             //initialize gun object
@@ -99,6 +104,21 @@ namespace BreakingTheFourth
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            //load in menu textures
+            menus.ExitTexture = Content.Load<Texture2D>("Textures/ExitButton.png");
+            menus.ExitOvrTexture = Content.Load<Texture2D>("Textures/ExitOvr.png");
+            menus.LoadTexture = Content.Load<Texture2D>("Textures/LoadButton.png");
+            menus.LoadOvrTexture = Content.Load<Texture2D>("Textures/LoadOvr.png");
+            menus.MenuTexture = Content.Load<Texture2D>("Textures/MenuButton.png");
+            menus.MenuOvrTexture = Content.Load<Texture2D>("Textures/MenuOvr.png");
+            menus.StartTexture = Content.Load<Texture2D>("Textures/NewButton.png");
+            menus.StartOvrTexture = Content.Load<Texture2D>("Textures/NewOvr.png");
+            menus.RestartTexture = Content.Load<Texture2D>("Textures/RestartButton.png");
+            menus.RestartOvrTexture = Content.Load<Texture2D>("Textures/RestartOvr.png");
+            menus.ResumeTexture = Content.Load<Texture2D>("Textures/ResumeButton.png");
+            menus.ResumeOvrTexture = Content.Load<Texture2D>("Textures/ResumeOvr.png");
+            menus.SaveTexture = Content.Load<Texture2D>("Textures/SaveButton.png");
+            menus.SaveOvrTexture = Content.Load<Texture2D>("Textures/SaveOvr.png");
             //load in player texture
             stickFigure = Content.Load<Texture2D>("Textures/Stickman_Handgun.png");
             player.PlayerTexture = stickFigure;
