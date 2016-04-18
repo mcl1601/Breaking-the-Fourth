@@ -24,6 +24,8 @@ namespace BreakingTheFourth
         private bool isFalling;
         private bool isJumping; //variable for determining if player jumped recently
         private int startingY; //variable for Y before jumping
+        //field for player lives
+        private int playerLives;
         int screenCounter = 1;
         Level1 level1 = new Level1();
         
@@ -47,6 +49,7 @@ namespace BreakingTheFourth
         {
             position = new Rectangle(x, y, width, height);
             startingY = y;
+            playerLives = 3;
             isJumping = false;
             isFalling = false;
             pState = PlayerState.faceRight;
@@ -92,6 +95,19 @@ namespace BreakingTheFourth
         {
             get { return startingY; }
             set { startingY = value; }
+        }
+        //property for lives
+        public int PlayerLives
+        {
+            get
+            {
+                if(playerLives < 0)
+                {
+                    playerLives = 0;
+                }
+                return playerLives;
+            }
+            set { playerLives = value; }
         }
         public void Update(KeyboardState kbState, KeyboardState previousKbState, List<Terrain> terrain, Gun gun, GameState gamestate)
         {
@@ -191,7 +207,10 @@ namespace BreakingTheFourth
                 {
                     if(terrain[i] is DeathObject)
                     {
-                        gamestate = GameState.GameOver;
+                        playerLives--;
+                        X = 50;
+                        Y = 370;
+                        //gamestate = GameState.GameOver;
                     }
                     //stops no clip issues
                     Offset(terrain, kbState, i);

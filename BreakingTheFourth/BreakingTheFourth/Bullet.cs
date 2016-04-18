@@ -90,8 +90,11 @@ namespace BreakingTheFourth
                         {
                             if(terrain[i] is DeathObject)
                             {
-                                game.PreGamestate = game.Gamestate;
-                                game.Gamestate = GameState.GameOver;
+                                player.PlayerLives--;
+                                player.X = 50;
+                                player.Y = 370;
+                                //game.PreGamestate = game.Gamestate;
+                                //game.Gamestate = GameState.GameOver;
                             }
                             bState = BulletState.ready;
                             //actual teleporting

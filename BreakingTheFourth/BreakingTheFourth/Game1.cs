@@ -79,6 +79,12 @@ namespace BreakingTheFourth
             get { return previousGamestate; }
             set { previousGamestate = value; }
         }
+        //property for levelcounter
+        public int LevelCounter
+        {
+            get { return levelCounter; }
+            set { levelCounter = value; }
+        }
         //constructor
         public Game1()
         {
@@ -154,7 +160,7 @@ namespace BreakingTheFourth
             terrainBlock = Content.Load<Texture2D>("Textures/terrain.png");
             foreach (Terrain t in terrain)
             {
-                //Will need to be fixed eventually.
+                //Will need to be fixed eventually. - has been fixed
                 if (t is DeathObject)
                 {
                     t.Image = spikes;
@@ -230,7 +236,7 @@ namespace BreakingTheFourth
                     break;
                 case GameState.Game:
                     {
-                        if(previousGamestate == GameState.Main || previousGamestate == GameState.LevelClear) //restarts level
+                        if(previousGamestate == GameState.Main || previousGamestate == GameState.LevelClear) //restarts
                         {
                             Restart();
                         }
@@ -243,8 +249,11 @@ namespace BreakingTheFourth
                         // player falls to their death
                         else if (player.Y > GraphicsDevice.Viewport.Height)
                         {
-                            previousGamestate = gamestate;
-                            gamestate = GameState.GameOver;
+                            player.PlayerLives--;
+                            player.X = 50;
+                            player.Y = 370;
+                            //previousGamestate = gamestate;
+                            //gamestate = GameState.GameOver;
                         }
                         else
                         {
@@ -261,13 +270,18 @@ namespace BreakingTheFourth
                             {
                                 if(t.CollisionDetected(player.Position)==true)
                                 {
-                                    gamestate = GameState.GameOver;
+                                    player.PlayerLives--;
+                                    player.X = 50;
+                                    player.Y = 370;
+                                    //previousGamestate = gamestate;
+                                    //gamestate = GameState.GameOver;
                                 }
                             }
                             if(t is LevelGoal)
                             {
                                 if(t.CollisionDetected(player.Position)==true)
                                 {
+                                    previousGamestate = gamestate;
                                     gamestate = GameState.LevelClear;
                                 }
                             }
@@ -333,6 +347,11 @@ namespace BreakingTheFourth
                             }
                             player.X = GraphicsDevice.Viewport.Width - 50;
                             player.Y = 370;
+                        }
+                        if(player.PlayerLives == 0)
+                        {
+                            previousGamestate = gamestate;
+                            gamestate = GameState.GameOver;
                         }
                     }//end of game case
                     break;
@@ -477,6 +496,9 @@ namespace BreakingTheFourth
 
             base.Draw(gameTime);
         }//end of draw method
+        /// <summary>
+        /// Ensures that the player starts on the first screen of the level
+        /// </summary>
         public void Restart()
         {
             screenCounter = 1;
@@ -488,6 +510,7 @@ namespace BreakingTheFourth
             {
                 terrain = level2.NextScreen(screenCounter);
             }
+            //loads terrain
             for (int x = 0; x < terrain.Count; x++)
             {
                 if (terrain[x] is DeathObject)
@@ -499,8 +522,11 @@ namespace BreakingTheFourth
                     terrain[x].Image = terrainBlock;
                 }
             }
+            //resets player position
             player.X = 50;
             player.Y = 370;
+            //resets player lives
+            player.PlayerLives = 3;
         }
     }
 }
