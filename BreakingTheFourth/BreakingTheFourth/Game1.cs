@@ -74,6 +74,11 @@ namespace BreakingTheFourth
             get { return gamestate;}
             set { gamestate = value; }
         }
+        public GameState PreGamestate
+        {
+            get { return previousGamestate; }
+            set { previousGamestate = value; }
+        }
         //constructor
         public Game1()
         {
@@ -225,56 +230,11 @@ namespace BreakingTheFourth
                     break;
                 case GameState.Game:
                     {
-                        if(previousGamestate == GameState.Main || previousGamestate == GameState.GameOver) //restarts level
+                        if(previousGamestate == GameState.Main || previousGamestate == GameState.LevelClear) //restarts level
                         {
-                            screenCounter = 1;
-                            if (levelCounter == 1)
-                            {
-                                terrain = level1.NextScreen(screenCounter);
-                            }
-                            if (levelCounter == 2)
-                            {
-                                terrain = level2.NextScreen(screenCounter);
-                            }
-                            for (int x = 0; x < terrain.Count; x++)
-                            {
-                                if (terrain[x] is DeathObject)
-                                {
-                                    terrain[x].Image = spikes;
-                                }
-                                else
-                                {
-                                    terrain[x].Image = terrainBlock;
-                                }
-                            }
-                            player.X = 50;
-                            player.Y = 370;
+                            Restart();
                         }
-                        if (previousGamestate == GameState.LevelClear) //restarts level
-                        {
-                            screenCounter = 1;
-                            if(levelCounter == 1)
-                            {
-                                terrain = level1.NextScreen(screenCounter);
-                            }
-                            if(levelCounter == 2)
-                            {
-                                terrain = level2.NextScreen(screenCounter);
-                            }
-                            for (int x = 0; x < terrain.Count; x++)
-                            {
-                                if (terrain[x] is DeathObject)
-                                {
-                                    terrain[x].Image = spikes;
-                                }
-                                else
-                                {
-                                    terrain[x].Image = terrainBlock;
-                                }
-                            }
-                            player.X = 50;
-                            player.Y = 370;
-                        }
+                        //pauses menu if player presses esc while playing
                         if (kbState.IsKeyDown(Keys.Escape) == true && previousKbState.IsKeyUp(Keys.Escape))
                         {
                             previousGamestate = gamestate;
@@ -433,7 +393,8 @@ namespace BreakingTheFourth
                         }
                     }
                     break;
-            }
+            }//end of switch statement
+            menus.Update(mouseState, this, previousGamestate, previousMState);
             base.Update(gameTime);
         }
 
@@ -473,8 +434,10 @@ namespace BreakingTheFourth
                             }
                         }
                         //THIS SHOULD BE TRACKING THE MOUSE POSITION BUT IT ISN'T AND I HATE IT! For some reason the mouseState is never changing...
-                        string mouse = ("Mouse X: " + mouseState.X + " Mouse Y: " + mouseState.Y + " Rotation: " + gun.Rotation + "\n Level: "+ levelCounter);
+                        string mouse = ("Mouse X: " + mouseState.X + " Mouse Y: " + mouseState.Y + " Rotation: " + gun.Rotation);
                         spriteBatch.DrawString(font, mouse, fontPosition, Color.Red);
+                        //UI-level #
+                        spriteBatch.DrawString(font, "Level: "+ levelCounter, new Vector2(GraphicsDevice.Viewport.Width -100, 0), Color.Black);
                         //draw bullet if it has been fired
                         if(bullet.BState == Bullet.BulletState.justFired || bullet.BState == Bullet.BulletState.airborne)
                         {
@@ -513,6 +476,31 @@ namespace BreakingTheFourth
             spriteBatch.End();
 
             base.Draw(gameTime);
+        }//end of draw method
+        public void Restart()
+        {
+            screenCounter = 1;
+            if (levelCounter == 1)
+            {
+                terrain = level1.NextScreen(screenCounter);
+            }
+            if (levelCounter == 2)
+            {
+                terrain = level2.NextScreen(screenCounter);
+            }
+            for (int x = 0; x < terrain.Count; x++)
+            {
+                if (terrain[x] is DeathObject)
+                {
+                    terrain[x].Image = spikes;
+                }
+                else
+                {
+                    terrain[x].Image = terrainBlock;
+                }
+            }
+            player.X = 50;
+            player.Y = 370;
         }
     }
 }

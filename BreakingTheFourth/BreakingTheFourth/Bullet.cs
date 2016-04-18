@@ -90,6 +90,7 @@ namespace BreakingTheFourth
                         {
                             if(terrain[i] is DeathObject)
                             {
+                                game.PreGamestate = game.Gamestate;
                                 game.Gamestate = GameState.GameOver;
                             }
                             bState = BulletState.ready;

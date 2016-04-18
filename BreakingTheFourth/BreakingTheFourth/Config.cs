@@ -159,6 +159,65 @@ namespace BreakingTheFourth
         {
             menuButton = new Rectangle(x, y, 75, 50);
         }
+        public void Update(MouseState mouse, Game1 game, GameState preState, MouseState preMState)
+        {
+            if(game.PreGamestate != game.Gamestate)//clears buttons
+            {
+                startButton.X = 0;
+                startButton.Y = 0;
+                restartButton.X = 0;
+                restartButton.Y = 0;
+                quitButton.X = 0;
+                quitButton.Y = 0;
+                saveButton.X = 0;
+                saveButton.Y = 0;
+                loadButton.X = 0;
+                loadButton.Y = 0;
+                resumeButton.X = 0;
+                resumeButton.Y = 0;
+                menuButton.X = 0;
+                menuButton.Y = 0;
+            }
+            if(game.Gamestate == GameState.Game || game.Gamestate == GameState.Controls)
+            {
+                return;
+            }
+            if (restartButton.Contains(mouse.X, mouse.Y) && mouse.LeftButton == ButtonState.Pressed && 
+                preMState.LeftButton == ButtonState.Released)
+            {
+                game.PreGamestate = game.Gamestate;
+                game.Gamestate = GameState.Game;
+                game.Restart();
+            }
+            //resume from pause menu
+            if (resumeButton.Contains(mouse.X, mouse.Y) && mouse.LeftButton == ButtonState.Pressed &&
+                preMState.LeftButton == ButtonState.Released)
+            {
+                game.PreGamestate = game.Gamestate;
+                game.Gamestate = GameState.Game;
+            }
+            //quit button / exit button
+            if (quitButton.Contains(mouse.X, mouse.Y) && mouse.LeftButton == ButtonState.Pressed &&
+                preMState.LeftButton == ButtonState.Released)
+            {
+                game.Exit();
+            }
+            //exits to main menu
+            if (menuButton.Contains(mouse.X, mouse.Y) && mouse.LeftButton == ButtonState.Pressed &&
+                preMState.LeftButton == ButtonState.Released)
+            {
+                game.PreGamestate = game.Gamestate;
+                game.Gamestate = GameState.Main;
+            }
+            //starts game
+            if (startButton.Contains(mouse.X, mouse.Y) && mouse.LeftButton == ButtonState.Pressed &&
+                preMState.LeftButton == ButtonState.Released)
+            {
+                game.PreGamestate = game.Gamestate;
+                game.Gamestate = GameState.Game;
+            }
+            //need to put in the load and save here eventually
+        }
         public void Draw(SpriteBatch spritebatch, MouseState mouse, Buttons button)
         {
             //switch statement that determines what to draw
