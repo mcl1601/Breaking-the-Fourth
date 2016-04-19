@@ -68,6 +68,7 @@ namespace BreakingTheFourth
         Texture2D spikes;
         Texture2D terrainBlock;
         Color color;
+        Texture2D walking;
         //property for gamestate
         public GameState Gamestate
         {
@@ -149,6 +150,8 @@ namespace BreakingTheFourth
             //load in player texture
             stickFigure = Content.Load<Texture2D>("Textures/Stickman_Handgun.png");
             player.PlayerTexture = stickFigure;
+            walking = Content.Load<Texture2D>("Textures/Spritesheet.png");
+            player.WalkingTexture = walking;
             //load in gun texture
             telegun = Content.Load<Texture2D>("Textures/TeleGun_Handgun.png");
             gun.GunImage = telegun;
@@ -353,6 +356,9 @@ namespace BreakingTheFourth
                             previousGamestate = gamestate;
                             gamestate = GameState.GameOver;
                         }
+
+                        // update animation
+                        player.UpdateAnimation(gameTime);
                     }//end of game case
                     break;
                 case GameState.Paused:
