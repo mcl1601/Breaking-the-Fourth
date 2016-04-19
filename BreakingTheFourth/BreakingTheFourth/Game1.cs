@@ -460,9 +460,11 @@ namespace BreakingTheFourth
                         }
                         //THIS SHOULD BE TRACKING THE MOUSE POSITION BUT IT ISN'T AND I HATE IT! For some reason the mouseState is never changing...
                         string mouse = ("Mouse X: " + mouseState.X + " Mouse Y: " + mouseState.Y + " Rotation: " + gun.Rotation);
-                        spriteBatch.DrawString(font, mouse, fontPosition, Color.Red);
+                        //spriteBatch.DrawString(font, mouse, fontPosition, Color.Red);
+                        //UI - Lives left
+                        spriteBatch.DrawString(font, "Lives: " + player.PlayerLives, fontPosition, Color.Black);
                         //UI-level #
-                        spriteBatch.DrawString(font, "Level: "+ levelCounter, new Vector2(GraphicsDevice.Viewport.Width -100, 0), Color.Black);
+                        spriteBatch.DrawString(font, "Level: "+ levelCounter, new Vector2(GraphicsDevice.Viewport.Width -100, 5), Color.Black);
                         //UI- bullets left for puzzle
                         spriteBatch.DrawString(font, "Bullets: " + bullet.Bullets, new Vector2(GraphicsDevice.Viewport.Width - 100, GraphicsDevice.Viewport.Height - 25), Color.Black);
                         //draw bullet if it has been fired
