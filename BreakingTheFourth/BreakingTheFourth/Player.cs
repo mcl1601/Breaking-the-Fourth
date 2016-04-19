@@ -19,11 +19,14 @@ namespace BreakingTheFourth
         //Here is the code for the player
         //Will need to store a texture and a rectangle
         private Texture2D playerTexture;
+        private Texture2D walkingTexture;
         private Rectangle position;
         //also needs field to detect falling
         private bool isFalling;
         private bool isJumping; //variable for determining if player jumped recently
         private int startingY; //variable for Y before jumping
+        //field for player lives
+        private int playerLives;
         int screenCounter = 1;
         Level1 level1 = new Level1();
         
@@ -38,6 +41,18 @@ namespace BreakingTheFourth
         }
         private PlayerState pState;
         MouseState mState;
+        
+        // animation fields
+        private int frame;
+        private double fps;
+        private double timePerFrame;
+        private double timeCounter;
+
+        // constants for the source Rect
+        const int WalkFrameCount = 8;
+        const int Yoffset = 50;
+        const int SourceHeight = 300;
+        const int SourceWidth = 156;
 
         // FileIO object
         FileIO movement = new FileIO();
@@ -47,9 +62,14 @@ namespace BreakingTheFourth
         {
             position = new Rectangle(x, y, width, height);
             startingY = y;
+            playerLives = 3;
             isJumping = false;
             isFalling = false;
             pState = PlayerState.faceRight;
+
+            fps = 10.0;
+            timePerFrame = 1.0 / fps;
+            frame = 1;
         }
         //make properties for the texture and the position & X , Y coords
         public Texture2D PlayerTexture
@@ -57,6 +77,13 @@ namespace BreakingTheFourth
             get { return playerTexture; }
             set { playerTexture = value; }
         }
+
+        public Texture2D WalkingTexture
+        {
+            get { return walkingTexture; }
+            set { walkingTexture = value; }
+        }
+
         public Rectangle Position
         {
             get { return position; }
@@ -92,6 +119,19 @@ namespace BreakingTheFourth
         {
             get { return startingY; }
             set { startingY = value; }
+        }
+        //property for lives
+        public int PlayerLives
+        {
+            get
+            {
+                if(playerLives < 0)
+                {
+                    playerLives = 0;
+                }
+                return playerLives;
+            }
+            set { playerLives = value; }
         }
         public void Update(KeyboardState kbState, KeyboardState previousKbState, List<Terrain> terrain, Gun gun, GameState gamestate)
         {
@@ -191,7 +231,10 @@ namespace BreakingTheFourth
                 {
                     if(terrain[i] is DeathObject)
                     {
-                        gamestate = GameState.GameOver;
+                        playerLives--;
+                        X = 50;
+                        Y = 370;
+                        //gamestate = GameState.GameOver;
                     }
                     //stops no clip issues
                     Offset(terrain, kbState, i);
@@ -237,7 +280,7 @@ namespace BreakingTheFourth
                 //go up
                 position.Y -= 4;
                 isJumping = true;
-            }  
+            } 
         }//end of update method
         /// <summary>
         /// enacts falling upon the player
@@ -246,6 +289,23 @@ namespace BreakingTheFourth
         {
             position.Y += movement.Gravity;
         }
+        /// <summary>
+        /// Updates the frames for player animation
+        /// </summary>
+        /// <param name="gametime"></param>
+        public void UpdateAnimation(GameTime gameTime)
+        {
+            timeCounter += gameTime.ElapsedGameTime.TotalSeconds;
+            if (timeCounter >= timePerFrame)
+            {
+                frame++;
+                if (frame > WalkFrameCount)
+                {
+                    frame = 1;
+                }
+                timeCounter -= timePerFrame;
+            }
+        }
         
         // draw the character when they're facing left
         public void DrawPlayerStanding(SpriteEffects effect, SpriteBatch sb)
@@ -253,11 +313,26 @@ namespace BreakingTheFourth
             sb.Draw(playerTexture, position, null, Color.White, 0, Vector2.Zero, effect, 0);
         }
 
+        // draw the character when they're walking
+        public void DrawWalking(SpriteEffects effect, SpriteBatch sb)
+        {
+            sb.Draw(WalkingTexture, // Texture
+                Position, // Position
+                new Rectangle(frame * SourceWidth, // X
+                Yoffset, // Y
+                SourceWidth, // Width
+                SourceHeight), // Height
+                Color.White, // Color
+                0, // Rotation
+                Vector2.Zero, // Origin
+                effect, // Effects
+                0); // Depth
+        }
         /// <summary>
         /// draws the player to the screen
         /// </summary>
         /// <param name="spriteBatch"></param>
-        public void Draw(SpriteBatch spriteBatch)//player width is 160 px/////////////////////////////////////////////////////////////////////////////////
+        public void Draw(SpriteBatch spriteBatch)
         {
             //spriteBatch.Draw(playerTexture, position, Color.White);
             
@@ -273,13 +348,11 @@ namespace BreakingTheFourth
                     break;
 
                 case PlayerState.walkRight:
-                    // will be a DrawWalking method here when we have animation
-                    DrawPlayerStanding(SpriteEffects.None, spriteBatch);
+                    DrawWalking(SpriteEffects.None, spriteBatch);
                     break;
 
                 case PlayerState.walkLeft:
-                    // will be a DrawWalking merhod here when we have animation
-                    DrawPlayerStanding(SpriteEffects.FlipHorizontally, spriteBatch);
+                    DrawWalking(SpriteEffects.FlipHorizontally, spriteBatch);
                     break;
 
                 case PlayerState.faceLeftWalkRight:
