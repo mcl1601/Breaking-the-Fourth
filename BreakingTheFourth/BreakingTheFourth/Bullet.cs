@@ -24,6 +24,8 @@ namespace BreakingTheFourth
         private Rectangle position;
         private bool facingLeft = false; //whether player is facing left or right
         private float rotation;
+        //set bullets for each screen in the level classes
+        private int bullets;
         // FileIO object
         FileIO movement = new FileIO();
         //properties
@@ -50,6 +52,13 @@ namespace BreakingTheFourth
             get { return facingLeft; }
         }
 
+        public int Bullets
+        {
+            get { return bullets; }
+            set { bullets = value; }
+        }
+
+
         //constructor
         public Bullet(int x, int y, int width, int height)
         {
@@ -59,8 +68,16 @@ namespace BreakingTheFourth
 
         public void Fire(float rot)
         {
-            bState = BulletState.justFired;
-            rotation = rot;
+            if(bullets == 0)
+            {
+                bState = BulletState.empty;
+            }
+            else
+            {
+                bState = BulletState.justFired;
+                rotation = rot;
+                bullets--;
+            }
         }
         public void Update(List<Terrain> terrain, Gun gun, Player player, MouseState mouseState, MouseState previousMState, 
             float rot, KeyboardState kbState, GraphicsDevice GraphicsDevice, Game1 game)
@@ -118,6 +135,13 @@ namespace BreakingTheFourth
                     }
                     break;
                 case Bullet.BulletState.empty:
+                    {
+                        //allows firing after changing screens
+                        if (player.X > GraphicsDevice.Viewport.Width || player.X < GraphicsDevice.Viewport.X)
+                        {
+                            bState = BulletState.ready;
+                        }
+                    }
                     break;
                 case Bullet.BulletState.justFired:
                     {

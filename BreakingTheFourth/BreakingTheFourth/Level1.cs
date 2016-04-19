@@ -19,8 +19,9 @@ namespace BreakingTheFourth
         List<Terrain> pieces = new List<Terrain>();
 
         // Next Screen method
-        public List<Terrain> NextScreen(int screen)
+        public List<Terrain> NextScreen(int screen, Bullet bullet)
         {
+            bullet.Bullets = 500;//temp till we decide how many bullets are needed per puzzle
             // switch to determine which screen to draw
             switch (screen)
             {
@@ -33,6 +34,7 @@ namespace BreakingTheFourth
                     pieces.Add(new Terrain(0, 0, 25, 500)); // left wall
                     pieces.Add(new Terrain(775, 0, 25, 300)); // right wall
                     pieces.Add(new Terrain(475, 450, 400, 40)); // right floor
+
                     break;
                 case 2:
                     // clear the list

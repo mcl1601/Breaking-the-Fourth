@@ -149,7 +149,7 @@ namespace BreakingTheFourth
             //texture for mouse
             crosshare = Content.Load<Texture2D>("Textures/Crosshair.png");
             // make textures for the level1
-            terrain = level1.NextScreen(1);
+            terrain = level1.NextScreen(1, bullet);
             spikes = Content.Load<Texture2D>("Textures/Spikes.png");
             terrainBlock = Content.Load<Texture2D>("Textures/terrain.png");
             foreach (Terrain t in terrain)
@@ -285,11 +285,11 @@ namespace BreakingTheFourth
                             terrain.Clear();
                             if(levelCounter==1)
                             {
-                                terrain = level1.NextScreen(screenCounter);
+                                terrain = level1.NextScreen(screenCounter, bullet);
                             }
                             if(levelCounter==2)
                             {
-                                terrain = level2.NextScreen(screenCounter);
+                                terrain = level2.NextScreen(screenCounter, bullet);
                             }
                             for (int x = 0; x < terrain.Count; x++)
                             {
@@ -313,11 +313,11 @@ namespace BreakingTheFourth
                             terrain.Clear();
                             if (levelCounter == 1)
                             {
-                                terrain = level1.NextScreen(screenCounter);
+                                terrain = level1.NextScreen(screenCounter, bullet);
                             }
                             if (levelCounter == 2)
                             {
-                                terrain = level2.NextScreen(screenCounter);
+                                terrain = level2.NextScreen(screenCounter, bullet);
                             }
                             for (int x = 0; x < terrain.Count; x++)
                             {
@@ -438,6 +438,8 @@ namespace BreakingTheFourth
                         spriteBatch.DrawString(font, mouse, fontPosition, Color.Red);
                         //UI-level #
                         spriteBatch.DrawString(font, "Level: "+ levelCounter, new Vector2(GraphicsDevice.Viewport.Width -100, 0), Color.Black);
+                        //UI- bullets left for puzzle
+                        spriteBatch.DrawString(font, "Bullets: " + bullet.Bullets, new Vector2(GraphicsDevice.Viewport.Width - 100, GraphicsDevice.Viewport.Height - 25), Color.Black);
                         //draw bullet if it has been fired
                         if(bullet.BState == Bullet.BulletState.justFired || bullet.BState == Bullet.BulletState.airborne)
                         {
@@ -482,11 +484,11 @@ namespace BreakingTheFourth
             screenCounter = 1;
             if (levelCounter == 1)
             {
-                terrain = level1.NextScreen(screenCounter);
+                terrain = level1.NextScreen(screenCounter, bullet);
             }
             if (levelCounter == 2)
             {
-                terrain = level2.NextScreen(screenCounter);
+                terrain = level2.NextScreen(screenCounter, bullet);
             }
             for (int x = 0; x < terrain.Count; x++)
             {

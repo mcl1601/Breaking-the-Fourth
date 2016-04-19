@@ -11,8 +11,9 @@ namespace BreakingTheFourth
         List<Terrain> pieces = new List<Terrain>();
 
         // Next Screen method
-        public List<Terrain> NextScreen(int screen)
+        public List<Terrain> NextScreen(int screen, Bullet bullet)
         {
+            bullet.Bullets = 500;
             // switch to determine which screen to draw
             switch (screen)
             {
