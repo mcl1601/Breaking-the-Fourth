@@ -40,7 +40,6 @@ namespace BreakingTheFourth
             faceRightWalkLeft 
         }
         private PlayerState pState;
-        MouseState mState;
         
         // animation fields
         private int frame;
@@ -133,9 +132,8 @@ namespace BreakingTheFourth
             }
             set { playerLives = value; }
         }
-        public void Update(KeyboardState kbState, KeyboardState previousKbState, List<Terrain> terrain, Gun gun, GameState gamestate)
+        public void Update(KeyboardState kbState, KeyboardState previousKbState, List<Terrain> terrain, Gun gun, GameState gamestate, MouseState mState)
         {
-            mState = Mouse.GetState();
             // determining movement and player orientation
             switch (pState)
             {
@@ -298,10 +296,21 @@ namespace BreakingTheFourth
             timeCounter += gameTime.ElapsedGameTime.TotalSeconds;
             if (timeCounter >= timePerFrame)
             {
-                frame++;
-                if (frame > WalkFrameCount)
+                if (PState == PlayerState.faceLeft || PState == PlayerState.faceRight || PState == PlayerState.walkLeft || PState == PlayerState.walkRight)
                 {
-                    frame = 1;
+                    frame++;
+                    if (frame > WalkFrameCount)
+                    {
+                        frame = 1;
+                    }
+                }
+                else
+                {
+                    frame--;
+                    if(frame < 1)
+                    {
+                        frame = WalkFrameCount;
+                    }
                 }
                 timeCounter -= timePerFrame;
             }
@@ -356,11 +365,11 @@ namespace BreakingTheFourth
                     break;
 
                 case PlayerState.faceLeftWalkRight:
-                    DrawPlayerStanding(SpriteEffects.FlipHorizontally, spriteBatch);
+                    DrawWalking(SpriteEffects.FlipHorizontally, spriteBatch);
                     break;
 
                 case PlayerState.faceRightWalkLeft:
-                    DrawPlayerStanding(SpriteEffects.None, spriteBatch);
+                    DrawWalking(SpriteEffects.None, spriteBatch);
                     break;
             }
         }
