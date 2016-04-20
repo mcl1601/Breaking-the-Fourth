@@ -245,6 +245,15 @@ namespace BreakingTheFourth
                 {
                     if (position.Bottom == terrain[i].Position.Top)
                     {
+                        //fixed issue where you could land on spikes
+                        if (terrain[i] is DeathObject)
+                        {
+                            playerLives--;
+                            X = 50;
+                            Y = 370;
+                            //gamestate = GameState.GameOver;
+                        }
+                        isFalling = false;
                         isJumping = false;
                         startingY = position.Y;
                         collided = true;
@@ -272,7 +281,7 @@ namespace BreakingTheFourth
                 }
             }
             //jump start
-            if (kbState.IsKeyDown(Keys.Space) && previousKbState.IsKeyUp(Keys.Space))
+            else if (kbState.IsKeyDown(Keys.Space) && previousKbState.IsKeyUp(Keys.Space))
             {
                 //jump logic
                 //go up
@@ -434,6 +443,20 @@ namespace BreakingTheFourth
                 position.Y -= position.Bottom - terrain[i].Position.Top;
                 isFalling = false;
                 startingY = position.Y;
+            }
+            //if player is not in the ceiling, don't teleport them under the terrain platform
+            if(position.Top > terrain[i].Position.Top + 40)
+            {
+                if (position.Right > terrain[i].Position.Left && bullet.FacingLeft == false)
+                {
+                    //offset when teleporting right
+                    position.X = terrain[i].Position.Left - position.Width;
+                }
+                if (position.Left < terrain[i].Position.Right && bullet.FacingLeft == true)
+                {
+                    //offset when teleporting left
+                    position.X = terrain[i].Position.Right;
+                }
             }
             //deals with teleporting upwards into bottom of platform
             else if (position.Top < terrain[i].Position.Bottom && startingY > terrain[i].Position.Bottom)
