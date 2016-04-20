@@ -113,7 +113,7 @@ namespace BreakingTheFourth
             {
                 X = player.X + 50;
                 Y = player.Y + 30;
-                if (rotation < 1.4f)
+                if (rotation < 1.4f && rotation > -1.4f)
                 {
                     rotation = 1.4f;
                 }
