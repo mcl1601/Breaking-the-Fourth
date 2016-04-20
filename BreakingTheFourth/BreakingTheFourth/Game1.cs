@@ -291,10 +291,10 @@ namespace BreakingTheFourth
                         }
                         //add player update for movement
                         player.Update(kbState, previousKbState, terrain, gun, gamestate);
-                        //update the bullet
-                        bullet.Update(terrain, gun, player, mouseState, previousMState, gun.Rotation, kbState, GraphicsDevice, this);
                         //Keep the gun at the same position relative to the player
                         gun.Update(player);
+                        //update the bullet
+                        bullet.Update(terrain, gun, player, mouseState, previousMState, gun.Rotation, kbState, GraphicsDevice, this);
                         //changes screen when player passes far right of viewport
                         if (player.X > GraphicsDevice.Viewport.Width || (gamestate==GameState.Game) && (previousGamestate==GameState.LevelClear))
                         {
@@ -460,7 +460,7 @@ namespace BreakingTheFourth
                         }
                         //THIS SHOULD BE TRACKING THE MOUSE POSITION BUT IT ISN'T AND I HATE IT! For some reason the mouseState is never changing...
                         string mouse = ("Mouse X: " + mouseState.X + " Mouse Y: " + mouseState.Y + " Rotation: " + gun.Rotation);
-                        //spriteBatch.DrawString(font, mouse, fontPosition, Color.Red);
+                        spriteBatch.DrawString(font, mouse, fontPosition, Color.Red);
                         //UI - Lives left
                         spriteBatch.DrawString(font, "Lives: " + player.PlayerLives, fontPosition, Color.Black);
                         //UI-level #

@@ -148,7 +148,7 @@ namespace BreakingTheFourth
                     {
                         pState = PlayerState.faceRightWalkLeft;
                     }
-                    if(mState.X <= X + 25)//|| gun.Rotation > Math.PI/2)
+                    if(mState.X <= X + 25)
                     {
                         pState = PlayerState.faceLeft;
                     }
@@ -163,7 +163,7 @@ namespace BreakingTheFourth
                     {
                         pState = PlayerState.faceLeftWalkRight;
                     }
-                    if(mState.X > X + 25)//|| gun.Rotation > Math.PI / 2)
+                    if(mState.X > X + 25)
                     {
                         pState = PlayerState.faceRight;
                     }

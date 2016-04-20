@@ -53,7 +53,7 @@ namespace BreakingTheFourth
         public float Rotation
         {
             get { return rotation; }
-            set { rotation = value; }//maybe set limits on rotation?
+            set {rotation = value;}//maybe set limits on rotation?
         }
 
         public void DrawGun(SpriteEffects effect, SpriteBatch sb, float rotation, Vector2 origin)
@@ -83,24 +83,40 @@ namespace BreakingTheFourth
             {
                 X = player.X;
                 Y = player.Y + 38;
+                if(rotation > 1.6f)
+                {
+                    rotation = 1.6f;
+                }
             }
 
             if (player.PState == Player.PlayerState.walkRight)
             {
                 X = player.X + 50;
                 Y = player.Y + 30;
+                if(rotation < 1.4f)
+                {
+                    rotation = 1.4f;
+                }
             }
 
             if (player.PState == Player.PlayerState.faceLeft || player.PState == Player.PlayerState.faceLeftWalkRight)
             {
                 X = player.X;
                 Y = player.Y + 38;
+                if (rotation > 1.6f)
+                {
+                    rotation = 1.6f;
+                }
             }
 
             if (player.PState == Player.PlayerState.faceRight || player.PState == Player.PlayerState.faceRightWalkLeft)
             {
                 X = player.X + 50;
                 Y = player.Y + 30;
+                if (rotation < 1.4f)
+                {
+                    rotation = 1.4f;
+                }
             }
         }
     }
