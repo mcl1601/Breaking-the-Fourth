@@ -321,11 +321,11 @@ namespace BreakingTheFourth
                                     terrain[x].Image = terrainBlock;
                                 }
                             }
-                            player.X = 50;
+                            player.X = 0;
                             player.Y = 370;
                         }
                         //allows player to return to previous screen if exits viewport to left
-                        if (player.X < GraphicsDevice.Viewport.X || (gamestate == GameState.Game) && (previousGamestate == GameState.LevelClear))
+                        if (player.Position.Right < GraphicsDevice.Viewport.X || (gamestate == GameState.Game) && (previousGamestate == GameState.LevelClear))
                         {
                             screenCounter--;
                             terrain.Clear();

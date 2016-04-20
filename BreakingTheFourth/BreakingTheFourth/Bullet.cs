@@ -124,7 +124,7 @@ namespace BreakingTheFourth
                         }
                     }//end of for loop
                     //handles if the bullet leaves the screen in x direction
-                    if(position.X > GraphicsDevice.Viewport.Width || position.X < GraphicsDevice.Viewport.X)
+                    if(position.X > GraphicsDevice.Viewport.Width || position.Right < GraphicsDevice.Viewport.X)
                     {
                         bState = BulletState.ready;
                     }
@@ -134,7 +134,7 @@ namespace BreakingTheFourth
                         bState = BulletState.ready;
                     }
                     //handles if player changes screen
-                    if(player.X > GraphicsDevice.Viewport.Width || player.X < GraphicsDevice.Viewport.X)
+                    if(player.X > GraphicsDevice.Viewport.Width || player.Position.Right < GraphicsDevice.Viewport.X)
                     {
                         bState = BulletState.ready;
                     }
