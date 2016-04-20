@@ -65,6 +65,8 @@ namespace BreakingTheFourth
         float directionY;
         //fields for menu
         Config menus;
+        //texture for heart
+        Texture2D heart;
         //fields for terrain textures
         Texture2D spikes;
         Texture2D terrainBlock;
@@ -117,7 +119,7 @@ namespace BreakingTheFourth
             //initialize game state
             gamestate = GameState.Main;
             //initialize font
-            fontPosition = new Vector2(5, 5);
+            fontPosition = new Vector2(GraphicsDevice.Viewport.Width/2 -150, 5);
             //initialize bullet object
             bullet = new Bullet(player.X, player.Y, 10, 10);
             mouse = new Rectangle(mouseState.X, mouseState.Y, 30, 30);
@@ -176,6 +178,8 @@ namespace BreakingTheFourth
             }
             //texture for bullet
             bullet.BulletTexture = Content.Load<Texture2D>("Textures/Bullet.png");
+            //texture for lives
+            heart = Content.Load<Texture2D>("Textures/Life Icon.png");
             //load in font
             font = Content.Load<SpriteFont>("Ebrima_14");
         }
@@ -437,7 +441,7 @@ namespace BreakingTheFourth
             {
                 case GameState.Main:
                     {
-                        string welcome = "Welcome to Breaking the Fourth \n Press Enter to Begin";
+                        string welcome = "Welcome to Breaking the Fourth \n         Press Enter to Begin";
                         spriteBatch.DrawString(font, welcome, fontPosition, Color.Black);
                         menus.Draw(spriteBatch, mouseState, Config.Buttons.Start);
                         menus.Draw(spriteBatch, mouseState, Config.Buttons.Load);
@@ -463,11 +467,13 @@ namespace BreakingTheFourth
                         string mouse = ("Mouse X: " + mouseState.X + " Mouse Y: " + mouseState.Y + " Rotation: " + gun.Rotation);
                         //spriteBatch.DrawString(font, mouse, fontPosition, Color.Red);
                         //UI - Lives left
-                        spriteBatch.DrawString(font, "Lives: " + player.PlayerLives, fontPosition, Color.Black);
+                        spriteBatch.Draw(heart, new Rectangle(10,5, 30, 30), Color.White);
+                        spriteBatch.DrawString(font, "X " + player.PlayerLives, new Vector2(50,5), Color.Black);
                         //UI-level #
                         spriteBatch.DrawString(font, "Level: "+ levelCounter, new Vector2(GraphicsDevice.Viewport.Width -100, 5), Color.Black);
                         //UI- bullets left for puzzle
-                        spriteBatch.DrawString(font, "Bullets: " + bullet.Bullets, new Vector2(GraphicsDevice.Viewport.Width - 100, GraphicsDevice.Viewport.Height - 25), Color.Black);
+                        spriteBatch.Draw(bullet.BulletTexture, new Rectangle(GraphicsDevice.Viewport.Width - 130, GraphicsDevice.Viewport.Height - 25, 20, 20), Color.White);
+                        spriteBatch.DrawString(font, "X " + bullet.Bullets, new Vector2(GraphicsDevice.Viewport.Width - 100, GraphicsDevice.Viewport.Height - 25), Color.Black);
                         //draw bullet if it has been fired
                         if(bullet.BState == Bullet.BulletState.justFired || bullet.BState == Bullet.BulletState.airborne)
                         {
