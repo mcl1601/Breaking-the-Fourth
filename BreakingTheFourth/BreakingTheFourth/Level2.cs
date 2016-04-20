@@ -21,8 +21,17 @@ namespace BreakingTheFourth
                     // clear the list
                     pieces.Clear();
                     // add new terrain pieces
-                    pieces.Add(new Terrain(0, 450, 150, 40)); // left floor
                     pieces.Add(new Terrain(0, 0, 25, 300)); // left wall
+                    pieces.Add(new Terrain(0, 450, 200, 40)); //left floor
+                    pieces.Add(new Terrain(0, 0, 800, 40)); //ceiling
+                    pieces.Add(new SpecialTerrain(200, 470, 40, 40, 200, 490)); //moving platform
+                    pieces.Add(new Terrain(250, 210, 50, 400)); //upper left floor
+                    pieces.Add(new Terrain(370, 0, 40, 300)); // first pillar
+                    pieces.Add(new Terrain(300, 400, 100, 40)); //first platform
+                    pieces.Add(new Terrain(500, 200, 40, 240)); //second pillar
+                    pieces.Add(new Terrain(600, 350, 75, 40)); //second platform
+                    pieces.Add(new Terrain(620, 0, 40, 200)); //third pillar
+                    pieces.Add(new Terrain(725, 210, 100, 400));// upper right floor
                     break;
                 case 2:
                     break;
