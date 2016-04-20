@@ -10,7 +10,9 @@ namespace BreakingTheFourth
 {
     class Bullet
     {
+        //Contributors:
         //Mike O'Donnell - Added these comments, no work on it so far though.
+        //Kat Weis - All the code in here
         public enum BulletState
         {
             justFired,

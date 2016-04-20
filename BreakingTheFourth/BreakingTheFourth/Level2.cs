@@ -7,6 +7,10 @@ namespace BreakingTheFourth
 {
     class Level2
     {
+        //Contributors:
+        //Kat Weis - Implemented the num of bullets
+
+        
         // list to hold the terrain pieces
         List<Terrain> pieces = new List<Terrain>();
 

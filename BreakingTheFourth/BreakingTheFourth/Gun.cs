@@ -8,7 +8,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 namespace BreakingTheFourth
 {
+    //Contributors:
     //Mike O'Donnell - everything here
+    //Kat Weis - Resticted rotation of the gun
     class Gun
     {
         

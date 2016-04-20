@@ -10,7 +10,9 @@ namespace BreakingTheFourth
 {
     class Config
     {
+        //Contributors:
         //Mike O'Donnell - I added these comments, but I'm not even sure if we're gonna use this class. Can't hurt to keep it around.
+        //Kat Weis - All the code in here
 
         //enums for different buttons -yes
         public enum Buttons

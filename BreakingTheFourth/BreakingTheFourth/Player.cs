@@ -10,7 +10,8 @@ using Microsoft.Xna.Framework.Input;
 namespace BreakingTheFourth
 {
     //Contributors:
-    //Kat Weis - basically everything so far
+    //Kat Weis - movement, collision detection, basis (fields, constructor, properties), player lives, gravity, offset methods, original
+    //draw method
     // Matt Lienhard - helped with Offset method
 
     

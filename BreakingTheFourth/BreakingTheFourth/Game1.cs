@@ -8,7 +8,8 @@ namespace BreakingTheFourth
 {
     //Contributors:
     //Kat Weis - enums for gamestates, player related stuff, keyboard states, placeholder font, case statements, 
-    //moving back to previous screen of level, updates and draws for player and menus
+    //moving back to previous screen of level, updates and draws for player and menus, updates and draws for bullet, UI, got mouse state
+    //to update, all the menu stuff (drawing, loading, updating), made mouse crosshair texture, restart method, death and player lives
     //Mike O'Donnell - implemented terrain list, screen list and gun. And added beginning comments for outline. 
     //Matt Lienhard - NextScreen and terrain loading
 
