@@ -25,6 +25,7 @@ namespace BreakingTheFourth
         private bool movingUp;
         private int maxY;
         private int minY;
+        FileIO movement = new FileIO();
 
         public SpecialTerrain(int x, int y, int width, int height, int max, int min) : base (x, y,width, height)
         {
@@ -46,6 +47,10 @@ namespace BreakingTheFourth
             get { return minY; }
             set { minY = value; }
         }
+        public bool MovingUp
+        {
+            get { return movingUp; }
+        }
 
         // moving platforms
         public override void Update()
@@ -53,7 +58,7 @@ namespace BreakingTheFourth
             if (movingUp == true)
             {
                 Y--;
-                if(Y == MaxY)
+                if(Y <= MaxY)
                 {
                     movingUp = false;
                 }
@@ -61,7 +66,7 @@ namespace BreakingTheFourth
             else
             {
                 Y++;
-                if(Y == MinY)
+                if(Y >= MinY)
                 {
                     movingUp = true;
                 }

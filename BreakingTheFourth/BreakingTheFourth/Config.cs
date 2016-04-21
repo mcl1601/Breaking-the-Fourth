@@ -184,6 +184,7 @@ namespace BreakingTheFourth
             {
                 return;
             }
+            //restart
             if (restartButton.Contains(mouse.X, mouse.Y) && mouse.LeftButton == ButtonState.Pressed && 
                 preMState.LeftButton == ButtonState.Released)
             {
@@ -215,7 +216,7 @@ namespace BreakingTheFourth
             if (startButton.Contains(mouse.X, mouse.Y) && mouse.LeftButton == ButtonState.Pressed &&
                 preMState.LeftButton == ButtonState.Released)
             {
-                game.LevelCounter = 1;
+                game.LevelCounter = 2;///////////////////////////////////////////
                 game.PreGamestate = game.Gamestate;
                 game.Gamestate = GameState.Game;
             }
