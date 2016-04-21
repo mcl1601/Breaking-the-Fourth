@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Input;
 namespace BreakingTheFourth
 {
     //Contributors:
-    //Mike O'Donnell - Worked on base code and logic for generating level, came up with the idea to divide levels into screens 
+    //Mike O'Donnell - Worked on base code and logic for generating level, came up with the idea to divide levels into screens. Designed and coded all of the screens.
     //that change when player hits stage right.
     //Matt Lienhard - Came up with NextScreen structure, hard coded in values
     //Kat Weis - Implemented the num of bullets
@@ -20,7 +20,12 @@ namespace BreakingTheFourth
 
         // list to hold the terrain pieces
         List<Terrain> pieces = new List<Terrain>();
-
+        //Field to hold the player's ending position
+        int playerY;
+        public int PlayerY
+        {
+            get { return playerY; }
+        }
         // Next Screen method
         public List<Terrain> NextScreen(int screen, Bullet bullet)
         {
@@ -37,7 +42,7 @@ namespace BreakingTheFourth
                     pieces.Add(new Terrain(0, 0, 25, 500)); // left wall
                     pieces.Add(new Terrain(775, 0, 25, 300)); // right wall
                     pieces.Add(new Terrain(475, 450, 400, 40)); // right floor
-
+                    playerY = 370;
                     break;
                 case 2:
                     // clear the list
@@ -49,6 +54,7 @@ namespace BreakingTheFourth
                     pieces.Add(new Terrain(0, 0, 25, 300)); // left wall
                     pieces.Add(new Terrain(775, 0, 25, 300)); // right wall
                     pieces.Add(new Terrain(550, 450, 400, 40)); // right floor
+                    playerY = 370;
                     break;
                 case 3:
                     // clear the list
@@ -59,6 +65,7 @@ namespace BreakingTheFourth
                     pieces.Add(new DeathObject(350, 410, 100, 40)); //spikes
                     pieces.Add(new Terrain(350, 0, 100, 40)); //ceiling
                     pieces.Add(new Terrain(350, 225, 100, 40)); //platform
+                    playerY = 370;
                     break;
                 case 4:
                     // clear the list
@@ -77,6 +84,7 @@ namespace BreakingTheFourth
                     pieces.Add(new Terrain(550, 325, 75, 40)); //2nd bottom platform
                     pieces.Add(new DeathObject(550, 285, 75, 40)); //2nd bottom platform spikes 
                     pieces.Add(new Terrain(375, 0, 40, 195)); //divider
+                    playerY = 370;
                     break;
                 case 5:
                     //clear the list
@@ -91,6 +99,7 @@ namespace BreakingTheFourth
                     pieces.Add(new Terrain(400, 280, 400, 300)); //bottom obstacle
                     pieces.Add(new Terrain(700, 240, 100, 40)); //platform to shoot
                     pieces.Add(new LevelGoal(725, 110, 50, 50)); //GOOOOOAAAAAAALLLLLLLL
+                    playerY = 370;
                     break;
 
             }

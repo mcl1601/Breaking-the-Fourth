@@ -11,7 +11,6 @@ namespace BreakingTheFourth
     class Bullet
     {
         //Contributors:
-        //Mike O'Donnell - Added these comments, no work on it so far though.
         //Kat Weis - All the code in here
         public enum BulletState
         {
@@ -115,6 +114,14 @@ namespace BreakingTheFourth
                                 //game.PreGamestate = game.Gamestate;
                                 //game.Gamestate = GameState.GameOver;
                             }
+                            if (terrain[i] is LevelGoal)
+                            {
+                                if (terrain[i].CollisionDetected(Position) == true) //////////////////////////////////////////////////////////////////////////
+                                {
+                                    game.PreGamestate = game.Gamestate;
+                                    game.Gamestate = GameState.LevelClear;
+                                }
+                            }
                             bState = BulletState.ready;
                             //actual teleporting
                             player.X = position.X;
@@ -195,12 +202,6 @@ namespace BreakingTheFourth
             }
         }//end of draw method
 
-        //Here we have the bullet
-        //We might wanna make this a vector2, and save it's current position as well as a few previous ones - needs to be rectangle
-        //in order to do collision detection
-        //Will need a method to check collision - in terrain class
-        //Do we need a parameterized constructor for just a vector2? Probably.
-        //Will need seperate values to not only calculate x and y position, but also speed - speed determined by tool
-        //And of course the method for the actual teleporting, which we'll use the previous vector2's for
+        
     }
 }

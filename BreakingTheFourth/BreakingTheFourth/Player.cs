@@ -135,7 +135,7 @@ namespace BreakingTheFourth
             }
             set { playerLives = value; }
         }
-        public void Update(KeyboardState kbState, KeyboardState previousKbState, List<Terrain> terrain, Gun gun, GameState gamestate, MouseState mState)
+        public void Update(KeyboardState kbState, KeyboardState previousKbState, List<Terrain> terrain, Gun gun, GameState gamestate, MouseState mState, Game1 game1)
         {
             // determining movement and player orientation
             switch (pState)
@@ -249,6 +249,14 @@ namespace BreakingTheFourth
                         Y = 370;
                         //gamestate = GameState.GameOver;
                     }
+                    if (terrain[i] is LevelGoal)
+                    {
+                        if (terrain[i].CollisionDetected(Position) == true) //////////////////////////////////////////////////////////////////////////
+                        {
+                            game1.PreGamestate = gamestate;
+                            game1.Gamestate = GameState.LevelClear;
+                        }
+                    }
                     canJump = false;
                     //stops no clip issues
                     Offset(terrain, kbState, i);
@@ -285,6 +293,14 @@ namespace BreakingTheFourth
                             X = 30;
                             Y = 370;
                             //gamestate = GameState.GameOver;
+                        }
+                        if (terrain[i] is LevelGoal)
+                        {
+                            if (terrain[i].CollisionDetected(Position) == true) //////////////////////////////////////////////////////////////////////////
+                            {
+                                game1.PreGamestate = gamestate;
+                                game1.Gamestate = GameState.LevelClear;
+                            }
                         }
                         isFalling = false;
                         isJumping = false;

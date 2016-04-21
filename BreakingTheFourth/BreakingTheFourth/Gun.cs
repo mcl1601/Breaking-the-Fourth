@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Input;
 namespace BreakingTheFourth
 {
     //Contributors:
-    //Mike O'Donnell - everything here
+    //Mike O'Donnell - Helped plan out gun rotation, worked on logic for following mouse cursor
     //Kat Weis - Resticted rotation of the gun
     class Gun
     {
