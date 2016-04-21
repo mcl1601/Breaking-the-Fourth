@@ -351,7 +351,6 @@ namespace BreakingTheFourth
                                 }
                             }
                             player.X = GraphicsDevice.Viewport.Width;
-                            player.Y = 370;
                         }
                         if(player.PlayerLives == 0)
                         {
