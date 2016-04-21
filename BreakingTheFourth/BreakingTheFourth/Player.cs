@@ -252,12 +252,12 @@ namespace BreakingTheFourth
                     isJumping = false;
                     collided = true;
                 }
-                //fixes stuttering when moving down on a moving platform
+                //fixes stuttering when moving down on a moving platform///////////////////////other issue/limit y
                 if(!(position.Left > terrain[i].Position.Right) && !(position.Right < terrain[i].Position.Left))
                 {
                     if (terrain[i] is SpecialTerrain)
                     {
-                        if (!(terrain[i] is DeathObject || terrain[i] is LevelGoal) && Y <= terrain[i].Y - position.Height)
+                        if (!(terrain[i] is DeathObject || terrain[i] is LevelGoal) && (Y <= terrain[i].Y - position.Height && Y >= terrain[i].Y - position.Height - movement.Gravity))
                         {
                             Y = terrain[i].Position.Top - position.Height;
                             isFalling = false;
