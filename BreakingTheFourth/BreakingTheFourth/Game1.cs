@@ -329,10 +329,12 @@ namespace BreakingTheFourth
                             if (levelCounter == 1)
                             {
                                 terrain = level1.NextScreen(screenCounter, bullet);
+                                player.Y = level1.PlayerY;
                             }
                             if (levelCounter == 2)
                             {
                                 terrain = level2.NextScreen(screenCounter, bullet);
+                                player.Y = level2.PlayerY;
                             }
                             for (int x = 0; x < terrain.Count; x++)
                             {
@@ -347,7 +349,7 @@ namespace BreakingTheFourth
                                 }
                             }
                             player.X = GraphicsDevice.Viewport.Width - 50;
-                            player.Y = 370;
+                            
                         }
                         if(player.PlayerLives == 0)
                         {

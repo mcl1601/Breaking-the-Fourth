@@ -10,10 +10,14 @@ namespace BreakingTheFourth
         //Contributors:
         //Kat Weis - Implemented the num of bullets
         //Mike O'Donnell - Designed and coded of the screens
-        
+
         // list to hold the terrain pieces
         List<Terrain> pieces = new List<Terrain>();
-
+        int playerY;
+        public int PlayerY
+        {
+            get { return playerY; }
+        }
         // Next Screen method
         public List<Terrain> NextScreen(int screen, Bullet bullet)
         {
@@ -36,6 +40,7 @@ namespace BreakingTheFourth
                     pieces.Add(new Terrain(600, 350, 75, 40)); //second platform
                     pieces.Add(new Terrain(620, 0, 40, 200)); //third pillar
                     pieces.Add(new Terrain(725, 210, 100, 400));// upper right floor
+                    playerY = 130;                    
                     break;
                 case 2:
                     //Clear the list
@@ -54,6 +59,7 @@ namespace BreakingTheFourth
                     pieces.Add(new SpecialTerrain(450, 125, 40, 40, 50, 250));//moving platform
                     pieces.Add(new Terrain(600, 250, 200, 300)); //right floor
                     pieces.Add(new DeathObject(600, 210, 50, 40)); //spikes
+                    playerY = 170;
                     break;
                 case 3:
                     // clear the list
@@ -69,6 +75,7 @@ namespace BreakingTheFourth
                     pieces.Add(new Terrain(350, 0, 50, 260)); // second obstacle (top)
                     pieces.Add(new Terrain(350, 350, 50, 100)); //second obstacle (bottom)
                     pieces.Add(new DeathObject(400, 400, 350, 50)); //spikes
+                    playerY = 120;
                     break;
                 case 4:
                     // clear the list
@@ -94,6 +101,7 @@ namespace BreakingTheFourth
                     pieces.Add(new DeathObject(700, 170, 60, 30)); //top spikes
                     pieces.Add(new DeathObject(540, 220, 80, 30)); //middle spikes
                     pieces.Add(new DeathObject(500, 420, 260, 30)); //bottom spikes
+                    playerY = 300;
                     break;
                 case 5:
                     //clear the list
@@ -112,6 +120,7 @@ namespace BreakingTheFourth
                     pieces.Add(new DeathObject(600, 420, 100, 30)); //spikes on right floor
                     pieces.Add(new Terrain(400, 170, 40, 130)); //wall thing
                     pieces.Add(new LevelGoal(710, 360, 50, 50)); //GOOOOOOOAAAAAAAAALLLLLLLL
+                    playerY = 370;
                     break;
 
 
