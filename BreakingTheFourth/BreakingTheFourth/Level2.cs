@@ -9,7 +9,7 @@ namespace BreakingTheFourth
     {
         //Contributors:
         //Kat Weis - Implemented the num of bullets
-
+        //Mike O'Donnell - Designed and coded of the screens
         
         // list to hold the terrain pieces
         List<Terrain> pieces = new List<Terrain>();
@@ -25,7 +25,7 @@ namespace BreakingTheFourth
                     // clear the list
                     pieces.Clear();
                     // add new terrain pieces
-                    pieces.Add(new Terrain(0, 0, 25, 300)); // left wall
+                    pieces.Add(new Terrain(0, 0, 25, 600)); // left wall
                     pieces.Add(new Terrain(0, 450, 200, 40)); //left floor
                     pieces.Add(new Terrain(0, 0, 800, 40)); //ceiling
                     pieces.Add(new SpecialTerrain(200, 470, 40, 40, 200, 490)); //moving platform

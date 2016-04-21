@@ -10,7 +10,7 @@ namespace BreakingTheFourth
     //Kat Weis - enums for gamestates, player related stuff, keyboard states, placeholder font, case statements, 
     //moving back to previous screen of level, updates and draws for player and menus, updates and draws for bullet, UI, got mouse state
     //to update, all the menu stuff (drawing, loading, updating), made mouse crosshair texture, restart method, death and player lives
-    //Mike O'Donnell - implemented terrain list, screen list and gun. And added beginning comments for outline. 
+    //Mike O'Donnell - implemented terrain list, screen list and gun. And added beginning comments for outline. Added state switches for level progression and death objects.
     //Matt Lienhard - NextScreen and terrain loading
 
     /// <summary>
@@ -285,17 +285,10 @@ namespace BreakingTheFourth
                                     //gamestate = GameState.GameOver;
                                 }
                             }
-                            if(t is LevelGoal)
-                            {
-                                if(t.CollisionDetected(player.Position)==true)
-                                {
-                                    previousGamestate = gamestate;
-                                    gamestate = GameState.LevelClear;
-                                }
-                            }
+                            
                         }
                         //add player update for movement
-                        player.Update(kbState, previousKbState, terrain, gun, gamestate, mouseState);
+                        player.Update(kbState, previousKbState, terrain, gun, gamestate, mouseState, this);
                         //Keep the gun at the same position relative to the player
                         gun.Update(player);
                         //update the bullet

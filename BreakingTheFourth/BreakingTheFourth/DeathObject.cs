@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace BreakingTheFourth
 {
+    //Contributors:
+    //Mike O'Donnell - Everything here
     class DeathObject : Terrain
     {
         private Rectangle position;

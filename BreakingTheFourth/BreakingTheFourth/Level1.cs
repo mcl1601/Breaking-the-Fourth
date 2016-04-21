@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Input;
 namespace BreakingTheFourth
 {
     //Contributors:
-    //Mike O'Donnell - Worked on base code and logic for generating level, came up with the idea to divide levels into screens 
+    //Mike O'Donnell - Worked on base code and logic for generating level, came up with the idea to divide levels into screens. Designed and coded all of the screens.
     //that change when player hits stage right.
     //Matt Lienhard - Came up with NextScreen structure, hard coded in values
     //Kat Weis - Implemented the num of bullets

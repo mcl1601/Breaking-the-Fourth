@@ -11,7 +11,6 @@ namespace BreakingTheFourth
     class Config
     {
         //Contributors:
-        //Mike O'Donnell - I added these comments, but I'm not even sure if we're gonna use this class. Can't hurt to keep it around.
         //Kat Weis - All the code in here
 
         //enums for different buttons -yes
@@ -216,7 +215,7 @@ namespace BreakingTheFourth
             if (startButton.Contains(mouse.X, mouse.Y) && mouse.LeftButton == ButtonState.Pressed &&
                 preMState.LeftButton == ButtonState.Released)
             {
-                game.LevelCounter = 2;///////////////////////////////////////////
+                game.LevelCounter = 1;
                 game.PreGamestate = game.Gamestate;
                 game.Gamestate = GameState.Game;
             }
@@ -313,11 +312,6 @@ namespace BreakingTheFourth
                     break;
             }
         }
-        //I'm not even 100% sure this class is necessary.
-        //It could be used for menus but we could just do that with State Machines in the Game Class.
-        //Maybe to just store the files for the GUI.
-        //Again, the same thing with Death. We could just make that a state.
-        //We'll just start by putting what we think should go here and if we find it unnecessary, we move it.
-        //Shouldn't require a constructor
+       
     }
 }

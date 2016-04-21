@@ -8,6 +8,8 @@ using System.Text;
 
 namespace BreakingTheFourth
 {
+    //Contributors:
+    //Mike O'Donnell - Everything here
     class LevelGoal : Terrain
     {
         private Rectangle position;
