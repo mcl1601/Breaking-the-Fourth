@@ -38,6 +38,22 @@ namespace BreakingTheFourth
                     pieces.Add(new Terrain(725, 210, 100, 400));// upper right floor
                     break;
                 case 2:
+                    //Clear the list
+                    pieces.Clear();
+                    //add new pieces
+                    pieces.Add(new Terrain(0, 450, 150, 40)); // left floor
+                    pieces.Add(new Terrain(60, 440, 15, 10)); //thingy to stop you from walking right off a cliff
+                    pieces.Add(new Terrain(0, 0, 25, 300)); // left wall
+                    pieces.Add(new Terrain(150, 0, 40, 350)); //left center wall
+                    pieces.Add(new Terrain(350, 175, 40, 400)); //right center wall
+                    //platforms from bottom to top
+                    pieces.Add(new Terrain(250, 450, 100, 20));
+                    pieces.Add(new Terrain(190, 320, 50, 20));
+                    pieces.Add(new Terrain(300, 250, 50, 20));
+                    pieces.Add(new Terrain(190, 150, 50, 20));
+                    pieces.Add(new SpecialTerrain(450, 125, 40, 40, 50, 250));//moving platform
+                    pieces.Add(new Terrain(600, 250, 200, 300)); //right floor
+                    pieces.Add(new DeathObject(600, 210, 50, 40)); //spikes
                     break;
                 case 3:
                     // clear the list
@@ -95,7 +111,7 @@ namespace BreakingTheFourth
                     pieces.Add(new Terrain(500, 450, 275, 40)); //right floor
                     pieces.Add(new DeathObject(600, 420, 100, 30)); //spikes on right floor
                     pieces.Add(new Terrain(400, 170, 40, 130)); //wall thing
-                    pieces.Add(new LevelGoal(710, 360, 50, 50)); //Goal
+                    pieces.Add(new LevelGoal(710, 360, 50, 50)); //GOOOOOOOAAAAAAAAALLLLLLLL
                     break;
 
 
