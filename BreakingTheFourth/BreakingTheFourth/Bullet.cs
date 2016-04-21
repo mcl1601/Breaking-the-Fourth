@@ -122,6 +122,10 @@ namespace BreakingTheFourth
                             //stops no clip
                             player.OffsetTele(terrain, i, this);
                         }
+                        if(terrain[i].CollisionDetected(player.Position)==true)//not working
+                        {
+                            player.OffsetTele(terrain, i, this);
+                        }
                     }//end of for loop
                     //handles if the bullet leaves the screen in x direction
                     if(position.X > GraphicsDevice.Viewport.Width || position.Right < GraphicsDevice.Viewport.X)
@@ -142,7 +146,7 @@ namespace BreakingTheFourth
                 case Bullet.BulletState.empty:
                     {
                         //allows firing after changing screens
-                        if (player.X > GraphicsDevice.Viewport.Width || player.X < GraphicsDevice.Viewport.X)
+                        if (player.X > GraphicsDevice.Viewport.Width || player.Position.Right < GraphicsDevice.Viewport.X)
                         {
                             bState = BulletState.ready;
                         }

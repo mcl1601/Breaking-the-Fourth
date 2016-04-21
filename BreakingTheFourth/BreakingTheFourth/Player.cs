@@ -26,6 +26,7 @@ namespace BreakingTheFourth
         private bool isFalling;
         private bool isJumping; //variable for determining if player jumped recently
         private int startingY; //variable for Y before jumping
+        private bool canJump;
         //field for player lives
         private int playerLives;
         int screenCounter = 1;
@@ -62,6 +63,7 @@ namespace BreakingTheFourth
         {
             position = new Rectangle(x, y, width, height);
             startingY = y;
+            canJump = true;
             playerLives = 3;
             isJumping = false;
             isFalling = false;
@@ -235,11 +237,27 @@ namespace BreakingTheFourth
                         Y = 370;
                         //gamestate = GameState.GameOver;
                     }
+                    canJump = false;
                     //stops no clip issues
                     Offset(terrain, kbState, i);
                     //halts jumping after colliding
                     isJumping = false;
                     collided = true;
+                }
+                if(!(position.Left > terrain[i].Position.Right) && !(position.Right < terrain[i].Position.Left))
+                {
+                    if (terrain[i] is SpecialTerrain)
+                    {
+                        if (!(terrain[i] is DeathObject || terrain[i] is LevelGoal) && Y > terrain[i].Y - position.Height)
+                        {
+                            Y = terrain[i].Position.Top - position.Height;
+                            isFalling = false;
+                            isJumping = false;
+                            startingY = position.Y;
+                            collided = true;
+                            canJump = true;
+                        }
+                    }
                 }
                 //checks if player is standing on terrain & counts that as colliding
                 if(!(position.Left > terrain[i].Position.Right) && !(position.Right < terrain[i].Position.Left))
@@ -258,6 +276,7 @@ namespace BreakingTheFourth
                         isJumping = false;
                         startingY = position.Y;
                         collided = true;
+                        canJump = true;
                     }
                 }
                 
@@ -271,6 +290,7 @@ namespace BreakingTheFourth
                 //go down-gravity
                 Gravity();
                 isJumping = false; //stops player from jumping while falling to slow descend
+                canJump = false;
             }
             if (isJumping == true)
             {
@@ -282,7 +302,7 @@ namespace BreakingTheFourth
                 }
             }
             //jump start
-            else if (kbState.IsKeyDown(Keys.Space) && previousKbState.IsKeyUp(Keys.Space))
+            else if (kbState.IsKeyDown(Keys.Space) && previousKbState.IsKeyUp(Keys.Space) && canJump == true)
             {
                 //jump logic
                 //go up
@@ -407,6 +427,7 @@ namespace BreakingTheFourth
                 position.Y -= position.Bottom - terrain[i].Position.Top;
                 isFalling = false;
                 startingY = position.Y;
+                canJump = true;
             }
             if(startingY > terrain[i].Position.Bottom && IsJumping == true) // starts below the object & jumps
             {
