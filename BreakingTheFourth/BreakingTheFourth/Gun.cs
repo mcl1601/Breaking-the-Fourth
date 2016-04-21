@@ -11,6 +11,7 @@ namespace BreakingTheFourth
     //Contributors:
     //Mike O'Donnell - Helped plan out gun rotation, worked on logic for following mouse cursor
     //Kat Weis - Resticted rotation of the gun
+    //Matt Lienhard - handled the logic for how/where to draw the gun depending on the player state, implemented Draw
     class Gun
     {
         

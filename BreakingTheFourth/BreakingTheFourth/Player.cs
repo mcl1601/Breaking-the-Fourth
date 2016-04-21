@@ -12,7 +12,9 @@ namespace BreakingTheFourth
     //Contributors:
     //Kat Weis - movement, collision detection, basis (fields, constructor, properties), player lives, gravity, offset methods, original
     //draw method
-    // Matt Lienhard - helped with Offset method
+    // Matt Lienhard - helped with Offset method. All the animation - added the necessary fields, added the UpdateAnimation method
+    // and the DrawWalking method and implemented it in Draw. Did the logic for flipping the player based on the mouse position and also
+    // for when the player is walking backwards
 
     
     class Player
