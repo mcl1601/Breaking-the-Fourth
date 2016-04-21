@@ -9,7 +9,8 @@ namespace BreakingTheFourth
     //Contributors:
     //Kat Weis - enums for gamestates, player related stuff, keyboard states, placeholder font, case statements, 
     //moving back to previous screen of level, updates and draws for player and menus, updates and draws for bullet, UI, got mouse state
-    //to update, all the menu stuff (drawing, loading, updating), made mouse crosshair texture, restart method, death and player lives
+    //to update, all the menu stuff (drawing, loading, updating), made mouse crosshair texture, restart method, death and player lives,
+    //also debugged alot of shit in several classes which involved both refactoring old code and putting in new code
     //Mike O'Donnell - implemented terrain list, screen list and gun. And added beginning comments for outline. 
     //Matt Lienhard - NextScreen and terrain loading
 
@@ -258,7 +259,7 @@ namespace BreakingTheFourth
                         else if (player.Y > GraphicsDevice.Viewport.Height)
                         {
                             player.PlayerLives--;
-                            player.X = 50;
+                            player.X = 30;
                             player.Y = 370;
                             //previousGamestate = gamestate;
                             //gamestate = GameState.GameOver;
@@ -279,7 +280,7 @@ namespace BreakingTheFourth
                                 if(t.CollisionDetected(player.Position)==true)
                                 {
                                     player.PlayerLives--;
-                                    player.X = 50;
+                                    player.X = 30;
                                     player.Y = 370;
                                     //previousGamestate = gamestate;
                                     //gamestate = GameState.GameOver;
@@ -353,7 +354,7 @@ namespace BreakingTheFourth
                                     terrain[x].Image = terrainBlock;
                                 }
                             }
-                            player.X = GraphicsDevice.Viewport.Width - 50;
+                            player.X = GraphicsDevice.Viewport.Width;
                             player.Y = 370;
                         }
                         if(player.PlayerLives == 0)

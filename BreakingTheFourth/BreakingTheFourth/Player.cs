@@ -173,7 +173,10 @@ namespace BreakingTheFourth
                 case PlayerState.walkRight:
                     if(kbState.IsKeyDown(Keys.D))
                     {
-                        X += movement.PlayerSpeed;
+                        if(!kbState.IsKeyDown(Keys.A))
+                        {
+                            X += movement.PlayerSpeed;
+                        }
                     }
                     if (kbState.IsKeyUp(Keys.D))
                     {
@@ -188,7 +191,10 @@ namespace BreakingTheFourth
                 case PlayerState.walkLeft:
                     if(kbState.IsKeyDown(Keys.A))
                     {
-                        X -= movement.PlayerSpeed;
+                        if(!kbState.IsKeyDown(Keys.D))
+                        {
+                            X -= movement.PlayerSpeed;
+                        }
                     }
                     
                     if (kbState.IsKeyUp(Keys.A))
@@ -204,7 +210,10 @@ namespace BreakingTheFourth
                 case PlayerState.faceLeftWalkRight:
                     if(kbState.IsKeyDown(Keys.D))
                     {
-                        X += movement.PlayerSpeed;
+                        if(!kbState.IsKeyDown(Keys.A))
+                        {
+                            X += movement.PlayerSpeed;
+                        }
                     }
                     if(kbState.IsKeyUp(Keys.D))
                     {
@@ -215,7 +224,10 @@ namespace BreakingTheFourth
                 case PlayerState.faceRightWalkLeft:
                     if (kbState.IsKeyDown(Keys.A))
                     {
-                        X -= movement.PlayerSpeed;
+                        if(!kbState.IsKeyDown(Keys.D))
+                        {
+                            X -= movement.PlayerSpeed;
+                        }
                     }
                     if (kbState.IsKeyUp(Keys.A))
                     {
@@ -228,12 +240,12 @@ namespace BreakingTheFourth
             //collision detection
             for (int i = 0; i < terrain.Count; i++)
             {
-                if (terrain[i].CollisionDetected(position) == true )/////special terrain is causing issue still when going down
+                if (terrain[i].CollisionDetected(position) == true )/////special terrain is causing issue still when going down-resolved
                 {
                     if(terrain[i] is DeathObject)
                     {
                         playerLives--;
-                        X = 50;
+                        X = 30;
                         Y = 370;
                         //gamestate = GameState.GameOver;
                     }
@@ -244,12 +256,13 @@ namespace BreakingTheFourth
                     isJumping = false;
                     collided = true;
                 }
-                //fixes stuttering when moving down on a moving platform///////////////////////other issue/limit y
+                //fixes stuttering when moving down on a moving platform
                 if(!(position.Left > terrain[i].Position.Right) && !(position.Right < terrain[i].Position.Left))
                 {
                     if (terrain[i] is SpecialTerrain)
                     {
-                        if (!(terrain[i] is DeathObject || terrain[i] is LevelGoal) && (Y <= terrain[i].Y - position.Height && Y >= terrain[i].Y - position.Height - movement.Gravity))
+                        if (!(terrain[i] is DeathObject || terrain[i] is LevelGoal) && 
+                            (Y <= terrain[i].Y - position.Height && Y >= terrain[i].Y - position.Height - movement.Gravity))//limits y range of activation
                         {
                             Y = terrain[i].Position.Top - position.Height;
                             isFalling = false;
@@ -269,7 +282,7 @@ namespace BreakingTheFourth
                         if (terrain[i] is DeathObject)
                         {
                             playerLives--;
-                            X = 50;
+                            X = 30;
                             Y = 370;
                             //gamestate = GameState.GameOver;
                         }
@@ -417,7 +430,7 @@ namespace BreakingTheFourth
                     position.X = terrain[i].Position.Left - position.Width;
                     //position.X -= movement.PlayerSpeed;
                 }
-                else if (position.Left < terrain[i].Position.Right && kbState.IsKeyDown(Keys.A))
+                else if (position.Left < terrain[i].Position.Right && kbState.IsKeyDown(Keys.A) )
                 {
                     position.X = terrain[i].Position.Right;
                     //position.X += movement.PlayerSpeed;
@@ -444,7 +457,7 @@ namespace BreakingTheFourth
                     position.X = terrain[i].Position.Left - position.Width;
                     //position.X -= movement.PlayerSpeed;
                 }
-                if (position.Left < terrain[i].Position.Right && kbState.IsKeyDown(Keys.A))
+                else if (position.Left < terrain[i].Position.Right && kbState.IsKeyDown(Keys.A))
                 {
                     position.X = terrain[i].Position.Right;
                     //position.X += movement.PlayerSpeed;
