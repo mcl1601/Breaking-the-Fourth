@@ -325,6 +325,7 @@ namespace BreakingTheFourth
                 Gravity();
                 isJumping = false; //stops player from jumping while falling to slow descend
                 canJump = false;
+                justTeleported = false;//reset bool to false so it is only true for the frame exactly after teleporting
             }
             if (isJumping == true)
             {
@@ -343,7 +344,6 @@ namespace BreakingTheFourth
                 position.Y -= 4;
                 isJumping = true;
             }
-            justTeleported = false;//reset bool to false so it is only true for the frame exactly after teleporting
         }//end of update method
         /// <summary>
         /// enacts falling upon the player
@@ -467,7 +467,7 @@ namespace BreakingTheFourth
                 canJump = true;
             }
             //should only activate the frame after teleporting
-            if (position.Top < terrain[i].Position.Bottom && justTeleported == true && position.Top > terrain[i].Position.Top)
+            if (position.Top < terrain[i].Position.Bottom && justTeleported == true)// && position.Top > terrain[i].Position.Top)
             {
                 position.Y += terrain[i].Position.Bottom - position.Top;
             }
