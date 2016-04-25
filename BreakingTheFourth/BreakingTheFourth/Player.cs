@@ -29,6 +29,7 @@ namespace BreakingTheFourth
         private bool isJumping; //variable for determining if player jumped recently
         private int startingY; //variable for Y before jumping
         private bool canJump;
+        private bool justTeleported; //variable to determine if the player just teleported
         //field for player lives
         private int playerLives;
         int screenCounter = 1;
@@ -69,6 +70,7 @@ namespace BreakingTheFourth
             playerLives = 3;
             isJumping = false;
             isFalling = false;
+            justTeleported = false;
             pState = PlayerState.faceRight;
 
             fps = 10.0;
@@ -340,7 +342,8 @@ namespace BreakingTheFourth
                 //go up
                 position.Y -= 4;
                 isJumping = true;
-            } 
+            }
+            justTeleported = false;//reset bool to false so it is only true for the frame exactly after teleporting
         }//end of update method
         /// <summary>
         /// enacts falling upon the player
@@ -441,6 +444,7 @@ namespace BreakingTheFourth
 
         public void Offset(List<Terrain> terrain, KeyboardState kbState, int i)
         {
+            //determines if the player is running into a wall
             if (position.Bottom > terrain[i].Position.Top + movement.Gravity && isJumping == false)
             {
                 if (position.Right > terrain[i].Position.Left && kbState.IsKeyDown(Keys.D))
@@ -454,14 +458,20 @@ namespace BreakingTheFourth
                     //position.X += movement.PlayerSpeed;
                 }
             }
-            if(position.Bottom <= terrain[i].Position.Top + movement.Gravity && position.Bottom > terrain[i].Position.Top)//sets player on top of terrain if fell
+            //sets player on top of terrain if fell
+            if (position.Bottom <= terrain[i].Position.Top + movement.Gravity && position.Bottom > terrain[i].Position.Top)
             {
                 position.Y -= position.Bottom - terrain[i].Position.Top;
                 isFalling = false;
                 startingY = position.Y;
                 canJump = true;
             }
-            if(startingY > terrain[i].Position.Bottom && IsJumping == true) // starts below the object & jumps
+            //should only activate the frame after teleporting
+            if (position.Top < terrain[i].Position.Bottom && justTeleported == true && position.Top > terrain[i].Position.Top)
+            {
+                position.Y += terrain[i].Position.Bottom - position.Top;
+            }
+            if (startingY > terrain[i].Position.Bottom && IsJumping == true) // starts below the object & jumps
             {
                 if (position.Top < terrain[i].Position.Bottom && IsJumping == true && position.Top > terrain[i].Position.Top)
                 {
@@ -491,6 +501,7 @@ namespace BreakingTheFourth
         /// <param name="bullet"></param>
         public void OffsetTele(List<Terrain> terrain, int i, Bullet bullet)//maybe do y offset first?
         {
+            justTeleported = true;
             //sets player on top of terrain if teleporting downwards
             if (position.Bottom > terrain[i].Position.Top && position.Top < terrain[i].Position.Top && startingY < position.Y)
             {
