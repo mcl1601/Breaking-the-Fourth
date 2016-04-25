@@ -467,7 +467,7 @@ namespace BreakingTheFourth
                 canJump = true;
             }
             //should only activate the frame after teleporting
-            if (position.Top < terrain[i].Position.Bottom && justTeleported == true)// && position.Top > terrain[i].Position.Top)
+            if (position.Top < terrain[i].Position.Bottom && justTeleported == true)
             {
                 position.Y += terrain[i].Position.Bottom - position.Top;
             }
