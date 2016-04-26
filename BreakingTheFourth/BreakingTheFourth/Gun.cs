@@ -110,6 +110,10 @@ namespace BreakingTheFourth
                 {
                     rotation = 1.6f;
                 }
+                if (rotation < -1.6f)
+                {
+                    rotation = -1.6f;
+                }
             }
 
             if (player.PState == Player.PlayerState.faceRight || player.PState == Player.PlayerState.faceRightWalkLeft)
