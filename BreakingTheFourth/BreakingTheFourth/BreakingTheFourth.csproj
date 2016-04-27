@@ -47,6 +47,7 @@
     <Compile Include="Level.cs" />
     <Compile Include="Level1.cs" />
     <Compile Include="Level2.cs" />
+    <Compile Include="Level3.cs" />
     <Compile Include="LevelGoal.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />

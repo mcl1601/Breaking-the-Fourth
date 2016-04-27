@@ -50,6 +50,7 @@ namespace BreakingTheFourth
         List<Terrain> terrain;
         Level1 level1;
         Level2 level2;
+        Level3 level3;
         int screenCounter;
         int levelCounter;
         //fields for finite state machines
@@ -77,6 +78,7 @@ namespace BreakingTheFourth
         Texture2D walking;
         //audio
         Song menuSong;
+        FileIO fileIO;
         //property for gamestate
         public GameState Gamestate
         {
@@ -119,6 +121,7 @@ namespace BreakingTheFourth
             terrain = new List<Terrain>();
             level1 =  new Level1();
             level2 = new Level2();
+            level3 = new Level3();
             screenCounter = 1;
             levelCounter = 1;
             //initialize game state
@@ -129,6 +132,7 @@ namespace BreakingTheFourth
             bullet = new Bullet(player.X, player.Y, 10, 10);
             mouse = new Rectangle(mouseState.X, mouseState.Y, 30, 30);
             color = Color.Red;
+            fileIO = new FileIO();
             base.Initialize();
         }
         /// <summary>
@@ -245,6 +249,11 @@ namespace BreakingTheFourth
                         {
                             previousGamestate = gamestate;
                         }
+                        // check to see if the level was loaded
+                        if(menus.LevelNum != 0)
+                        {
+                            LevelCounter = menus.LevelNum;
+                        }
                     }
                     break;
                 case GameState.Controls:
@@ -313,6 +322,10 @@ namespace BreakingTheFourth
                             {
                                 terrain = level2.NextScreen(screenCounter, bullet);
                             }
+                            if(levelCounter==3)
+                            {
+                                terrain = level3.NextScreen(screenCounter, bullet);
+                            }
                             for (int x = 0; x < terrain.Count; x++)
                             {
                                 //terrain[x].Image = Content.Load<Texture2D>("Textures/terrain.png");
@@ -342,6 +355,11 @@ namespace BreakingTheFourth
                             {
                                 terrain = level2.NextScreen(screenCounter, bullet);
                                 player.Y = level2.PlayerY;
+                            }
+                            if(levelCounter==3)
+                            {
+                                terrain = level3.NextScreen(screenCounter, bullet);
+                                player.Y = level3.PlayerY;
                             }
                             for (int x = 0; x < terrain.Count; x++)
                             {
@@ -527,6 +545,10 @@ namespace BreakingTheFourth
             if (levelCounter == 2)
             {
                 terrain = level2.NextScreen(screenCounter, bullet);
+            }
+            if(levelCounter == 3)
+            {
+                terrain = level3.NextScreen(screenCounter, bullet);
             }
             //loads terrain
             for (int x = 0; x < terrain.Count; x++)

@@ -28,7 +28,7 @@ namespace BreakingTheFourth
         //set bullets for each screen in the level classes
         private int bullets;
         // FileIO object
-        FileIO movement = new FileIO();
+        FileIO movement = new FileIO(1);
         //properties
 
         public Texture2D BulletTexture

@@ -59,7 +59,7 @@ namespace BreakingTheFourth
         const int SourceWidth = 156;
 
         // FileIO object
-        FileIO movement = new FileIO();
+        FileIO movement = new FileIO(1);
         //Since we don't have collectibles, we probably won't need a GameObject class
         //Make a constructor that takes 4 parameters, the x, the y, the width and the height.
         public Player(int x, int y, int width, int height)

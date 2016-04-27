@@ -54,7 +54,16 @@ namespace BreakingTheFourth
         //menu button
         private Texture2D menuTexture;
         private Texture2D menuOvrTexture;
+        //FileIO object
+        FileIO fileIO;
+        Game1 game = new Game1();
+        private int levelNum;
         //properties
+        public int LevelNum
+        {
+            get { return levelNum; }
+            set { levelNum = value; }
+        }
         public Texture2D RestartTexture
         {
             get { return restartTexture; }
@@ -215,11 +224,23 @@ namespace BreakingTheFourth
             if (startButton.Contains(mouse.X, mouse.Y) && mouse.LeftButton == ButtonState.Pressed &&
                 preMState.LeftButton == ButtonState.Released)
             {
-                game.LevelCounter = 1;
                 game.PreGamestate = game.Gamestate;
                 game.Gamestate = GameState.Game;
             }
-            //need to put in the load and save here eventually
+            //loads game
+            if(loadButton.Contains(mouse.X, mouse.Y) && mouse.LeftButton == ButtonState.Pressed && 
+                preMState.LeftButton == ButtonState.Released)
+            {
+                fileIO = new FileIO();
+                levelNum = fileIO.ReadLevel();
+            }
+            //saves game
+            if(saveButton.Contains(mouse.X, mouse.Y) && mouse.LeftButton == ButtonState.Pressed &&
+                preMState.LeftButton == ButtonState.Released)
+            {
+                fileIO = new FileIO();
+                fileIO.SaveGame(game.LevelCounter);
+            }
         }
         public void Draw(SpriteBatch spritebatch, MouseState mouse, Buttons button)
         {
