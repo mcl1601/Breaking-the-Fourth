@@ -24,7 +24,7 @@ namespace BreakingTheFourth
             bullet.Bullets = 500;
             // switch to determine which screen to draw
             switch (screen)
-            {
+            {//////////////////////////////////////////////////////////////////issue on level 2 screen 1 where if you walk into the left wall you lose a life
                 case 1:
                     // clear the list
                     pieces.Clear();
