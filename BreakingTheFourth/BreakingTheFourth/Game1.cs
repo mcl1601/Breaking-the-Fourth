@@ -176,7 +176,7 @@ namespace BreakingTheFourth
             // make textures for the level1
             terrain = level1.NextScreen(1, bullet);
             spikes = Content.Load<Texture2D>("Textures/Spikes.png");
-            terrainBlock = Content.Load<Texture2D>("Textures/terrain.png");
+            terrainBlock = Content.Load<Texture2D>("Textures/TerrainBlock.png");
             levelGoal = Content.Load<Texture2D>("Textures/goal_sprite.png");
             background = Content.Load<Texture2D>("Textures/GameBackgroundTest.png");
             foreach (Terrain t in terrain)
@@ -490,7 +490,7 @@ namespace BreakingTheFourth
                         //drawing methods in here
                         spriteBatch.Draw(background, new Rectangle(0,0, GraphicsDevice.Viewport.Width,
                             
-                            GraphicsDevice.Viewport.Height), Color.Blue);
+                            GraphicsDevice.Viewport.Height), Color.Chartreuse);
                         player.Draw(spriteBatch);
                         gun.Draw(spriteBatch, player, gun.Rotation, new Vector2(325, 325));
                         for (int x = 0; x < terrain.Count; x++)
