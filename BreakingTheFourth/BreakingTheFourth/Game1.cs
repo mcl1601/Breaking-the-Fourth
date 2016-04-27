@@ -79,6 +79,7 @@ namespace BreakingTheFourth
         //audio
         Song menuSong;
         FileIO fileIO;
+        Texture2D levelGoal;
         //property for gamestate
         public GameState Gamestate
         {
@@ -175,12 +176,17 @@ namespace BreakingTheFourth
             terrain = level1.NextScreen(1, bullet);
             spikes = Content.Load<Texture2D>("Textures/Spikes.png");
             terrainBlock = Content.Load<Texture2D>("Textures/terrain.png");
+            levelGoal = Content.Load<Texture2D>("Textures/goal_sprite.png");
             foreach (Terrain t in terrain)
             {
                 //Will need to be fixed eventually. - has been fixed
                 if (t is DeathObject)
                 {
                     t.Image = spikes;
+                }
+                else if(t is LevelGoal)
+                {
+                    t.Image = levelGoal;
                 }
                 else
                 {
@@ -333,6 +339,10 @@ namespace BreakingTheFourth
                                 {
                                     terrain[x].Image = spikes;
                                 }
+                                else if (terrain[x] is LevelGoal)
+                                {
+                                    terrain[x].Image = levelGoal;
+                                }
                                 else
                                 {
                                     terrain[x].Image = terrainBlock;
@@ -367,6 +377,10 @@ namespace BreakingTheFourth
                                 if (terrain[x] is DeathObject)
                                 {
                                     terrain[x].Image = spikes;
+                                }
+                                else if(terrain[x] is LevelGoal)
+                                {
+                                    terrain[x].Image = levelGoal;
                                 }
                                 else
                                 {
