@@ -74,6 +74,7 @@ namespace BreakingTheFourth
         Texture2D terrainBlock;
         Color color;
         Texture2D walking;
+        FileIO fileIO;
         //property for gamestate
         public GameState Gamestate
         {
@@ -126,6 +127,7 @@ namespace BreakingTheFourth
             bullet = new Bullet(player.X, player.Y, 10, 10);
             mouse = new Rectangle(mouseState.X, mouseState.Y, 30, 30);
             color = Color.Red;
+            fileIO = new FileIO();
             base.Initialize();
         }
         /// <summary>
@@ -239,6 +241,11 @@ namespace BreakingTheFourth
                         else
                         {
                             previousGamestate = gamestate;
+                        }
+                        // check to see if the level was loaded
+                        if(menus.LevelNum != 0)
+                        {
+                            LevelCounter = menus.LevelNum;
                         }
                     }
                     break;
