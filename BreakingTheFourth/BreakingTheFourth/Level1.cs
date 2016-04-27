@@ -95,7 +95,7 @@ namespace BreakingTheFourth
                     pieces.Add(new Terrain(775, 0, 25, 500)); //right wall
                     pieces.Add(new Terrain(0, 0, 800, 40)); //ceiling
                     pieces.Add(new Terrain(150, 125, 40, 400)); // first wall
-                    pieces.Add(new Terrain(400, 40, 250, 180)); //top obstacle
+                    pieces.Add(new Terrain(400, 40, 250, 140)); //top obstacle
                     pieces.Add(new Terrain(400, 280, 400, 300)); //bottom obstacle
                     pieces.Add(new Terrain(700, 240, 100, 40)); //platform to shoot
                     pieces.Add(new LevelGoal(725, 110, 50, 50)); //GOOOOOAAAAAAALLLLLLLL

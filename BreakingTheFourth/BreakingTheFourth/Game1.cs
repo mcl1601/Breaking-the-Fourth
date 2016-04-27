@@ -49,6 +49,7 @@ namespace BreakingTheFourth
         List<Terrain> terrain;
         Level1 level1;
         Level2 level2;
+        Level3 level3;
         int screenCounter;
         int levelCounter;
         //fields for finite state machines
@@ -117,6 +118,7 @@ namespace BreakingTheFourth
             terrain = new List<Terrain>();
             level1 =  new Level1();
             level2 = new Level2();
+            level3 = new Level3();
             screenCounter = 1;
             levelCounter = 1;
             //initialize game state
@@ -315,6 +317,10 @@ namespace BreakingTheFourth
                             {
                                 terrain = level2.NextScreen(screenCounter, bullet);
                             }
+                            if(levelCounter==3)
+                            {
+                                terrain = level3.NextScreen(screenCounter, bullet);
+                            }
                             for (int x = 0; x < terrain.Count; x++)
                             {
                                 //terrain[x].Image = Content.Load<Texture2D>("Textures/terrain.png");
@@ -344,6 +350,11 @@ namespace BreakingTheFourth
                             {
                                 terrain = level2.NextScreen(screenCounter, bullet);
                                 player.Y = level2.PlayerY;
+                            }
+                            if(levelCounter==3)
+                            {
+                                terrain = level3.NextScreen(screenCounter, bullet);
+                                player.Y = level3.PlayerY;
                             }
                             for (int x = 0; x < terrain.Count; x++)
                             {
@@ -529,6 +540,10 @@ namespace BreakingTheFourth
             if (levelCounter == 2)
             {
                 terrain = level2.NextScreen(screenCounter, bullet);
+            }
+            if(levelCounter == 3)
+            {
+                terrain = level3.NextScreen(screenCounter, bullet);
             }
             //loads terrain
             for (int x = 0; x < terrain.Count; x++)
