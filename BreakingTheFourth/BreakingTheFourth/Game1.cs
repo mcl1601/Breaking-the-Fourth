@@ -77,6 +77,7 @@ namespace BreakingTheFourth
         Texture2D walking;
         FileIO fileIO;
         Texture2D levelGoal;
+        Texture2D background;
         //property for gamestate
         public GameState Gamestate
         {
@@ -172,6 +173,7 @@ namespace BreakingTheFourth
             spikes = Content.Load<Texture2D>("Textures/Spikes.png");
             terrainBlock = Content.Load<Texture2D>("Textures/terrain.png");
             levelGoal = Content.Load<Texture2D>("Textures/goal_sprite.png");
+            background = Content.Load<Texture2D>("Textures/GameBackgroundTest.png");
             foreach (Terrain t in terrain)
             {
                 //Will need to be fixed eventually. - has been fixed
@@ -481,6 +483,9 @@ namespace BreakingTheFourth
                 case GameState.Game:
                     {
                         //drawing methods in here
+                        spriteBatch.Draw(background, new Rectangle(0,0, GraphicsDevice.Viewport.Width,
+                            
+                            GraphicsDevice.Viewport.Height), Color.Blue);
                         player.Draw(spriteBatch);
                         gun.Draw(spriteBatch, player, gun.Rotation, new Vector2(325, 325));
                         for (int x = 0; x < terrain.Count; x++)
