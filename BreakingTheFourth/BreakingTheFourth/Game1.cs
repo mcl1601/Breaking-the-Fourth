@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System;
+using Microsoft.Xna.Framework.Media;
 
 namespace BreakingTheFourth
 {
@@ -75,6 +76,8 @@ namespace BreakingTheFourth
         Texture2D terrainBlock;
         Color color;
         Texture2D walking;
+        //audio
+        Song menuSong;
         FileIO fileIO;
         Texture2D levelGoal;
         Texture2D background;
@@ -143,6 +146,8 @@ namespace BreakingTheFourth
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            //load in audio
+            //menuSong = Content.Load<Song>("Audio/menu.mp3");
             //load in menu textures
             menus.ExitTexture = Content.Load<Texture2D>("Textures/ExitButton.png");
             menus.ExitOvrTexture = Content.Load<Texture2D>("Textures/ExitOvr.png");
