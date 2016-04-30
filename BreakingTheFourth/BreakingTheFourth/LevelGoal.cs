@@ -33,11 +33,11 @@ namespace BreakingTheFourth
         }
         public override void Update()
         {
-            Rotation += 0.25f;
+            Rotation += 0.05f;
         }
-        public new void Draw(SpriteBatch spriteBatch)
+        public new void Draw(SpriteBatch sb)
         {
-            spriteBatch.Draw(image, position, null, Color.White, rotation, Vector2.Zero, SpriteEffects.None, 0);
+            sb.Draw(image, new Rectangle(X + 25, Y + 25, Width, Height), null, Color.White, rotation, new Vector2(100,100), SpriteEffects.None, 0);
         }
     }
 }

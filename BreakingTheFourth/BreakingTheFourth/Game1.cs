@@ -512,8 +512,15 @@ namespace BreakingTheFourth
                         gun.Draw(spriteBatch, player, gun.Rotation, new Vector2(325, 325));
                         for (int x = 0; x < terrain.Count; x++)
                         {
-                            terrain[x].Draw(spriteBatch);
-                            if(terrain[x] is LevelGoal)
+
+                            if (terrain[x] is LevelGoal)
+                            {
+                                // make a Level Goal Object
+                                LevelGoal goal = (LevelGoal)terrain[x];
+                                goal.Image = levelGoal;
+                                goal.Draw(spriteBatch);
+                            }
+                            else
                             {
                                 terrain[x].Draw(spriteBatch);
                             }
