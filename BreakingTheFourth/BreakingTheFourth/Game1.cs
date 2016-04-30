@@ -150,7 +150,7 @@ namespace BreakingTheFourth
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             //load in audio
-            menuSong = Content.Load<Song>("Audio/Dave_Depper_-_Personal_Trainer");
+            //menuSong = Content.Load<Song>("Audio/Dave_Depper_-_Personal_Trainer");
             //load in menu textures
             menus.ExitTexture = Content.Load<Texture2D>("Textures/ExitButton.png");
             menus.ExitOvrTexture = Content.Load<Texture2D>("Textures/ExitOvr.png");
