@@ -225,7 +225,7 @@ namespace BreakingTheFourth
                 preMState.LeftButton == ButtonState.Released)
             {
                 game.PreGamestate = game.Gamestate;
-                game.Gamestate = GameState.Game;
+                game.Gamestate = GameState.Controls;
             }
             //loads game
             if(loadButton.Contains(mouse.X, mouse.Y) && mouse.LeftButton == ButtonState.Pressed && 

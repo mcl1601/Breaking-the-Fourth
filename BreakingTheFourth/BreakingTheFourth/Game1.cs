@@ -79,6 +79,9 @@ namespace BreakingTheFourth
         //audio
         Song menuSong;
         FileIO fileIO;
+        //misc
+        Texture2D paused;
+        Texture2D controls;
         Texture2D levelGoal;
         Texture2D background;
         //property for gamestate
@@ -147,7 +150,7 @@ namespace BreakingTheFourth
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             //load in audio
-            //menuSong = Content.Load<Song>("Audio/menu.mp3");
+            menuSong = Content.Load<Song>("Audio/Dave_Depper_-_Personal_Trainer");
             //load in menu textures
             menus.ExitTexture = Content.Load<Texture2D>("Textures/ExitButton.png");
             menus.ExitOvrTexture = Content.Load<Texture2D>("Textures/ExitOvr.png");
@@ -163,6 +166,8 @@ namespace BreakingTheFourth
             menus.ResumeOvrTexture = Content.Load<Texture2D>("Textures/ResumeOvr.png");
             menus.SaveTexture = Content.Load<Texture2D>("Textures/SaveButton.png");
             menus.SaveOvrTexture = Content.Load<Texture2D>("Textures/SaveOvr.png");
+            paused = Content.Load<Texture2D>("Textures/Paused.png");
+            controls = Content.Load<Texture2D>("Textures/Controls.png");
             //load in player texture
             stickFigure = Content.Load<Texture2D>("Textures/Stickman_Handgun.png");
             player.PlayerTexture = stickFigure;
@@ -246,7 +251,7 @@ namespace BreakingTheFourth
                         {
                             //changes game state to game if enter is pressed
                             previousGamestate = gamestate;
-                            gamestate = GameState.Game;
+                            gamestate = GameState.Controls;
                         }
                         else if (kbState.IsKeyDown(Keys.Escape) && previousKbState.IsKeyUp(Keys.Escape))
                         {
@@ -265,10 +270,22 @@ namespace BreakingTheFourth
                     }
                     break;
                 case GameState.Controls:
+                    {
+                        if (kbState.IsKeyDown(Keys.Enter) == true && previousKbState.IsKeyUp(Keys.Enter))
+                        {
+                            //changes game state to game if enter is pressed
+                            previousGamestate = gamestate;
+                            gamestate = GameState.Game;
+                        }
+                        else
+                        {
+                            previousGamestate = gamestate;
+                        }
+                    }
                     break;
                 case GameState.Game:
                     {
-                        if(previousGamestate == GameState.Main || previousGamestate == GameState.LevelClear) //restarts
+                        if(previousGamestate == GameState.Controls || previousGamestate == GameState.LevelClear) //restarts
                         {
                             Restart();
                         }
@@ -484,12 +501,12 @@ namespace BreakingTheFourth
                     }
                     break;
                 case GameState.Controls:
+                    spriteBatch.Draw(controls, new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height), Color.White);
                     break;
                 case GameState.Game:
                     {
                         //drawing methods in here
                         spriteBatch.Draw(background, new Rectangle(0,0, GraphicsDevice.Viewport.Width,
-                            
                             GraphicsDevice.Viewport.Height), Color.Chartreuse);
                         player.Draw(spriteBatch);
                         gun.Draw(spriteBatch, player, gun.Rotation, new Vector2(325, 325));
@@ -521,8 +538,37 @@ namespace BreakingTheFourth
                     break;
                 case GameState.Paused:
                     {
-                        string paused = "PAUSED \n Press Esc to got to the main menu \n Press Enter to return to the game";
-                        spriteBatch.DrawString(font, paused, fontPosition, Color.Black);
+                        //draw game method again
+                        //draw bg
+                        spriteBatch.Draw(background, new Rectangle(0, 0, GraphicsDevice.Viewport.Width,
+                            GraphicsDevice.Viewport.Height), Color.Chartreuse);
+                        //draw player
+                        player.Draw(spriteBatch);
+                        gun.Draw(spriteBatch, player, gun.Rotation, new Vector2(325, 325));
+                        for (int x = 0; x < terrain.Count; x++)
+                        {
+                            terrain[x].Draw(spriteBatch);
+                            if (terrain[x] is LevelGoal)
+                            {
+                                terrain[x].Draw(spriteBatch);
+                            }
+                        }
+                        //UI - Lives left
+                        spriteBatch.Draw(heart, new Rectangle(10, 5, 30, 30), Color.White);
+                        spriteBatch.DrawString(font, "X " + player.PlayerLives, new Vector2(50, 5), Color.Black);
+                        //UI-level #
+                        spriteBatch.DrawString(font, "Level: " + levelCounter, new Vector2(GraphicsDevice.Viewport.Width - 100, 5), Color.Black);
+                        //UI- bullets left for puzzle
+                        spriteBatch.Draw(bullet.BulletTexture, new Rectangle(GraphicsDevice.Viewport.Width - 130, GraphicsDevice.Viewport.Height - 25, 20, 20), Color.White);
+                        spriteBatch.DrawString(font, "X " + bullet.Bullets, new Vector2(GraphicsDevice.Viewport.Width - 100, GraphicsDevice.Viewport.Height - 25), Color.Black);
+                        //draw bullet if it has been fired
+                        if (bullet.BState == Bullet.BulletState.justFired || bullet.BState == Bullet.BulletState.airborne)
+                        {
+                            bullet.Draw(spriteBatch, player);
+                        }
+                        ///////////////////////////////////////////////////////////
+                        //draw paused menu
+                        spriteBatch.Draw(paused, new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height), Color.White);
                         menus.Draw(spriteBatch, mouseState, Config.Buttons.Resume);
                         menus.Draw(spriteBatch, mouseState, Config.Buttons.Restart);
                         menus.Draw(spriteBatch, mouseState, Config.Buttons.Menu);
