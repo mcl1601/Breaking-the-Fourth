@@ -206,6 +206,11 @@ namespace BreakingTheFourth
             heart = Content.Load<Texture2D>("Textures/Life Icon.png");
             //load in font
             font = Content.Load<SpriteFont>("Ebrima_14");
+            //start audio
+            MediaPlayer.Play(menuSong);
+            MediaPlayer.IsRepeating = true;
+            MediaPlayer.Volume = 1f;
+            MediaPlayer.MediaStateChanged += MediaPlayer_MediaStateChanged;
         }
 
         /// <summary>
@@ -285,6 +290,7 @@ namespace BreakingTheFourth
                     break;
                 case GameState.Game:
                     {
+                        MediaPlayer.Stop();
                         if(previousGamestate == GameState.Controls || previousGamestate == GameState.LevelClear) //restarts
                         {
                             Restart();
@@ -639,6 +645,20 @@ namespace BreakingTheFourth
             player.Y = 370;
             //resets player lives
             player.PlayerLives = 3;
+        }
+        /// <summary>
+        /// this will fade out the song and replay it, borrowed from a tutorial made by GamesFromScratch
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void MediaPlayer_MediaStateChanged(object sender, System.EventArgs e)
+        {
+            // 0.0f is silent, 1.0f is full volume
+            MediaPlayer.Volume -= 0.1f;
+            if(gamestate == GameState.Main || gamestate == GameState.Controls)
+            {
+                MediaPlayer.Play(menuSong);
+            }
         }
     }
 }
