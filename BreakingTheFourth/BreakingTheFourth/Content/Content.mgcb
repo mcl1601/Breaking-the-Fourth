@@ -31,3 +31,21 @@
 /processorParam:Quality=Best
 /build:Audio/PML.mp3
 
+#begin Audio/Execution.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Audio/Execution.mp3
+
+#begin Audio/Ritual.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Audio/Ritual.mp3
+
+#begin Audio/Snow.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Audio/Snow.mp3
+

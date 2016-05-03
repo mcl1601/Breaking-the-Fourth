@@ -79,6 +79,7 @@ namespace BreakingTheFourth
         //audio
         Song menuSong;
         Song pauseSong;
+        Song gameOvrSong;
         FileIO fileIO;
         //misc
         Texture2D paused;
@@ -153,7 +154,10 @@ namespace BreakingTheFourth
             //load in audio
             menuSong = Content.Load<Song>("Audio/menu");
             pauseSong = Content.Load<Song>("Audio/Cheese");
+            gameOvrSong = Content.Load<Song>("Audio/Ritual");
             level1.BgMusic = Content.Load<Song>("Audio/PML");
+            level2.BgMusic = Content.Load<Song>("Audio/Snow");
+            level3.BgMusic = Content.Load<Song>("Audio/Execution");
             //load in menu textures
             menus.ExitTexture = Content.Load<Texture2D>("Textures/ExitButton.png");
             menus.ExitOvrTexture = Content.Load<Texture2D>("Textures/ExitOvr.png");
@@ -661,15 +665,32 @@ namespace BreakingTheFourth
                     MediaPlayer.Stop();
                     MediaPlayer.Play(menuSong);
                 }
-                else if (gamestate == GameState.Game && levelCounter == 1)
+                else if (gamestate == GameState.Game)
                 {
-                    MediaPlayer.Stop();
-                    MediaPlayer.Play(level1.BgMusic);
+                    switch (levelCounter)
+                    {
+                        case 1:
+                            MediaPlayer.Stop();
+                            MediaPlayer.Play(level1.BgMusic);
+                            break;
+                        case 2:
+                            MediaPlayer.Stop();
+                            MediaPlayer.Play(level2.BgMusic);
+                            break;
+                        case 3:
+                            MediaPlayer.Stop();
+                            MediaPlayer.Play(level3.BgMusic);
+                            break;
+                    }
                 }
                 else if (gamestate == GameState.Paused)
                 {
+                    
+                }
+                else if (gamestate == GameState.GameOver)
+                {
                     MediaPlayer.Stop();
-                    MediaPlayer.Play(pauseSong);
+                    MediaPlayer.Play(gameOvrSong);
                 }
                 MediaPlayer.IsRepeating = true;
                 MediaPlayer.Volume = 1f;
