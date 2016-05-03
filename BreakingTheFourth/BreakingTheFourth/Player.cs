@@ -251,6 +251,7 @@ namespace BreakingTheFourth
                         playerLives--;
                         X = 30;
                         Y = 370;
+                        justTeleported = false;
                         //gamestate = GameState.GameOver;
                     }
                     if (terrain[i] is LevelGoal)
@@ -278,6 +279,7 @@ namespace BreakingTheFourth
                             (Y <= terrain[i].Y - position.Height && Y >= terrain[i].Y - position.Height - movement.Gravity))//limits y range of activation
                         {
                             Y = terrain[i].Position.Top - position.Height;
+                            justTeleported = false;
                             isFalling = false;
                             isJumping = false;
                             startingY = position.Y;
@@ -307,6 +309,7 @@ namespace BreakingTheFourth
                                 game1.Gamestate = GameState.LevelClear;
                             }
                         }
+                        justTeleported = false;
                         isFalling = false;
                         isJumping = false;
                         startingY = position.Y;
