@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework.Media;
 
 namespace BreakingTheFourth
 {
@@ -14,6 +15,13 @@ namespace BreakingTheFourth
         // list to hold the terrain pieces
         List<Terrain> pieces = new List<Terrain>();
         int playerY;
+        Song bgMusic;
+        //properties
+        public Song BgMusic
+        {
+            get { return bgMusic; }
+            set { bgMusic = value; }
+        }
         public int PlayerY
         {
             get { return playerY; }

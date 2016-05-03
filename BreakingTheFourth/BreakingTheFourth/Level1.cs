@@ -6,6 +6,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 
 namespace BreakingTheFourth
@@ -22,6 +23,13 @@ namespace BreakingTheFourth
         List<Terrain> pieces = new List<Terrain>();
         //Field to hold the player's ending position
         int playerY;
+        Song bgMusic;
+        //properties
+        public Song BgMusic
+        {
+            get { return bgMusic; }
+            set { bgMusic = value; }
+        }
         public int PlayerY
         {
             get { return playerY; }

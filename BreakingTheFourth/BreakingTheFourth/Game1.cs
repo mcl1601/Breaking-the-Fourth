@@ -78,6 +78,7 @@ namespace BreakingTheFourth
         Texture2D walking;
         //audio
         Song menuSong;
+        Song pauseSong;
         FileIO fileIO;
         //misc
         Texture2D paused;
@@ -151,6 +152,8 @@ namespace BreakingTheFourth
 
             //load in audio
             menuSong = Content.Load<Song>("Audio/menu");
+            pauseSong = Content.Load<Song>("Audio/Cheese");
+            level1.BgMusic = Content.Load<Song>("Audio/PML");
             //load in menu textures
             menus.ExitTexture = Content.Load<Texture2D>("Textures/ExitButton.png");
             menus.ExitOvrTexture = Content.Load<Texture2D>("Textures/ExitOvr.png");
@@ -210,7 +213,6 @@ namespace BreakingTheFourth
             MediaPlayer.Play(menuSong);
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Volume = 1f;
-            MediaPlayer.MediaStateChanged += MediaPlayer_MediaStateChanged;
         }
 
         /// <summary>
@@ -231,7 +233,7 @@ namespace BreakingTheFourth
 
         protected override void Update(GameTime gameTime)
         {
-            
+            PlaySong();
             previousKbState = kbState;
             //get keyboard and mouse states
             kbState = Keyboard.GetState();
@@ -290,7 +292,6 @@ namespace BreakingTheFourth
                     break;
                 case GameState.Game:
                     {
-                        MediaPlayer.Stop();
                         if(previousGamestate == GameState.Controls || previousGamestate == GameState.LevelClear) //restarts
                         {
                             Restart();
@@ -647,17 +648,31 @@ namespace BreakingTheFourth
             player.PlayerLives = 3;
         }
         /// <summary>
-        /// this will fade out the song and replay it, borrowed from a tutorial made by GamesFromScratch
+        /// this will play the song based on gamestate
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void MediaPlayer_MediaStateChanged(object sender, System.EventArgs e)
+        public void PlaySong()
         {
-            // 0.0f is silent, 1.0f is full volume
-            MediaPlayer.Volume -= 0.1f;
-            if(gamestate == GameState.Main || gamestate == GameState.Controls)
+            if(previousGamestate != gamestate)
             {
-                MediaPlayer.Play(menuSong);
+                if (gamestate == GameState.Main || gamestate == GameState.Controls)
+                {
+                    MediaPlayer.Stop();
+                    MediaPlayer.Play(menuSong);
+                }
+                else if (gamestate == GameState.Game && levelCounter == 1)
+                {
+                    MediaPlayer.Stop();
+                    MediaPlayer.Play(level1.BgMusic);
+                }
+                else if (gamestate == GameState.Paused)
+                {
+                    MediaPlayer.Stop();
+                    MediaPlayer.Play(pauseSong);
+                }
+                MediaPlayer.IsRepeating = true;
+                MediaPlayer.Volume = 1f;
             }
         }
     }
