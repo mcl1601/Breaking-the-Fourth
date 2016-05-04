@@ -57,19 +57,19 @@ namespace BreakingTheFourth
                     pieces.Add(new Terrain(0, 0, 25, 350));//left wall
                     pieces.Add(new Terrain(0, 450, 150, 40));//left floor
                     pieces.Add(new Terrain(130, 440, 20, 10)); //thingy to stop you from walking right onto the spikes
-                    pieces.Add(new SpecialTerrain(250, 470, 50, 50, 75, 470));//first moving platform
+                    pieces.Add(new SpecialTerrain(250, 75, 50, 50, 75, 470));//first moving platform
                     //first set of platforms with spikes
                     pieces.Add(new Terrain(350, 130, 40, 40));
                     pieces.Add(new DeathObject(350, 100, 40, 30));
                     pieces.Add(new Terrain(350, 330, 40, 40));
                     pieces.Add(new DeathObject(350, 300, 40, 30));
-                    pieces.Add(new SpecialTerrain(450, 75, 50, 50, 75, 470));//second moving platform
+                    pieces.Add(new SpecialTerrain(450, 470, 50, 50, 75, 470));//second moving platform
                     //second set of platforms with spikes
                     pieces.Add(new Terrain(550, 130, 40, 40));
                     pieces.Add(new DeathObject(550, 100, 40, 30));
                     pieces.Add(new Terrain(550, 330, 40, 40));
                     pieces.Add(new DeathObject(550, 300, 40, 30));
-                    pieces.Add(new SpecialTerrain(650, 470, 50, 50, 75, 470));//third moving platform
+                    pieces.Add(new SpecialTerrain(650, 75, 50, 50, 75, 470));//third moving platform
                     pieces.Add(new Terrain(750, 0, 50, 350));//left wall
                     pieces.Add(new Terrain(750, 450, 150, 40));//left floor
                     playerY = 370;
@@ -80,7 +80,7 @@ namespace BreakingTheFourth
                     // add new pieces
                     pieces.Add(new Terrain(0, 0, 25, 350));//left wall
                     pieces.Add(new Terrain(0, 450, 150, 40));//left floor
-                    pieces.Add(new SpecialTerrain(150, 460, 600, 40, 50, 460));//moving platform
+                    pieces.Add(new SpecialTerrain(150, 75, 600, 40, 50, 460));//moving platform
                     pieces.Add(new Terrain(250, 0, 30, 300));//first obstacle (top)
                     pieces.Add(new Terrain(250, 375, 30, 200));//first obstacle (bottom)
                     pieces.Add(new Terrain(350, 0, 30, 150));//second obstacle (top)
