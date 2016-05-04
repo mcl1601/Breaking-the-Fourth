@@ -485,8 +485,8 @@ namespace BreakingTheFourth
                     break;
                 case GameState.GameOver:
                     {
-                        menus.Restart(GraphicsDevice.Viewport.Width / 2 - 40, 125);
-                        menus.Menu(GraphicsDevice.Viewport.Width / 2 - 40, 200);
+                        menus.Restart(GraphicsDevice.Viewport.Width / 2 - 40, 300);
+                        menus.Menu(GraphicsDevice.Viewport.Width / 2 - 40, 375);
                         if (kbState.IsKeyDown(Keys.Escape) == true && previousKbState.IsKeyUp(Keys.Escape))
                         {
                             previousGamestate = gamestate;
@@ -521,14 +521,16 @@ namespace BreakingTheFourth
             {
                 case GameState.Main:
                     {
+                        spriteBatch.Draw(background, new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height), Color.BlueViolet);
                         string welcome = "Welcome to Breaking the Fourth \n         Press Enter to Begin";
-                        spriteBatch.DrawString(font, welcome, fontPosition, Color.Black);
+                        spriteBatch.DrawString(font, welcome, fontPosition, Color.White);
                         menus.Draw(spriteBatch, mouseState, Config.Buttons.Start);
                         menus.Draw(spriteBatch, mouseState, Config.Buttons.Load);
                         menus.Draw(spriteBatch, mouseState, Config.Buttons.Exit);
                     }
                     break;
                 case GameState.Controls:
+                    spriteBatch.Draw(background, new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height), Color.BlueViolet);
                     spriteBatch.Draw(controls, new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height), Color.White);
                     break;
                 case GameState.Game:
@@ -617,6 +619,8 @@ namespace BreakingTheFourth
                     break;
                 case GameState.GameOver:
                     {
+                        spriteBatch.Draw(background, new Rectangle(0, 0, GraphicsDevice.Viewport.Width,
+                        GraphicsDevice.Viewport.Height), Color.Maroon);
                         string death = "GAME OVER\n Press Esc to go to the main menu \n Press Enter to start over";
                         spriteBatch.DrawString(font, death, fontPosition, Color.Red);
                         menus.Draw(spriteBatch, mouseState, Config.Buttons.Restart);
