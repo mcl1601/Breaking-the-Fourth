@@ -43,6 +43,7 @@ namespace BreakingTheFourth
         public List<Terrain> NextScreen(int screen, Bullet bullet)
         {
             bullet.Bullets = 500;//temp till we decide how many bullets are needed per puzzle
+            //////////////////////////////////////////////////////////////////////////////////////////all walls need to be thicker than 30 so gun doesn't poke thru
             // switch to determine which screen to draw
             switch (screen)
             {

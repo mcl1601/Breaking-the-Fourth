@@ -737,6 +737,7 @@ namespace BreakingTheFourth
         public void DrawBackground(SpriteBatch sb)
         {
             Color bg;
+            //draws bg as the correct corresponding color
             switch(levelCounter)
             {
                 case 1: bg = level1.BgColor;
