@@ -24,11 +24,16 @@ namespace BreakingTheFourth
         //Field to hold the player's ending position
         int playerY;
         Song bgMusic;
+        Color bgColor = Color.Aqua;
         //properties
         public Song BgMusic
         {
             get { return bgMusic; }
             set { bgMusic = value; }
+        }
+        public Color BgColor
+        {
+            get { return bgColor; }
         }
         public int PlayerY
         {

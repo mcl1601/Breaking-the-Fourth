@@ -613,8 +613,9 @@ namespace BreakingTheFourth
                     break;
                 case GameState.LevelClear:
                     {
+                        spriteBatch.Draw(background, new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height), Color.DarkGreen);
                         string cleared = "Level Cleared! \n Press Enter to go to next level";
-                        spriteBatch.DrawString(font, cleared, fontPosition, Color.Black);
+                        spriteBatch.DrawString(font, cleared, fontPosition, Color.White);
                     }
                     break;
                 case GameState.GameOver:
@@ -735,6 +736,18 @@ namespace BreakingTheFourth
 
         public void DrawBackground(SpriteBatch sb)
         {
+            Color bg;
+            switch(levelCounter)
+            {
+                case 1: bg = level1.BgColor;
+                    break;
+                case 2: bg = level2.BgColor;
+                    break;
+                case 3: bg = level3.BgColor;
+                    break;
+                default: bg = level1.BgColor;
+                    break;
+            }
             sb.Draw(animBackground, // Texture
                 new Rectangle(0, 0, GraphicsDevice.Viewport.Width,
                 GraphicsDevice.Viewport.Height), // Position
@@ -742,7 +755,7 @@ namespace BreakingTheFourth
                 Yoffset, // Y
                 GraphicsDevice.Viewport.Width, // Width
                 GraphicsDevice.Viewport.Height), // Height
-                Color.Chartreuse, // Color
+                bg, // Color
                 0, // Rotation
                 Vector2.Zero, // Origin
                 SpriteEffects.None, // Effects

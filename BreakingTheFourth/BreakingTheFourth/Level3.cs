@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework;
 
 namespace BreakingTheFourth
 {
@@ -11,11 +12,16 @@ namespace BreakingTheFourth
         List<Terrain> pieces = new List<Terrain>();
         int playerY;
         Song bgMusic;
+        Color bgColor = Color.Yellow;
         //properties
         public Song BgMusic
         {
             get { return bgMusic; }
             set { bgMusic = value; }
+        }
+        public Color BgColor
+        {
+            get { return bgColor; }
         }
         public int PlayerY
         {
