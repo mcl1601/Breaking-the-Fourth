@@ -470,11 +470,6 @@ namespace BreakingTheFourth
                 startingY = position.Y;
                 canJump = true;
             }
-            //should only activate the frame after teleporting
-            if (position.Top < terrain[i].Position.Bottom && justTeleported == true)
-            {
-                position.Y += terrain[i].Position.Bottom - position.Top;
-            }
             if (startingY > terrain[i].Position.Bottom && IsJumping == true) // starts below the object & jumps
             {
                 if (position.Top < terrain[i].Position.Bottom && IsJumping == true && position.Top > terrain[i].Position.Top)
@@ -494,6 +489,18 @@ namespace BreakingTheFourth
                     position.X = terrain[i].Position.Right;
                     //position.X += movement.PlayerSpeed;
                 }
+            }
+            if(position.Top < terrain[i].Position.Top && position.Bottom > terrain[i].Position.Top && justTeleported == true)
+            {
+                position.Y -= position.Bottom - terrain[i].Position.Top;
+                isFalling = false;
+                startingY = position.Y;
+                canJump = true;
+            }
+            //should only activate the frame after teleporting
+            else if (position.Top < terrain[i].Position.Bottom && position.Bottom > terrain[i].Position.Bottom  && justTeleported == true)
+            {
+                position.Y += terrain[i].Position.Bottom - position.Top;
             }
         }//end of offset method
 

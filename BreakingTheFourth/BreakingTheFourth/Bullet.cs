@@ -83,13 +83,13 @@ namespace BreakingTheFourth
         public void Update(List<Terrain> terrain, Gun gun, Player player, MouseState mouseState, MouseState previousMState, 
             float rot, KeyboardState kbState, GraphicsDevice GraphicsDevice, Game1 game)
         {
+            //assigns amount of movement to the y direction
+            double movementY = (Math.Round(Math.Sin(rotation) * movement.BulletSpeed));//rotation determines where bullet goes
+            //assigns amount of movement to the x direction
+            double movementX = (Math.Round(Math.Cos(rotation) * movement.BulletSpeed));
             switch (bState)
             {
                 case Bullet.BulletState.airborne:
-                    //assigns amount of movement to the y direction
-                    double movementY = (Math.Round(Math.Sin(rotation) * movement.BulletSpeed));//rotation determines where bullet goes
-                    //assigns amount of movement to the x direction                            //rotation is determined by gun
-                    double movementX = (Math.Round(Math.Cos(rotation) * movement.BulletSpeed));//gun is broken w/ the states in right direction
                     if (facingLeft == true)
                     {
                         //position.X -= movement.BulletSpeed;
@@ -162,19 +162,30 @@ namespace BreakingTheFourth
                 case Bullet.BulletState.justFired:
                     {
                         //sets up bullet position to be right before gun
-                        position.Y = gun.GunPosition.Top -5;//can't fix it with a simple hardcoded offset, due to rot
+                        position.Y = gun.GunPosition.Top;//can't fix it with a simple hardcoded offset, due to rot
+                        if(rotation > 0)
+                        {
+                            position.Y -= Math.Abs(Convert.ToInt32(movementY / movement.BulletSpeed * 28));
+                        }
+                        else
+                        {
+                            position.Y += Math.Abs(Convert.ToInt32(movementY / movement.BulletSpeed * 28));
+                        }
                         //shift bulletstate
                         bState = BulletState.airborne;
                         //bool that says whether it is left or right
                         if (player.PState == Player.PlayerState.faceLeft || player.PState == Player.PlayerState.walkLeft)
                         {
                             facingLeft = true;
-                            position.X = gun.GunPosition.Left;
+                            position.X = gun.GunPosition.Left;// -30;
+                            //position.X = Convert.ToInt32(gun.Origin.X) - 95;
+                            position.X -= Math.Abs(Convert.ToInt32(movementX / movement.BulletSpeed * 28));
                         }
                         else
                         {
                             facingLeft = false;
                             position.X = gun.GunPosition.Right;
+                            position.X -= Math.Abs(Convert.ToInt32(movementY / movement.BulletSpeed * 28));
                         }
                     }
                     break;

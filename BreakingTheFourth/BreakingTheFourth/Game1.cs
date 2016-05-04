@@ -624,14 +624,17 @@ namespace BreakingTheFourth
             if (levelCounter == 1)
             {
                 terrain = level1.NextScreen(screenCounter, bullet);
+                player.Y = level1.PlayerY;
             }
             if (levelCounter == 2)
             {
                 terrain = level2.NextScreen(screenCounter, bullet);
+                player.Y = level2.PlayerY;
             }
             if(levelCounter == 3)
             {
                 terrain = level3.NextScreen(screenCounter, bullet);
+                player.Y = level3.PlayerY;
             }
             //loads terrain
             for (int x = 0; x < terrain.Count; x++)
@@ -647,7 +650,6 @@ namespace BreakingTheFourth
             }
             //resets player position
             player.X = 50;
-            player.Y = 370;
             //resets player lives
             player.PlayerLives = 3;
         }
