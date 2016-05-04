@@ -86,6 +86,18 @@ namespace BreakingTheFourth
         Texture2D controls;
         Texture2D levelGoal;
         Texture2D background;
+        Texture2D animBackground;
+        // animation fields
+        int frame;
+        double fps;
+        double timePerFrame;
+        double timeCounter;
+
+        // constants for the source Rect
+        const int FrameCount = 15;
+        const int Yoffset = 0;
+        const int SourceHeight = 600;
+        const int SourceWidth = 903;
         //property for gamestate
         public GameState Gamestate
         {
@@ -140,6 +152,9 @@ namespace BreakingTheFourth
             mouse = new Rectangle(mouseState.X, mouseState.Y, 30, 30);
             color = Color.Red;
             fileIO = new FileIO();
+            frame = 1;
+            fps = 12;
+            timePerFrame = 1.0 / fps;
             base.Initialize();
         }
         /// <summary>
@@ -191,6 +206,7 @@ namespace BreakingTheFourth
             terrainBlock = Content.Load<Texture2D>("Textures/TerrainBlock.png");
             levelGoal = Content.Load<Texture2D>("Textures/goal_sprite.png");
             background = Content.Load<Texture2D>("Textures/GameBackgroundTest.png");
+            animBackground = Content.Load<Texture2D>("Textures/GameBackground_Spritesheet.png");
             foreach (Terrain t in terrain)
             {
                 //Will need to be fixed eventually. - has been fixed
@@ -427,6 +443,7 @@ namespace BreakingTheFourth
 
                         // update animation
                         player.UpdateAnimation(gameTime);
+                        UpdateBackgroundAnimtion(gameTime);
                     }//end of game case
                     break;
                 case GameState.Paused:
@@ -517,8 +534,7 @@ namespace BreakingTheFourth
                 case GameState.Game:
                     {
                         //drawing methods in here
-                        spriteBatch.Draw(background, new Rectangle(0,0, GraphicsDevice.Viewport.Width,
-                            GraphicsDevice.Viewport.Height), Color.Chartreuse);
+                        DrawBackground(spriteBatch);
                         player.Draw(spriteBatch);
                         gun.Draw(spriteBatch, player, gun.Rotation, new Vector2(325, 325));
                         for (int x = 0; x < terrain.Count; x++)
@@ -697,6 +713,36 @@ namespace BreakingTheFourth
                 MediaPlayer.IsRepeating = true;
                 MediaPlayer.Volume = 1f;
             }
+        }
+
+        public void UpdateBackgroundAnimtion(GameTime gameTime)
+        {
+            timeCounter += gameTime.ElapsedGameTime.TotalSeconds;
+            if(timeCounter >= timePerFrame)
+            {
+                frame++;
+                if (frame > FrameCount)
+                {
+                    frame = 1;
+                }
+                timeCounter -= timePerFrame;
+            }
+        }
+
+        public void DrawBackground(SpriteBatch sb)
+        {
+            sb.Draw(animBackground, // Texture
+                new Rectangle(0, 0, GraphicsDevice.Viewport.Width,
+                GraphicsDevice.Viewport.Height), // Position
+                new Rectangle(frame * SourceWidth - SourceWidth, // X
+                Yoffset, // Y
+                GraphicsDevice.Viewport.Width, // Width
+                GraphicsDevice.Viewport.Height), // Height
+                Color.Chartreuse, // Color
+                0, // Rotation
+                Vector2.Zero, // Origin
+                SpriteEffects.None, // Effects
+                0); // Depth
         }
     }
 }
