@@ -46,7 +46,7 @@ namespace BreakingTheFourth
                     pieces.Add(new Terrain(0, 0, 25, 600)); // left wall
                     pieces.Add(new Terrain(0, 450, 200, 40)); //left floor
                     pieces.Add(new Terrain(0, 0, 800, 40)); //ceiling
-                    pieces.Add(new SpecialTerrain(200, 470, 40, 40, 200, 490)); //moving platform
+                    pieces.Add(new SpecialTerrain(200, 470, 40, 40, 200, 490, "vertical")); //moving platform
                     pieces.Add(new Terrain(250, 210, 50, 400)); //upper left floor
                     pieces.Add(new Terrain(370, 0, 40, 300)); // first pillar
                     pieces.Add(new Terrain(300, 400, 100, 40)); //first platform
@@ -70,7 +70,7 @@ namespace BreakingTheFourth
                     pieces.Add(new Terrain(190, 320, 50, 20));
                     pieces.Add(new Terrain(300, 250, 50, 20));
                     pieces.Add(new Terrain(190, 150, 50, 20));
-                    pieces.Add(new SpecialTerrain(450, 125, 40, 40, 50, 250));//moving platform
+                    pieces.Add(new SpecialTerrain(450, 125, 40, 40, 50, 250, "vertical"));//moving platform
                     pieces.Add(new Terrain(600, 250, 200, 300)); //right floor
                     pieces.Add(new DeathObject(600, 210, 50, 40)); //spikes
                     playerY = 170;
@@ -97,7 +97,7 @@ namespace BreakingTheFourth
                     // add new pieces
                     pieces.Add(new Terrain(0, 450, 150, 40)); // left floor
                     pieces.Add(new Terrain(0, 0, 25, 300)); // left wall
-                    pieces.Add(new SpecialTerrain(200, 440, 60, 60, 200, 440)); //moving platform
+                    pieces.Add(new SpecialTerrain(200, 440, 60, 60, 200, 440, "vertical")); //moving platform
                     pieces.Add(new Terrain(275, 0, 40, 200)); //first obstacle (top)
                     pieces.Add(new Terrain(275, 260, 40, 60)); //first obstacle (middle)
                     pieces.Add(new Terrain(275, 380, 40, 100)); //first obstacle (bottom)
@@ -126,8 +126,8 @@ namespace BreakingTheFourth
                     pieces.Add(new Terrain(775, 0, 25, 500)); // right wall
                     pieces.Add(new Terrain(225, 150, 50, 500)); //big wall
                     pieces.Add(new Terrain(0, 0, 800, 40)); //ceiling
-                    pieces.Add(new SpecialTerrain(325, 90, 20, 20, 40, 120)); //tiny moving platform
-                    pieces.Add(new SpecialTerrain(450, 90, 50, 50, 40, 90)); //bigger moving platform
+                    pieces.Add(new SpecialTerrain(325, 90, 20, 20, 40, 120, "vertical")); //tiny moving platform
+                    pieces.Add(new SpecialTerrain(450, 90, 50, 50, 40, 90, "vertical")); //bigger moving platform
                     pieces.Add(new Terrain(400, 140, 500, 30)); //platform that connects to bigger moving platform
                     pieces.Add(new DeathObject(500, 110, 250, 30)); //YOU SHALL NOT PASS
                     pieces.Add(new Terrain(500, 450, 275, 40)); //right floor

@@ -23,29 +23,48 @@ namespace BreakingTheFourth
         //private Texture2D image;
         private Rectangle position;
         private bool movingUp;
-        private int maxY;
-        private int minY;
+        private bool movingLeft;
+        private int maxY = -1;
+        private int minY = -1;
+        private int maxX = -1;
+        private int minX = -1;
         FileIO movement = new FileIO();
 
-        public SpecialTerrain(int x, int y, int width, int height, int max, int min) : base (x, y,width, height)
+        public SpecialTerrain(int x, int y, int width, int height, int max, int min, string axis) : base (x, y,width, height)
         {
             position = new Rectangle(x, y, width, height);
-            movingUp = true;
-            maxY = max;
-            minY = min;
+            if(axis == "horizontal")
+            {
+                movingLeft = true;
+                maxX = max;
+                minX = min;
+            }
+            else if (axis == "vertical")
+            {
+                movingUp = true;
+                maxY = max;
+                minY = min;
+            }
         }
 
         // properties
         public int MaxY
         {
             get { return maxY; }
-            set { maxY = value; }
         }
 
         public int MinY
         {
             get { return minY; }
-            set { minY = value; }
+        }
+        public int MaxX
+        {
+            get { return maxX; }
+        }
+
+        public int MinX
+        {
+            get { return minX; }
         }
         public bool MovingUp
         {
@@ -58,17 +77,33 @@ namespace BreakingTheFourth
             if (movingUp == true)
             {
                 Y--;
-                if(Y <= MaxY)
+                if(Y <= maxY)
                 {
                     movingUp = false;
                 }
             }
-            else
+            else if(movingLeft == true)
+            {
+                X--;
+                if (X <= minX)
+                {
+                    movingLeft = false;
+                }
+            }
+            else if(maxX < 0 || minX < 0)
             {
                 Y++;
-                if(Y >= MinY)
+                if(Y >= minY)
                 {
                     movingUp = true;
+                }
+            }
+            else
+            {
+                X++;
+                if (X >= maxX)
+                {
+                    movingLeft = true;
                 }
             }
             
