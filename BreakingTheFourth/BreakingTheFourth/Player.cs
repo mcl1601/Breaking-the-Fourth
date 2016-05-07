@@ -476,12 +476,13 @@ namespace BreakingTheFourth
             //determines if the player is running into a wall
             if (position.Bottom > terrain[i].Position.Top + movement.Gravity && isJumping == false)
             {
-                if (position.Right > terrain[i].Position.Left && kbState.IsKeyDown(Keys.D))
+                if (position.Right > terrain[i].Position.Left && kbState.IsKeyDown(Keys.D))/////issue where if your standing on moving platform
+                                                                                           ////and run into another platform you don't get offset
                 {
                     position.X = terrain[i].Position.Left - position.Width;
                     //position.X -= movement.PlayerSpeed;
                 }
-                else if (position.Left < terrain[i].Position.Right && kbState.IsKeyDown(Keys.A) )
+                else if (position.Left < terrain[i].Position.Right && kbState.IsKeyDown(Keys.A) )////same issue as above
                 {
                     position.X = terrain[i].Position.Right;
                     //position.X += movement.PlayerSpeed;

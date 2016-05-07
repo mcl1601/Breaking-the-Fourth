@@ -118,7 +118,7 @@ namespace BreakingTheFourth
                             }
                             if (terrain[i] is LevelGoal)
                             {
-                                if (terrain[i].CollisionDetected(Position) == true) //////////////////////////////////////////////////////////////////////////
+                                if (terrain[i].CollisionDetected(Position) == true) ////////////////////
                                 {
                                     game.PreGamestate = game.Gamestate;
                                     game.Gamestate = GameState.LevelClear;
