@@ -278,13 +278,38 @@ namespace BreakingTheFourth
                         if (!(terrain[i] is DeathObject || terrain[i] is LevelGoal) && 
                             (Y <= terrain[i].Y - position.Height && Y >= terrain[i].Y - position.Height - movement.Gravity))//limits y range of activation
                         {
-                            Y = terrain[i].Position.Top - position.Height;
-                            justTeleported = false;
-                            isFalling = false;
-                            isJumping = false;
-                            startingY = position.Y;
-                            collided = true;
-                            canJump = true;
+                            SpecialTerrain st = (SpecialTerrain)terrain[i];
+                            if(st.MinX ==-1)
+                            {
+                                Y = terrain[i].Position.Top - position.Height;
+                                justTeleported = false;
+                                isFalling = false;
+                                isJumping = false;
+                                startingY = position.Y;
+                                collided = true;
+                                canJump = true;
+                            }
+                            //should keep you stuck to the platform
+                            else if(st.MaxY ==-1)
+                            {
+                                if(kbState.IsKeyUp(Keys.A) && kbState.IsKeyUp(Keys.D) && kbState.IsKeyUp(Keys.Space))
+                                {
+                                    Y = terrain[i].Position.Top - position.Height;
+                                    justTeleported = false;
+                                    isFalling = false;
+                                    isJumping = false;
+                                    collided = true;
+                                    canJump = true;
+                                    if(st.MovingLeft == true)
+                                    {
+                                        X++;
+                                    }
+                                    else
+                                    {
+                                        X--;
+                                    }
+                                }
+                            }
                         }
                     }
                 }

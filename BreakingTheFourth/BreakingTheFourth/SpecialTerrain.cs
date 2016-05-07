@@ -7,6 +7,11 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace BreakingTheFourth
 {
+    public enum Movement
+    {
+        Vertical,
+        Horizontal
+    }
     //Contributors:
     //Mike O'Donnell - Helped plan on logic for getting the block to move up and down a constant distance. Also added the beginning comments for outlining
     //Kat Weis - did inheriting from terrain and adjustments to make that work
@@ -24,22 +29,24 @@ namespace BreakingTheFourth
         private Rectangle position;
         private bool movingUp;
         private bool movingLeft;
+        //max and mins
         private int maxY = -1;
         private int minY = -1;
         private int maxX = -1;
         private int minX = -1;
         FileIO movement = new FileIO();
 
-        public SpecialTerrain(int x, int y, int width, int height, int max, int min, string axis) : base (x, y,width, height)
+        public SpecialTerrain(int x, int y, int width, int height, int max, int min, Movement axis) : base (x, y,width, height)
         {
             position = new Rectangle(x, y, width, height);
-            if(axis == "horizontal")
+            //determines where to set max and min and where its moving
+            if(axis == Movement.Horizontal)
             {
                 movingLeft = true;
                 maxX = max;
                 minX = min;
             }
-            else if (axis == "vertical")
+            else if (axis == Movement.Vertical)
             {
                 movingUp = true;
                 maxY = max;
@@ -70,10 +77,15 @@ namespace BreakingTheFourth
         {
             get { return movingUp; }
         }
+        public bool MovingLeft
+        {
+            get { return movingLeft; }
+        }
 
         // moving platforms
         public override void Update()
         {
+            //moving up
             if (movingUp == true)
             {
                 Y--;
@@ -82,6 +94,7 @@ namespace BreakingTheFourth
                     movingUp = false;
                 }
             }
+            //moving left
             else if(movingLeft == true)
             {
                 X--;
@@ -90,6 +103,7 @@ namespace BreakingTheFourth
                     movingLeft = false;
                 }
             }
+            //moving down
             else if(maxX < 0 || minX < 0)
             {
                 Y++;
@@ -98,6 +112,7 @@ namespace BreakingTheFourth
                     movingUp = true;
                 }
             }
+            //moving right
             else
             {
                 X++;
