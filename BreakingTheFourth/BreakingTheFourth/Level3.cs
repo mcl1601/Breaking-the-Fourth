@@ -137,7 +137,8 @@ namespace BreakingTheFourth
                     pieces.Add(new SpecialTerrain(400, 0, 20, 60, 0, 140, Movement.Vertical));//top right moving platform
                     pieces.Add(new Terrain(500, 200, 40, 300));//wall adjacent to spike platform
                     pieces.Add(new Terrain(540, 450, 300, 40));//right floor
-                    pieces.Add(new Terrain(750, 0, 50, 350));//right wall
+                    pieces.Add(new Terrain(750, 0, 50, 500));//right wall
+                    pieces.Add(new LevelGoal(650, 400, 50, 50)); //LOS GOALLLLLLOSSSSSSS
                     playerY = 370;
                     break;
 
