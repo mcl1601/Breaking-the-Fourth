@@ -111,6 +111,8 @@ namespace BreakingTheFourth
                                 player.PlayerLives--;
                                 player.X = 50;
                                 player.Y = 370;
+                                bState = BulletState.ready;
+                                break;
                                 //game.PreGamestate = game.Gamestate;
                                 //game.Gamestate = GameState.GameOver;
                             }
