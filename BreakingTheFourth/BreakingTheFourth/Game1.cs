@@ -549,6 +549,12 @@ namespace BreakingTheFourth
                                 goal.Image = levelGoal;
                                 goal.Draw(spriteBatch);
                             }
+                            else if(terrain[x] is DeathObject)
+                            {
+                                DeathObject spike = (DeathObject)terrain[x];
+                                spike.Image = spikes;
+                                spike.Draw(spriteBatch);
+                            }
                             else
                             {
                                 terrain[x].Draw(spriteBatch);

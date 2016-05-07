@@ -290,7 +290,7 @@ namespace BreakingTheFourth
                                 canJump = true;
                             }
                             //should keep you stuck to the platform
-                            else if(st.MaxY ==-1)
+                            else if(st.MaxY == -1)
                             {
                                 if(kbState.IsKeyUp(Keys.A) && kbState.IsKeyUp(Keys.D) && kbState.IsKeyUp(Keys.Space))
                                 {
@@ -302,11 +302,11 @@ namespace BreakingTheFourth
                                     canJump = true;
                                     if(st.MovingLeft == true)
                                     {
-                                        X++;
+                                        X--;
                                     }
                                     else
                                     {
-                                        X--;
+                                        X++;
                                     }
                                 }
                             }

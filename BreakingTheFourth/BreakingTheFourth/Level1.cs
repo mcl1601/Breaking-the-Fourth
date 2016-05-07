@@ -76,7 +76,7 @@ namespace BreakingTheFourth
                     // add new pieces
                     pieces.Add(new Terrain(0, 0, 25, 300)); // left wall
                     pieces.Add(new Terrain(0, 450, 800, 40)); //floor
-                    pieces.Add(new DeathObject(350, 410, 100, 40)); //spikes
+                    pieces.Add(new DeathObject(350, 410, 100, 40, "none")); //spikes
                     pieces.Add(new Terrain(350, 0, 100, 40)); //ceiling
                     pieces.Add(new Terrain(350, 225, 100, 40)); //platform
                     playerY = 370;
@@ -88,15 +88,15 @@ namespace BreakingTheFourth
                     pieces.Add(new Terrain(0, 0, 25, 300)); // left wall
                     pieces.Add(new Terrain(0, 450, 800, 40)); //floor
                     pieces.Add(new Terrain(60, 440, 15, 10)); //thingy to stop you from walking right onto the spikes
-                    pieces.Add(new DeathObject(140, 410, 570, 40)); //floor spikes
+                    pieces.Add(new DeathObject(140, 410, 570, 40, "none")); //floor spikes
                     pieces.Add(new Terrain(0, 0, 800, 40)); //ceiling
                     pieces.Add(new Terrain(100, 225, 75, 40)); //first platform
                     pieces.Add(new Terrain(225, 140, 75, 40)); // 1st top platform
-                    pieces.Add(new DeathObject(225, 100, 75, 40)); //1st top platform spikes
+                    pieces.Add(new DeathObject(225, 100, 75, 40, "none")); //1st top platform spikes
                     pieces.Add(new Terrain(225, 325, 75, 40)); //1st bottom platform
                     pieces.Add(new Terrain(550, 140, 75, 40)); //2nd top platform
                     pieces.Add(new Terrain(550, 325, 75, 40)); //2nd bottom platform
-                    pieces.Add(new DeathObject(550, 285, 75, 40)); //2nd bottom platform spikes 
+                    pieces.Add(new DeathObject(550, 285, 75, 40, "none")); //2nd bottom platform spikes 
                     pieces.Add(new Terrain(375, 0, 40, 195)); //divider
                     playerY = 370;
                     break;
