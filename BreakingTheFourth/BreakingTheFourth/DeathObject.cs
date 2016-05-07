@@ -13,9 +13,11 @@ namespace BreakingTheFourth
     {
         private Rectangle position;
         private Texture2D image;
-        public DeathObject(int x, int y, int width, int height) : base(x,y,width,height)
+        private String direction;
+        public DeathObject(int x, int y, int width, int height, string direction) : base(x,y,width,height)
         {
             position = new Rectangle(x, y, width, height);
+            this.direction = direction;
         }
         public new Texture2D Image
         {
@@ -24,7 +26,22 @@ namespace BreakingTheFourth
         }
         public new void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(image, position, Color.White);
+            switch(direction)
+            {
+                case "none":
+                    spriteBatch.Draw(image, position, Color.White);
+                    break;
+                case "down":
+                    spriteBatch.Draw(image, position, null, Color.White, 0f, new Vector2(0,0), SpriteEffects.FlipVertically, 0);
+                    break;
+                case "left":
+                    spriteBatch.Draw(image, position, null, Color.White, (float)(3*Math.PI / 2), new Vector2(0, 0), SpriteEffects.FlipHorizontally, 0);
+                    break;
+                case "right":
+                    spriteBatch.Draw(image, position, null, Color.White, (float)(3*Math.PI/2), new Vector2(0, 0), SpriteEffects.FlipVertically, 0);
+                    break;
+            }
+            
         }
 
     }
