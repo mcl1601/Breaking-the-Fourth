@@ -47,8 +47,8 @@ namespace BreakingTheFourth
                     pieces.Add(new Terrain(0, 0, 300, 10));//left ceiling
                     pieces.Add(new SpecialTerrain(40, 130, 70, 30, 700, 40, Movement.Horizontal));//moving platform
                     pieces.Add(new Terrain(550, 0, 50, 250));//giant spiked wall of death in the middle, hard to miss
-                    pieces.Add(new DeathObject(500, 250, 50, 250, "left"));//left facing spikes
-                    pieces.Add(new DeathObject(600, 250, 50, 250, "right"));//right facing spikes
+                    pieces.Add(new DeathObject(500, 0, 50, 250, "left"));//left facing spikes
+                    pieces.Add(new DeathObject(600, 0, 50, 250, "right"));//right facing spikes
                     pieces.Add(new Terrain(530, 450, 100, 40));//platform under death wall of death
                     pieces.Add(new Terrain(710, 450, 150, 40));//right floor
                     playerY = 370;

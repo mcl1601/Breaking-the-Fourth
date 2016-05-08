@@ -41,10 +41,10 @@ namespace BreakingTheFourth
                     spriteBatch.Draw(image, position, null, Color.White, 0f, new Vector2(0,0), SpriteEffects.FlipVertically, 0);
                     break;
                 case "left":
-                    spriteBatch.Draw(sideImage, position, null, Color.White, 0f, new Vector2(0, 0), SpriteEffects.FlipHorizontally, 0);
+                    spriteBatch.Draw(sideImage, position, null, Color.White, 0f, new Vector2(0, 0), SpriteEffects.None, 0);
                     break;
                 case "right":
-                    spriteBatch.Draw(sideImage, position, null, Color.White, 0f, new Vector2(0, 0), SpriteEffects.None, 0);
+                    spriteBatch.Draw(sideImage, position, null, Color.White, 0f, new Vector2(0, 0), SpriteEffects.FlipHorizontally, 0);
                     break;
             }
             
