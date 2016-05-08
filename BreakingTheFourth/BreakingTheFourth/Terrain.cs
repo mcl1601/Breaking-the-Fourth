@@ -20,7 +20,7 @@ namespace BreakingTheFourth
         //If we're gonna make the level move around the player, we'll need X and Y coordinates to move. How does that even work?
         //Do we make the ground a Rectangle? This will probably be the trickiest class.
 
-
+        private Texture2D sideImage;
         private Texture2D image;
         private Rectangle position;
         public Terrain(int x, int y, int width, int height)
@@ -31,6 +31,11 @@ namespace BreakingTheFourth
         {
             get { return image; }
             set { image = value; }
+        }
+        public virtual Texture2D SideImage
+        {
+            get { return sideImage; }
+            set { sideImage = value; }
         }
         public Rectangle Position
         {

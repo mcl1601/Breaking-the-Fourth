@@ -51,6 +51,7 @@ namespace BreakingTheFourth
         Level1 level1;
         Level2 level2;
         Level3 level3;
+        Level4 level4;
         int screenCounter;
         int levelCounter;
         //fields for finite state machines
@@ -73,6 +74,7 @@ namespace BreakingTheFourth
         Texture2D heart;
         //fields for terrain textures
         Texture2D spikes;
+        Texture2D sideSpikes;
         Texture2D terrainBlock;
         Color color;
         Texture2D walking;
@@ -141,6 +143,7 @@ namespace BreakingTheFourth
             level1 =  new Level1();
             level2 = new Level2();
             level3 = new Level3();
+            level4 = new Level4();
             screenCounter = 1;
             levelCounter = 1;
             //initialize game state
@@ -173,6 +176,7 @@ namespace BreakingTheFourth
             level1.BgMusic = Content.Load<Song>("Audio/PML");
             level2.BgMusic = Content.Load<Song>("Audio/Snow");
             level3.BgMusic = Content.Load<Song>("Audio/Execution");
+            level4.BgMusic = Content.Load<Song>("Audio/PML");
             //load in menu textures
             menus.ExitTexture = Content.Load<Texture2D>("Textures/ExitButton.png");
             menus.ExitOvrTexture = Content.Load<Texture2D>("Textures/ExitOvr.png");
@@ -203,6 +207,7 @@ namespace BreakingTheFourth
             // make textures for the level1
             terrain = level1.NextScreen(1, bullet);
             spikes = Content.Load<Texture2D>("Textures/Spikes.png");
+            sideSpikes = Content.Load<Texture2D>("Textures/SideSpikes.png");
             terrainBlock = Content.Load<Texture2D>("Textures/TerrainBlock.png");
             levelGoal = Content.Load<Texture2D>("Textures/goal_sprite.png");
             background = Content.Load<Texture2D>("Textures/GameBackgroundTest.png");
@@ -213,6 +218,7 @@ namespace BreakingTheFourth
                 if (t is DeathObject)
                 {
                     t.Image = spikes;
+                    t.SideImage = sideSpikes;
                 }
                 else if(t is LevelGoal)
                 {
@@ -378,12 +384,17 @@ namespace BreakingTheFourth
                             {
                                 terrain = level3.NextScreen(screenCounter, bullet);
                             }
+                            if (levelCounter==4)
+                            {
+                                terrain = level4.NextScreen(screenCounter, bullet);
+                            }
                             for (int x = 0; x < terrain.Count; x++)
                             {
                                 //terrain[x].Image = Content.Load<Texture2D>("Textures/terrain.png");
                                 if (terrain[x] is DeathObject)
                                 {
                                     terrain[x].Image = spikes;
+                                    terrain[x].SideImage = sideSpikes;
                                 }
                                 else if (terrain[x] is LevelGoal)
                                 {
@@ -417,12 +428,18 @@ namespace BreakingTheFourth
                                 terrain = level3.NextScreen(screenCounter, bullet);
                                 player.Y = level3.PlayerY;
                             }
+                            if (levelCounter==4)
+                            {
+                                terrain = level4.NextScreen(screenCounter, bullet);
+                                player.Y = level4.PlayerY;
+                            }
                             for (int x = 0; x < terrain.Count; x++)
                             {
                                 //terrain[x].Image = Content.Load<Texture2D>("Textures/terrain.png");
                                 if (terrain[x] is DeathObject)
                                 {
                                     terrain[x].Image = spikes;
+                                    terrain[x].SideImage = sideSpikes;
                                 }
                                 else if(terrain[x] is LevelGoal)
                                 {
@@ -553,6 +570,7 @@ namespace BreakingTheFourth
                             {
                                 DeathObject spike = (DeathObject)terrain[x];
                                 spike.Image = spikes;
+                                spike.SideImage = sideSpikes;
                                 spike.Draw(spriteBatch);
                             }
                             else
@@ -663,12 +681,18 @@ namespace BreakingTheFourth
                 terrain = level3.NextScreen(screenCounter, bullet);
                 player.Y = level3.PlayerY;
             }
+            if (levelCounter == 4)
+            {
+                terrain = level4.NextScreen(screenCounter, bullet);
+                player.Y = level4.PlayerY;
+            }
             //loads terrain
             for (int x = 0; x < terrain.Count; x++)
             {
                 if (terrain[x] is DeathObject)
                 {
                     terrain[x].Image = spikes;
+                    terrain[x].SideImage = sideSpikes;
                 }
                 else
                 {
@@ -709,6 +733,10 @@ namespace BreakingTheFourth
                         case 3:
                             MediaPlayer.Stop();
                             MediaPlayer.Play(level3.BgMusic);
+                            break;
+                        case 4:
+                            MediaPlayer.Stop();
+                            MediaPlayer.Play(level4.BgMusic);
                             break;
                     }
                 }
@@ -751,6 +779,8 @@ namespace BreakingTheFourth
                 case 2: bg = level2.BgColor;
                     break;
                 case 3: bg = level3.BgColor;
+                    break;
+                case 4: bg = level4.BgColor;
                     break;
                 default: bg = level1.BgColor;
                     break;
