@@ -84,6 +84,7 @@ namespace BreakingTheFourth
         Song gameOvrSong;
         FileIO fileIO;
         //misc
+        Color bg;
         Texture2D paused;
         Texture2D controls;
         Texture2D levelGoal;
@@ -158,6 +159,7 @@ namespace BreakingTheFourth
             frame = 1;
             fps = 12;
             timePerFrame = 1.0 / fps;
+            bg = level1.BgColor;
             base.Initialize();
         }
         /// <summary>
@@ -601,7 +603,7 @@ namespace BreakingTheFourth
                         //draw game method again
                         //draw bg
                         spriteBatch.Draw(background, new Rectangle(0, 0, GraphicsDevice.Viewport.Width,
-                            GraphicsDevice.Viewport.Height), Color.Chartreuse);
+                            GraphicsDevice.Viewport.Height), bg);
                         //draw player
                         player.Draw(spriteBatch);
                         gun.Draw(spriteBatch, player, gun.Rotation, new Vector2(325, 325));
@@ -770,7 +772,6 @@ namespace BreakingTheFourth
 
         public void DrawBackground(SpriteBatch sb)
         {
-            Color bg;
             //draws bg as the correct corresponding color
             switch(levelCounter)
             {

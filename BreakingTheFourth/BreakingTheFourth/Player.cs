@@ -30,6 +30,8 @@ namespace BreakingTheFourth
         private int startingY; //variable for Y before jumping
         private bool canJump;
         private bool justTeleported; //variable to determine if the player just teleported
+        private bool onST; //variable that is true when standing on special terrain that is moving horizontally
+        private bool onVST; //variable that is true when standing on special terrain that is moving vertically
         //field for player lives
         private int playerLives;
         int screenCounter = 1;
@@ -71,6 +73,8 @@ namespace BreakingTheFourth
             isJumping = false;
             isFalling = false;
             justTeleported = false;
+            onST = false;
+            onVST = false;
             pState = PlayerState.faceRight;
 
             fps = 10.0;
@@ -139,7 +143,8 @@ namespace BreakingTheFourth
             }
             set { playerLives = value; }
         }
-        public void Update(KeyboardState kbState, KeyboardState previousKbState, List<Terrain> terrain, Gun gun, GameState gamestate, MouseState mState, Game1 game1)
+        public void Update(KeyboardState kbState, KeyboardState previousKbState, List<Terrain> terrain, Gun gun, 
+            GameState gamestate, MouseState mState, Game1 game1)
         {
             // determining movement and player orientation
             switch (pState)
@@ -279,8 +284,10 @@ namespace BreakingTheFourth
                             (Y <= terrain[i].Y - position.Height && Y >= terrain[i].Y - position.Height - movement.Gravity))//limits y range of activation
                         {
                             SpecialTerrain st = (SpecialTerrain)terrain[i];
-                            if(st.MinX ==-1)
+                            if(st.MinX ==-1 && isJumping == false)
                             {
+                                onVST = true;//set standing on vertical st true
+                                onST = false;
                                 Y = terrain[i].Position.Top - position.Height;
                                 justTeleported = false;
                                 isFalling = false;
@@ -294,6 +301,8 @@ namespace BreakingTheFourth
                             {
                                 if(kbState.IsKeyUp(Keys.A) && kbState.IsKeyUp(Keys.D) && kbState.IsKeyUp(Keys.Space))
                                 {
+                                    onST = true;
+                                    onVST = false; //set standing on st true
                                     Y = terrain[i].Position.Top - position.Height;
                                     justTeleported = false;
                                     isFalling = false;
@@ -311,6 +320,11 @@ namespace BreakingTheFourth
                                 }
                             }
                         }
+                        else
+                        {
+                            onST = false;
+                            onVST = false;
+                        }
                     }
                 }
                 //checks if player is standing on terrain & counts that as colliding
@@ -324,11 +338,13 @@ namespace BreakingTheFourth
                             playerLives--;
                             X = 30;
                             Y = 370;
+                            onST = false;
+                            onVST = false;
                             //gamestate = GameState.GameOver;
                         }
                         if (terrain[i] is LevelGoal)
                         {
-                            if (terrain[i].CollisionDetected(Position) == true) //////////////////////////////////////////////////////////////////////////
+                            if (terrain[i].CollisionDetected(Position) == true) //
                             {
                                 game1.PreGamestate = gamestate;
                                 game1.Gamestate = GameState.LevelClear;
@@ -355,6 +371,8 @@ namespace BreakingTheFourth
                 isJumping = false; //stops player from jumping while falling to slow descend
                 canJump = false;
                 justTeleported = false;//reset bool to false so it is only true for the frame exactly after teleporting
+                onST = false;
+                onVST = false;
             }
             if (isJumping == true)
             {
@@ -363,6 +381,8 @@ namespace BreakingTheFourth
                 {
                     //starts the player falling after jump is complete
                     isFalling = true;
+                    onST = false;
+                    onVST = false;
                 }
             }
             //jump start
@@ -476,16 +496,33 @@ namespace BreakingTheFourth
             //determines if the player is running into a wall
             if (position.Bottom > terrain[i].Position.Top + movement.Gravity && isJumping == false)
             {
-                if (position.Right > terrain[i].Position.Left && kbState.IsKeyDown(Keys.D))/////issue where if your standing on moving platform
-                                                                                           ////and run into another platform you don't get offset
+                if (position.Right > terrain[i].Position.Left && kbState.IsKeyDown(Keys.D))
                 {
                     position.X = terrain[i].Position.Left - position.Width;
                     //position.X -= movement.PlayerSpeed;
                 }
-                else if (position.Left < terrain[i].Position.Right && kbState.IsKeyDown(Keys.A) )////same issue as above
+                else if (position.Left < terrain[i].Position.Right && kbState.IsKeyDown(Keys.A) )
                 {
                     position.X = terrain[i].Position.Right;
                     //position.X += movement.PlayerSpeed;
+                }
+                //fixes issue where when standing on moving platforms allowed you to go through walls
+                if (position.Right > terrain[i].Position.Left && position.Left < terrain[i].Position.Left  && onST == true)
+                {
+                    position.X = terrain[i].Position.Left - position.Width;
+                    //position.X -= movement.PlayerSpeed;
+                }
+                else if (position.Left < terrain[i].Position.Right && position.Right > terrain[i].Position.Right && onST == true)
+                {
+                    position.X = terrain[i].Position.Right;
+                    //position.X += movement.PlayerSpeed;
+                }
+                else if (onVST == true && position.Top < terrain[i].Position.Bottom)
+                {
+                    //kills you if you're standing on a moving platform and are squished vertically
+                    playerLives--;
+                    X = 30;
+                    Y = 370;
                 }
             }
             //sets player on top of terrain if fell

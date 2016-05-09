@@ -76,6 +76,10 @@ namespace BreakingTheFourth
                 case 3:
                     // clear the list
                     pieces.Clear();
+                    //add new terrain pieces
+                    pieces.Add(new Terrain(0, 450, 150, 40));//left floor
+                    pieces.Add(new SpecialTerrain(150, 450, 100, 30, 0, 500, Movement.Vertical));//Bottom moving platform
+                    pieces.Add(new Terrain(0, 0, 200, 30));//left ceiling
                     break;
                 case 4:
                     // clear the list
