@@ -507,7 +507,7 @@ namespace BreakingTheFourth
                     //position.X += movement.PlayerSpeed;
                 }
                 //fixes issue where when standing on moving platforms allowed you to go through walls
-                if (position.Right > terrain[i].Position.Left && position.Left < terrain[i].Position.Left  && onST == true)
+                else if (position.Right > terrain[i].Position.Left && position.Left < terrain[i].Position.Left  && onST == true)
                 {
                     position.X = terrain[i].Position.Left - position.Width;
                     //position.X -= movement.PlayerSpeed;
