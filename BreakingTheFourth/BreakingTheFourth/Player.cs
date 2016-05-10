@@ -344,11 +344,12 @@ namespace BreakingTheFourth
                         }
                         if (terrain[i] is LevelGoal)
                         {
-                            if (terrain[i].CollisionDetected(Position) == true) //
-                            {
-                                game1.PreGamestate = gamestate;
-                                game1.Gamestate = GameState.LevelClear;
-                            }
+                            game1.PreGamestate = gamestate;
+                            game1.Gamestate = GameState.LevelClear;
+                        }
+                        if(position.Bottom <= 0)
+                        {
+                            position.Y = terrain[i].Position.Top + terrain[i].Position.Height;
                         }
                         justTeleported = false;
                         isFalling = false;
