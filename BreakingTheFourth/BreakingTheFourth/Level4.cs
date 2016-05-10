@@ -114,6 +114,24 @@ namespace BreakingTheFourth
                     //clear the list
                     pieces.Clear();
                     //add new pieces
+                    pieces.Add(new Terrain(0, 450, 150, 40));//left floor
+                    pieces.Add(new DeathObject(200, 200, 100, 30, "down"));//first top spikes
+                    pieces.Add(new SpecialTerrain(225, 230, 50, 50, 230, 450, Movement.Vertical));//first platform moving up and down
+                    pieces.Add(new DeathObject(450, 200, 100, 30, "down"));//second top spikes
+                    pieces.Add(new SpecialTerrain(475, 450, 50, 50, 230, 450, Movement.Vertical));//second platform moving up and down
+                    pieces.Add(new Terrain(600, 300, 250, 200));//right floor
+                    pieces.Add(new DeathObject(780, 0, 40, 300, "left"));//spikes to stop from leaving the right side of the screen. 
+                    pieces.Add(new SpecialTerrain(790, 120, 30, 30, 750, 700, Movement.Horizontal));//moving platform near end spikes
+                    pieces.Add(new Terrain(670, 0, 200, 40));//right ceiling
+                    pieces.Add(new Terrain(200, 0, 470, 30));//upper spiked ceiling
+                    pieces.Add(new DeathObject(200, 30, 470, 20, "down"));//said spikes
+                    pieces.Add(new Terrain(200, 170, 470, 30));//upper spiked floor
+                    pieces.Add(new DeathObject(200, 150, 470, 20, "none"));//said spikes
+                    pieces.Add(new SpecialTerrain(300, 0, 40, 40, 0, 170, Movement.Vertical));//left moving platform between them
+                    pieces.Add(new SpecialTerrain(500, 170, 40, 40, 0, 170, Movement.Vertical));//right moving platform between them
+                    pieces.Add(new Terrain(0, 0, 40, 150));//upper left wall
+                    pieces.Add(new Terrain(0, 150, 150, 40));//upper left floor
+                    pieces.Add(new LevelGoal(50, 75, 50, 50));//Sorry Mario, our princess is in another mysterious multi-dimensional portal of questionable origin
                     break;
             }
             return pieces;
