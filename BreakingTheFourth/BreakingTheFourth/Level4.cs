@@ -78,13 +78,37 @@ namespace BreakingTheFourth
                     pieces.Clear();
                     //add new terrain pieces
                     pieces.Add(new Terrain(0, 450, 150, 40));//left floor
-                    pieces.Add(new SpecialTerrain(150, 450, 100, 30, 0, 500, Movement.Vertical));//Bottom moving platform
-                    pieces.Add(new Terrain(0, 0, 200, 30));//left ceiling
+                    pieces.Add(new SpecialTerrain(160, 350, 40, 40, 100, 450, Movement.Vertical));//lift next to start
+                    pieces.Add(new Terrain(220, 100, 300, 40));//spiked platform at the top
+                    pieces.Add(new DeathObject(220, 70, 250, 30, "none"));//said spikes
+                    pieces.Add(new Terrain(480, 0, 200, 20));//ceiling after spikes
+                    pieces.Add(new Terrain(550, 100, 30, 300));//left spiked wall
+                    pieces.Add(new DeathObject(580, 120, 20, 280, "right"));//spikes on left wall
+                    pieces.Add(new Terrain(730, 100, 30, 250));//right spiked wall
+                    pieces.Add(new DeathObject(710, 120, 20, 230, "left"));//spikes on right wall
+                    pieces.Add(new SpecialTerrain(550, 180, 30, 30, 730, 550, Movement.Horizontal));//first moving platform
+                    pieces.Add(new SpecialTerrain(730, 240, 30, 30, 730, 550, Movement.Horizontal));//second moving platform
+                    pieces.Add(new SpecialTerrain(550, 300, 30, 30, 730, 550, Movement.Horizontal));//third moving platform
+                    pieces.Add(new SpecialTerrain(730, 360, 30, 30, 730, 550, Movement.Horizontal));//fourth moving platform
+                    pieces.Add(new SpecialTerrain(550, 450, 30, 30, 730, 550, Movement.Horizontal));//fifth moving platform
+                    pieces.Add(new Terrain(710, 450, 150, 40));//right floor
+                    playerY = 370;
                     break;
                 case 4:
                     // clear the list
                     pieces.Clear();
                     // add new pieces
+                    pieces.Add(new Terrain(0, 450, 150, 40));//left floor
+                    pieces.Add(new DeathObject(0, 0, 800, 50, "down"));//ceiling spikes of imminent demise
+                    //Moving blocks from left to right
+                    pieces.Add(new SpecialTerrain(150, 250, 50, 50, 50, 450, Movement.Vertical));
+                    pieces.Add(new SpecialTerrain(250, 170, 50, 50, 50, 450, Movement.Vertical));
+                    pieces.Add(new SpecialTerrain(350, 290, 50, 50, 50, 450, Movement.Vertical));
+                    pieces.Add(new SpecialTerrain(450, 50, 50, 50, 50, 450, Movement.Vertical));
+                    pieces.Add(new SpecialTerrain(550, 350, 50, 50, 50, 450, Movement.Vertical));
+                    pieces.Add(new SpecialTerrain(650, 90, 50, 50, 50, 450, Movement.Vertical));
+                    pieces.Add(new DeathObject(700, 420, 10, 100,"none"));//spikes to stop dirty speedrunners
+                    pieces.Add(new Terrain(710, 450, 150, 40));//right floor
                     break;
                 case 5:
                     //clear the list
