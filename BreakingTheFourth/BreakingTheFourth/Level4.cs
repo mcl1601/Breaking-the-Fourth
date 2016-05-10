@@ -78,18 +78,60 @@ namespace BreakingTheFourth
                     pieces.Clear();
                     //add new terrain pieces
                     pieces.Add(new Terrain(0, 450, 150, 40));//left floor
-                    pieces.Add(new SpecialTerrain(150, 450, 100, 30, 0, 500, Movement.Vertical));//Bottom moving platform
-                    pieces.Add(new Terrain(0, 0, 200, 30));//left ceiling
+                    pieces.Add(new SpecialTerrain(160, 350, 40, 40, 100, 450, Movement.Vertical));//lift next to start
+                    pieces.Add(new Terrain(220, 100, 300, 40));//spiked platform at the top
+                    pieces.Add(new DeathObject(220, 70, 250, 30, "none"));//said spikes
+                    pieces.Add(new Terrain(480, 0, 200, 20));//ceiling after spikes
+                    pieces.Add(new Terrain(550, 100, 30, 300));//left spiked wall
+                    pieces.Add(new DeathObject(580, 120, 20, 280, "right"));//spikes on left wall
+                    pieces.Add(new Terrain(730, 100, 30, 250));//right spiked wall
+                    pieces.Add(new DeathObject(710, 120, 20, 230, "left"));//spikes on right wall
+                    pieces.Add(new SpecialTerrain(550, 180, 30, 30, 730, 550, Movement.Horizontal));//first moving platform
+                    pieces.Add(new SpecialTerrain(730, 240, 30, 30, 730, 550, Movement.Horizontal));//second moving platform
+                    pieces.Add(new SpecialTerrain(550, 300, 30, 30, 730, 550, Movement.Horizontal));//third moving platform
+                    pieces.Add(new SpecialTerrain(730, 360, 30, 30, 730, 550, Movement.Horizontal));//fourth moving platform
+                    pieces.Add(new SpecialTerrain(550, 450, 30, 30, 730, 550, Movement.Horizontal));//fifth moving platform
+                    pieces.Add(new Terrain(710, 450, 150, 40));//right floor
+                    playerY = 370;
                     break;
                 case 4:
                     // clear the list
                     pieces.Clear();
                     // add new pieces
+                    pieces.Add(new Terrain(0, 450, 150, 40));//left floor
+                    pieces.Add(new DeathObject(0, 0, 800, 50, "down"));//ceiling spikes of imminent demise
+                    //Moving blocks from left to right
+                    pieces.Add(new SpecialTerrain(150, 250, 50, 50, 50, 450, Movement.Vertical));
+                    pieces.Add(new SpecialTerrain(250, 170, 50, 50, 50, 450, Movement.Vertical));
+                    pieces.Add(new SpecialTerrain(350, 290, 50, 50, 50, 450, Movement.Vertical));
+                    pieces.Add(new SpecialTerrain(450, 50, 50, 50, 50, 450, Movement.Vertical));
+                    pieces.Add(new SpecialTerrain(550, 350, 50, 50, 50, 450, Movement.Vertical));
+                    pieces.Add(new SpecialTerrain(650, 90, 50, 50, 50, 450, Movement.Vertical));
+                    pieces.Add(new DeathObject(700, 420, 10, 100,"none"));//spikes to stop dirty speedrunners
+                    pieces.Add(new Terrain(710, 450, 150, 40));//right floor
                     break;
                 case 5:
                     //clear the list
                     pieces.Clear();
                     //add new pieces
+                    pieces.Add(new Terrain(0, 450, 150, 40));//left floor
+                    pieces.Add(new DeathObject(200, 200, 100, 30, "down"));//first top spikes
+                    pieces.Add(new SpecialTerrain(225, 230, 50, 50, 230, 450, Movement.Vertical));//first platform moving up and down
+                    pieces.Add(new DeathObject(450, 200, 100, 30, "down"));//second top spikes
+                    pieces.Add(new SpecialTerrain(475, 450, 50, 50, 230, 450, Movement.Vertical));//second platform moving up and down
+                    pieces.Add(new Terrain(600, 300, 250, 200));//right floor
+                    pieces.Add(new DeathObject(780, 0, 40, 300, "left"));//spikes to stop from leaving the right side of the screen. 
+                    pieces.Add(new SpecialTerrain(790, 120, 30, 30, 750, 700, Movement.Horizontal));//moving platform near end spikes
+                    pieces.Add(new Terrain(670, 0, 200, 40));//right ceiling
+                    pieces.Add(new Terrain(200, 0, 470, 30));//upper spiked ceiling
+                    pieces.Add(new DeathObject(200, 30, 470, 20, "down"));//said spikes
+                    pieces.Add(new Terrain(200, 170, 470, 30));//upper spiked floor
+                    pieces.Add(new DeathObject(200, 150, 470, 20, "none"));//said spikes
+                    pieces.Add(new SpecialTerrain(300, 0, 40, 40, 0, 170, Movement.Vertical));//left moving platform between them
+                    pieces.Add(new SpecialTerrain(500, 170, 40, 40, 0, 170, Movement.Vertical));//right moving platform between them
+                    pieces.Add(new Terrain(0, 0, 40, 150));//upper left wall
+                    pieces.Add(new Terrain(0, 150, 150, 40));//upper left floor
+                    pieces.Add(new LevelGoal(50, 75, 50, 50));//Sorry Mario, our princess is in another mysterious multi-dimensional portal of questionable origin
                     break;
             }
             return pieces;
