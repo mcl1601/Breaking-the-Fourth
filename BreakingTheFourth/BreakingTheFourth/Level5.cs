@@ -50,6 +50,26 @@ namespace BreakingTheFourth
                     //Clear the list
                     pieces.Clear();
                     //add new terrain pieces
+                    pieces.Add(new Terrain(0, 450, 150, 40, Color.White));//left floor
+                    //all spikes, blinking platforms, and safe zones from left to right
+                    pieces.Add(new DeathObject(150, 430, 40, 800, "none", Color.White));
+                    pieces.Add(new DisappearingPlatforms(150, 420, 40, 10, Color.White, DisappearingPlatforms.Disappear.Blinking));
+                    pieces.Add(new Terrain(200, 400, 40, 800, Color.White));
+                    pieces.Add(new DeathObject(250, 380, 40, 800, "none", Color.White));
+                    pieces.Add(new DisappearingPlatforms(250, 370, 40, 10, Color.White, DisappearingPlatforms.Disappear.Blinking));
+                    pieces.Add(new Terrain(300, 350, 40, 800, Color.White));
+                    pieces.Add(new DeathObject(350, 330, 40, 800, "none", Color.White));
+                    pieces.Add(new DisappearingPlatforms(350, 320, 40, 10, Color.White, DisappearingPlatforms.Disappear.Blinking));
+                    pieces.Add(new Terrain(400, 300, 40, 800, Color.White));
+                    pieces.Add(new DeathObject(450, 280, 40, 800, "none", Color.White));
+                    pieces.Add(new DisappearingPlatforms(450, 270, 40, 10, Color.White, DisappearingPlatforms.Disappear.Blinking));
+                    pieces.Add(new Terrain(500, 250, 40, 800, Color.White));
+                    pieces.Add(new DeathObject(550, 230, 40, 800, "none", Color.White));
+                    pieces.Add(new DisappearingPlatforms(550, 220, 40, 10, Color.White, DisappearingPlatforms.Disappear.Blinking));
+                    pieces.Add(new Terrain(600, 200, 40, 800, Color.White));
+                    pieces.Add(new DeathObject(650, 180, 40, 800, "none", Color.White));
+                    pieces.Add(new DisappearingPlatforms(650, 170, 40, 10, Color.White, DisappearingPlatforms.Disappear.Blinking));
+                    pieces.Add(new Terrain(700, 150, 100, 800, Color.White));
                     playerY = 370;
                     break;
                 case 3:

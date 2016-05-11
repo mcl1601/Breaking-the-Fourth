@@ -149,11 +149,8 @@ namespace BreakingTheFourth
                     tint = Color.Red;
                     timer = 0;
                 }
-<<<<<<< HEAD
-                else if (tint == Color.Red && timer > 60)
-=======
+
                 if (tint == Color.Red && timer > 60)
->>>>>>> 603eb8936c267d17f8248e7af8af09df559f03e4
                 {
                     tint = Color.Transparent;
                     timer = 0;
