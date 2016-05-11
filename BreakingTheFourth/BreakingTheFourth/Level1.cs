@@ -56,7 +56,6 @@ namespace BreakingTheFourth
                     pieces.Add(new Terrain(0, 0, 25, 500, Color.White)); // left wall
                     pieces.Add(new Terrain(775, 0, 25, 300, Color.White)); // right wall
                     pieces.Add(new Terrain(475, 450, 400, 40, Color.White)); // right floor
-                    pieces.Add(new DisappearingPlatforms(350, 200, 40, 40, Color.Red, DisappearingPlatforms.Disappear.Blinking));
                     playerY = 370;
                     break;
                 case 2:
