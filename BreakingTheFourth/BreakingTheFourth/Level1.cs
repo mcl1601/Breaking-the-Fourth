@@ -56,14 +56,6 @@ namespace BreakingTheFourth
                     pieces.Add(new Terrain(0, 0, 25, 500, Color.White)); // left wall
                     pieces.Add(new Terrain(775, 0, 25, 300, Color.White)); // right wall
                     pieces.Add(new Terrain(475, 450, 400, 40, Color.White)); // right floor
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-                    pieces.Add(new DisappearingPlatforms(200, 200, 50, 50, Color.Red, DisappearingPlatforms.Disappear.Blinking));
-=======
-                    pieces.Add(new DisappearingPlatforms(350, 200, 40, 40, Color.Red, DisappearingPlatforms.Disappear.Blinking));
->>>>>>> 603eb8936c267d17f8248e7af8af09df559f03e4
->>>>>>> 02df5913b15a81961ebd6253b25ccc8e0ce554cd
                     playerY = 370;
                     break;
                 case 2:

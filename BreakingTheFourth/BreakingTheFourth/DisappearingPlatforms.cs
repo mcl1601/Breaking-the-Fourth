@@ -28,6 +28,7 @@ namespace BreakingTheFourth
         private int minX = -1;
         private Color tint;
         private Disappear type;
+        private Movement direction;
         private int timer = 0;
         FileIO movement = new FileIO();
         //properties
@@ -43,6 +44,7 @@ namespace BreakingTheFourth
         public DisappearingPlatforms(int x, int y, int width, int height, int max, int min, Movement axis, Color color, Disappear version) 
             : base (x, y,width, height, max, min, axis, color)
         {
+            direction = axis;
             tint = color;
             image = base.image;
             type = version;
@@ -65,6 +67,7 @@ namespace BreakingTheFourth
         public DisappearingPlatforms(int x, int y, int width, int height, Color color, Disappear version)
             : base(x, y, width, height, -1, -1, Movement.None, color)
         {
+            direction = Movement.None;
             tint = color;
             image = base.image;
             type = version;
@@ -125,7 +128,7 @@ namespace BreakingTheFourth
                 }
             }
             //moving down
-            else if (maxX < 0 || minX < 0)
+            else if ((maxX < 0 || minX < 0) && direction != Movement.None)
             {
                 Y++;
                 if (Y >= minY)
@@ -134,7 +137,7 @@ namespace BreakingTheFourth
                 }
             }
             //moving right
-            else if(maxY ==-1 || minY == -1)
+            else if((maxY ==-1 || minY == -1) && direction != Movement.None)
             {
                 X++;
                 if (X >= maxX)
@@ -151,11 +154,7 @@ namespace BreakingTheFourth
                     tint = Color.Red;
                     timer = 0;
                 }
-<<<<<<< HEAD
-                else if (tint == Color.Red && timer > 60)
-=======
                 if (tint == Color.Red && timer > 60)
->>>>>>> 603eb8936c267d17f8248e7af8af09df559f03e4
                 {
                     tint = Color.Transparent;
                     timer = 0;

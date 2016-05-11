@@ -514,6 +514,10 @@ namespace BreakingTheFourth
 
         public void Offset(List<Terrain> terrain, KeyboardState kbState, int i)
         {
+            if(terrain[i] is DisappearingPlatforms)
+            {
+                terrain[i] = (DisappearingPlatforms)terrain[i];
+            }
             //determines if the player is running into a wall
             if (position.Bottom > terrain[i].Position.Top + movement.Gravity && isJumping == false)
             {
