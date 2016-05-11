@@ -112,16 +112,28 @@ namespace BreakingTheFourth
                     }
                     for (int i = 0; i < terrain.Count; i++)
                     {
-                        //makes sure you can't teleport to a platform that isn't supposed to be there
-                        if (terrain[i] is DisappearingPlatforms)
+                        if(terrain[i] is DisappearingPlatforms)
                         {
                             DisappearingPlatforms plat = (DisappearingPlatforms)terrain[i];
+                            //makes sure you can't teleport to a platform that isn't supposed to be there
                             if ((plat.Type == DisappearingPlatforms.Disappear.Blinking && plat.Tint == Color.Transparent)
                                 || plat.Type == DisappearingPlatforms.Disappear.Intangible)
                             {
                                 continue;
                             }
+                            if (plat.CollisionDetected(position) == true)
+                            {
+                                // teleporting
+                                IsTeleporting = true;
+                                bState = BulletState.ready;
+                                //actual teleporting
+                                player.X = position.X;
+                                player.Y = position.Y - 40;
+                                //stops no clip
+                                player.OffsetTele(terrain, i, this);
+                            }
                         }
+                        
                         if (terrain[i].CollisionDetected(position) == true) //collision detection causes the bullet to disappear
                         {
                             // teleporting

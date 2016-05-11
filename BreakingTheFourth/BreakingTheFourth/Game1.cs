@@ -623,6 +623,12 @@ namespace BreakingTheFourth
                                 spike.SideImage = sideSpikes;
                                 spike.Draw(spriteBatch);
                             }
+                            else if (terrain[x] is DisappearingPlatforms)
+                            {
+                                DisappearingPlatforms disPlat = (DisappearingPlatforms)terrain[x];
+                                disPlat.Image = terrainBlock;
+                                disPlat.Draw(spriteBatch);
+                            }
                             else
                             {
                                 terrain[x].Draw(spriteBatch);
@@ -630,7 +636,7 @@ namespace BreakingTheFourth
                         }
                         //THIS SHOULD BE TRACKING THE MOUSE POSITION BUT IT ISN'T AND I HATE IT! For some reason the mouseState is never changing...
                         string mouse = ("Mouse X: " + mouseState.X + " Mouse Y: " + mouseState.Y + " Rotation: " + gun.Rotation);
-                        //spriteBatch.DrawString(font, mouse, fontPosition, Color.Red);
+                        spriteBatch.DrawString(font, mouse, fontPosition, Color.Red);
                         //UI - Lives left
                         spriteBatch.Draw(heart, new Rectangle(10,5, 30, 30), Color.White);
                         spriteBatch.DrawString(font, "X " + player.PlayerLives, new Vector2(50,5), Color.Black);

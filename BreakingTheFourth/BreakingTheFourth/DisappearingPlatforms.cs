@@ -17,7 +17,7 @@ namespace BreakingTheFourth
             Blinking,
             Intangible
         }
-        //private Texture2D image;
+        private Texture2D image;
         private Rectangle position;
         private bool movingUp;
         private bool movingLeft;
@@ -43,6 +43,7 @@ namespace BreakingTheFourth
         public DisappearingPlatforms(int x, int y, int width, int height, int max, int min, Movement axis, Color color, Disappear version) 
             : base (x, y,width, height, max, min, axis, color)
         {
+            image = base.image;
             type = version;
             position = new Rectangle(x, y, width, height);
             //determines where to set max and min and where its moving
@@ -63,6 +64,7 @@ namespace BreakingTheFourth
         public DisappearingPlatforms(int x, int y, int width, int height, Color color, Disappear version)
             : base(x, y, width, height, -1, -1, Movement.None, color)
         {
+            image = base.image;
             type = version;
             position = new Rectangle(x, y, width, height);
         }
@@ -93,6 +95,10 @@ namespace BreakingTheFourth
         public bool MovingLeft
         {
             get { return movingLeft; }
+        }
+        public new Texture2D Image
+        {
+            set { image = value; }
         }
 
         // moving platforms
@@ -143,7 +149,11 @@ namespace BreakingTheFourth
                     tint = Color.Red;
                     timer = 0;
                 }
+<<<<<<< HEAD
                 else if (tint == Color.Red && timer > 60)
+=======
+                if (tint == Color.Red && timer > 60)
+>>>>>>> 603eb8936c267d17f8248e7af8af09df559f03e4
                 {
                     tint = Color.Transparent;
                     timer = 0;
@@ -153,6 +163,17 @@ namespace BreakingTheFourth
         public new void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(image, position, tint);
+        }
+        public new bool CollisionDetected(Rectangle entity)
+        {
+            if (position.Intersects(entity))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

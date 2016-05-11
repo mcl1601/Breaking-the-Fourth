@@ -259,6 +259,15 @@ namespace BreakingTheFourth
                     {
                         continue;
                     }
+                    if (plat.CollisionDetected(position) == true)
+                    {
+                        canJump = false;
+                        //stops no clip issues
+                        Offset(terrain, kbState, i);
+                        //halts jumping after colliding
+                        isJumping = false;
+                        collided = true;
+                    }
                 }
                 if (terrain[i].CollisionDetected(position) == true )/////special terrain is causing issue still when going down-resolved
                 {
