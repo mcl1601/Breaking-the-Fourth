@@ -49,3 +49,21 @@
 /processorParam:Quality=Best
 /build:Audio/Snow.mp3
 
+#begin Audio/Jump_SFX.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Jump_SFX.wav
+
+#begin Audio/Teleport_SFX.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Teleport_SFX.wav
+
+#begin Audio/Space Gun 04.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Space Gun 04.wav
+
