@@ -53,6 +53,7 @@ namespace BreakingTheFourth
         Level2 level2;
         Level3 level3;
         Level4 level4;
+        Level5 level5;
         int screenCounter;
         int levelCounter;
         //fields for finite state machines
@@ -152,6 +153,7 @@ namespace BreakingTheFourth
             level2 = new Level2();
             level3 = new Level3();
             level4 = new Level4();
+            level5 = new Level5();
             screenCounter = 1;
             levelCounter = 1;
             //initialize game state
@@ -186,6 +188,7 @@ namespace BreakingTheFourth
             level2.BgMusic = Content.Load<Song>("Audio/Snow");
             level3.BgMusic = Content.Load<Song>("Audio/Execution");
             level4.BgMusic = Content.Load<Song>("Audio/PML");
+            level5.BgMusic = Content.Load<Song>("Audio/Snow");
             jump = Content.Load<SoundEffect>("Audio/Jump_SFX");
             shoot = Content.Load<SoundEffect>("Audio/Space Gun 04");
             teleport = Content.Load<SoundEffect>("Audio/Teleport_SFX");
@@ -361,7 +364,7 @@ namespace BreakingTheFourth
                         //update for moving terrain
                         foreach (Terrain t in terrain)
                         {
-                            if (t is SpecialTerrain || t is DeathObject || t is LevelGoal)
+                            if (t is SpecialTerrain || t is DeathObject || t is LevelGoal || t is DisappearingPlatforms)
                             {
                                 t.Update();
                             }
@@ -404,6 +407,10 @@ namespace BreakingTheFourth
                             if (levelCounter==4)
                             {
                                 terrain = level4.NextScreen(screenCounter, bullet);
+                            }
+                            if(levelCounter==5)
+                            {
+                                terrain = level5.NextScreen(screenCounter, bullet);
                             }
                             for (int x = 0; x < terrain.Count; x++)
                             {
@@ -449,6 +456,11 @@ namespace BreakingTheFourth
                             {
                                 terrain = level4.NextScreen(screenCounter, bullet);
                                 player.Y = level4.PlayerY;
+                            }
+                            if (levelCounter == 5)
+                            {
+                                terrain = level5.NextScreen(screenCounter, bullet);
+                                player.Y = level5.PlayerY;
                             }
                             for (int x = 0; x < terrain.Count; x++)
                             {
@@ -724,6 +736,11 @@ namespace BreakingTheFourth
                 terrain = level4.NextScreen(screenCounter, bullet);
                 player.Y = level4.PlayerY;
             }
+            if (levelCounter == 5)
+            {
+                terrain = level5.NextScreen(screenCounter, bullet);
+                player.Y = level5.PlayerY;
+            }
             //loads terrain
             for (int x = 0; x < terrain.Count; x++)
             {
@@ -740,7 +757,7 @@ namespace BreakingTheFourth
             //resets player position
             player.X = 50;
             //resets player lives
-            player.PlayerLives = 3;
+            player.PlayerLives = 50;
         }
         /// <summary>
         /// this will play the song based on gamestate
@@ -775,6 +792,10 @@ namespace BreakingTheFourth
                         case 4:
                             MediaPlayer.Stop();
                             MediaPlayer.Play(level4.BgMusic);
+                            break;
+                        case 5:
+                            MediaPlayer.Stop();
+                            MediaPlayer.Play(level5.BgMusic);
                             break;
                     }
                 }
@@ -818,6 +839,8 @@ namespace BreakingTheFourth
                 case 3: bg = level3.BgColor;
                     break;
                 case 4: bg = level4.BgColor;
+                    break;
+                case 5: bg = level5.BgColor;
                     break;
                 default: bg = level1.BgColor;
                     break;

@@ -109,6 +109,7 @@ namespace BreakingTheFourth
                     pieces.Add(new SpecialTerrain(650, 90, 50, 50, 50, 450, Movement.Vertical, Color.White));
                     pieces.Add(new DeathObject(700, 420, 10, 100,"none", Color.White));//spikes to stop dirty speedrunners
                     pieces.Add(new Terrain(710, 450, 150, 40, Color.White));//right floor
+                    playerY = 370;
                     break;
                 case 5:
                     //clear the list

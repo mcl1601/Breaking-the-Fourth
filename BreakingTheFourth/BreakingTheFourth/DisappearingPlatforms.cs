@@ -28,7 +28,7 @@ namespace BreakingTheFourth
         private int minX = -1;
         private Color tint;
         private Disappear type;
-        private int timer =0;
+        private int timer = 0;
         FileIO movement = new FileIO();
         //properties
         public Disappear Type
@@ -138,12 +138,12 @@ namespace BreakingTheFourth
             timer++;
             if(type == Disappear.Blinking)
             {
-                if(tint == Color.Transparent && timer > 30)
+                if(tint == Color.Transparent && timer > 60)
                 {
                     tint = Color.Red;
                     timer = 0;
                 }
-                if (tint == Color.Red && timer > 30)
+                else if (tint == Color.Red && timer > 60)
                 {
                     tint = Color.Transparent;
                     timer = 0;
