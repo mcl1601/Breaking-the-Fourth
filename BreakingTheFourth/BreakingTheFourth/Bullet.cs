@@ -24,6 +24,7 @@ namespace BreakingTheFourth
         private BulletState bState;
         private Rectangle position;
         private bool facingLeft = false; //whether player is facing left or right
+        private bool isTeleporting;
         private float rotation;
         //set bullets for each screen in the level classes
         private int bullets;
@@ -59,12 +60,19 @@ namespace BreakingTheFourth
             set { bullets = value; }
         }
 
+        public bool IsTeleporting
+        {
+            get { return isTeleporting; }
+            set { isTeleporting = value; }
+        }
+
 
         //constructor
         public Bullet(int x, int y, int width, int height)
         {
             bState = BulletState.ready;
             position = new Rectangle(x, y, width, height);
+            IsTeleporting = false;
         }
 
         public void Fire(float rot)
@@ -116,6 +124,8 @@ namespace BreakingTheFourth
                         }
                         if (terrain[i].CollisionDetected(position) == true) //collision detection causes the bullet to disappear
                         {
+                            // teleporting
+                            IsTeleporting = true;
                             if(terrain[i] is DeathObject)
                             {
                                 player.PlayerLives--;
@@ -203,6 +213,8 @@ namespace BreakingTheFourth
                     break;
                 case Bullet.BulletState.ready: //fires bullet when clicking left mouse button
                     {
+                        // reset teleporting bool
+                        IsTeleporting = false;
                         if (mouseState.LeftButton == ButtonState.Pressed && previousMState.LeftButton == ButtonState.Released)
                         {
                             Fire(rot);

@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System;
 using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Audio;
 
 namespace BreakingTheFourth
 {
@@ -82,6 +83,12 @@ namespace BreakingTheFourth
         Song menuSong;
         Song pauseSong;
         Song gameOvrSong;
+        SoundEffect jump;
+        SoundEffect shoot;
+        SoundEffect teleport;
+        SoundEffectInstance jumpIns;
+        SoundEffectInstance shootIns;
+        SoundEffectInstance teleportIns;
         FileIO fileIO;
         //misc
         Color bg;
@@ -179,6 +186,9 @@ namespace BreakingTheFourth
             level2.BgMusic = Content.Load<Song>("Audio/Snow");
             level3.BgMusic = Content.Load<Song>("Audio/Execution");
             level4.BgMusic = Content.Load<Song>("Audio/PML");
+            jump = Content.Load<SoundEffect>("Audio/Jump_SFX");
+            shoot = Content.Load<SoundEffect>("Audio/Space Gun 04");
+            teleport = Content.Load<SoundEffect>("Audio/Teleport_SFX");
             //load in menu textures
             menus.ExitTexture = Content.Load<Texture2D>("Textures/ExitButton.png");
             menus.ExitOvrTexture = Content.Load<Texture2D>("Textures/ExitOvr.png");
@@ -241,6 +251,11 @@ namespace BreakingTheFourth
             MediaPlayer.Play(menuSong);
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Volume = 1f;
+
+            // Set up SFX instances
+            jumpIns = jump.CreateInstance();
+            shootIns = shoot.CreateInstance();
+            teleportIns = teleport.CreateInstance();
         }
 
         /// <summary>
@@ -458,6 +473,27 @@ namespace BreakingTheFourth
                         {
                             previousGamestate = gamestate;
                             gamestate = GameState.GameOver;
+                        }
+
+                        // Play jumping sound if the player jumps
+                        if(player.IsJumping)
+                        {
+                            if(jumpIns.State == SoundState.Stopped)
+                            {
+                                jumpIns.Play();
+                            }
+                        }
+
+                        // Play shooting sound
+                        if(bullet.BState == Bullet.BulletState.justFired)
+                        {
+                            shootIns.Play();
+                        }
+
+                        // Play teleporting sound
+                        if(bullet.IsTeleporting)
+                        {
+                            teleportIns.Play();
                         }
 
                         // update animation
