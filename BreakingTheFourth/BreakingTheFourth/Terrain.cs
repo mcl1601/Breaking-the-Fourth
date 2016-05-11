@@ -23,9 +23,11 @@ namespace BreakingTheFourth
         private Texture2D sideImage;
         private Texture2D image;
         private Rectangle position;
-        public Terrain(int x, int y, int width, int height)
+        private Color tint;
+        public Terrain(int x, int y, int width, int height, Color color)
         {
             position = new Rectangle(x, y, width, height);
+            tint = color;
         }
         public Texture2D Image
         {
@@ -55,7 +57,7 @@ namespace BreakingTheFourth
         public int Height { get { return position.Height; } }
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(image, position, Color.White);
+            spriteBatch.Draw(image, position, tint);
         }
         //method for collision detection for player and bullet
         public bool CollisionDetected(Rectangle entity)

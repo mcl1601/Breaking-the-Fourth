@@ -16,7 +16,7 @@ namespace BreakingTheFourth
         private Texture2D image;
         private float rotation;
 
-        public LevelGoal(int x, int y, int width, int height) : base(x,y,width,height)
+        public LevelGoal(int x, int y, int width, int height) : base(x,y,width,height, Color.White)
         {
             position = new Rectangle(x, y, width, height);
             rotation = 0;

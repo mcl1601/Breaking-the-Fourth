@@ -34,9 +34,10 @@ namespace BreakingTheFourth
         private int minY = -1;
         private int maxX = -1;
         private int minX = -1;
+        private Color tint;
         FileIO movement = new FileIO();
 
-        public SpecialTerrain(int x, int y, int width, int height, int max, int min, Movement axis) : base (x, y,width, height)
+        public SpecialTerrain(int x, int y, int width, int height, int max, int min, Movement axis, Color color) : base (x, y,width, height, color)
         {
             position = new Rectangle(x, y, width, height);
             //determines where to set max and min and where its moving
@@ -45,6 +46,7 @@ namespace BreakingTheFourth
                 movingLeft = true;
                 maxX = max;
                 minX = min;
+                tint = color;
             }
             else if (axis == Movement.Vertical)
             {

@@ -15,10 +15,12 @@ namespace BreakingTheFourth
         private Texture2D image;
         private Texture2D sideImage;
         private String direction;
-        public DeathObject(int x, int y, int width, int height, string direction) : base(x,y,width,height)
+        private Color tint;
+        public DeathObject(int x, int y, int width, int height, string direction, Color color) : base(x,y,width,height, color)
         {
             position = new Rectangle(x, y, width, height);
             this.direction = direction;
+            tint = color;
         }
         public new Texture2D Image
         {
@@ -35,16 +37,16 @@ namespace BreakingTheFourth
             switch(direction)
             {
                 case "none":
-                    spriteBatch.Draw(image, position, Color.White);
+                    spriteBatch.Draw(image, position, tint);
                     break;
                 case "down":
-                    spriteBatch.Draw(image, position, null, Color.White, 0f, new Vector2(0,0), SpriteEffects.FlipVertically, 0);
+                    spriteBatch.Draw(image, position, null, tint, 0f, new Vector2(0,0), SpriteEffects.FlipVertically, 0);
                     break;
                 case "left":
-                    spriteBatch.Draw(sideImage, position, null, Color.White, 0f, new Vector2(0, 0), SpriteEffects.None, 0);
+                    spriteBatch.Draw(sideImage, position, null, tint, 0f, new Vector2(0, 0), SpriteEffects.None, 0);
                     break;
                 case "right":
-                    spriteBatch.Draw(sideImage, position, null, Color.White, 0f, new Vector2(0, 0), SpriteEffects.FlipHorizontally, 0);
+                    spriteBatch.Draw(sideImage, position, null, tint, 0f, new Vector2(0, 0), SpriteEffects.FlipHorizontally, 0);
                     break;
             }
             

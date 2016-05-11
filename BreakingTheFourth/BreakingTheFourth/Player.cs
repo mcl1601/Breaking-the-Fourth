@@ -378,7 +378,7 @@ namespace BreakingTheFourth
             if (isJumping == true)
             {
                 position.Y -= 4;
-                if (position.Y <= (startingY - (.5 * position.Height))) //keeps jumps to being half the player's height
+                if (position.Y <= (startingY - (.75 * position.Height))) //keeps jumps to being equal to 3/4ths of the player's height
                 {
                     //starts the player falling after jump is complete
                     isFalling = true;
