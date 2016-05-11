@@ -103,12 +103,12 @@ namespace BreakingTheFourth
         double fps;
         double timePerFrame;
         double timeCounter;
+        int lineCount;
 
         // constants for the source Rect
-        const int FrameCount = 15;
-        const int Yoffset = 0;
+        const int FrameCount = 10;
         const int SourceHeight = 600;
-        const int SourceWidth = 903;
+        const int SourceWidth = 902;
         //property for gamestate
         public GameState Gamestate
         {
@@ -166,8 +166,9 @@ namespace BreakingTheFourth
             color = Color.Red;
             fileIO = new FileIO();
             frame = 1;
-            fps = 12;
+            fps = 30;
             timePerFrame = 1.0 / fps;
+            lineCount = 1;
             bg = level1.BgColor;
             base.Initialize();
         }
@@ -226,7 +227,7 @@ namespace BreakingTheFourth
             terrainBlock = Content.Load<Texture2D>("Textures/TerrainBlock.png");
             levelGoal = Content.Load<Texture2D>("Textures/goal_sprite.png");
             background = Content.Load<Texture2D>("Textures/GameBackgroundTest.png");
-            animBackground = Content.Load<Texture2D>("Textures/GameBackground_Spritesheet.png");
+            animBackground = Content.Load<Texture2D>("Textures/BG_Spritesheet.png");
             foreach (Terrain t in terrain)
             {
                 //Will need to be fixed eventually. - has been fixed
@@ -822,12 +823,17 @@ namespace BreakingTheFourth
         public void UpdateBackgroundAnimtion(GameTime gameTime)
         {
             timeCounter += gameTime.ElapsedGameTime.TotalSeconds;
-            if(timeCounter >= timePerFrame)
+            if (timeCounter >= timePerFrame)
             {
                 frame++;
                 if (frame > FrameCount)
                 {
                     frame = 1;
+                    lineCount++;
+                    if (lineCount > 6)
+                    {
+                        lineCount = 1;
+                    }
                 }
                 timeCounter -= timePerFrame;
             }
@@ -855,7 +861,7 @@ namespace BreakingTheFourth
                 new Rectangle(0, 0, GraphicsDevice.Viewport.Width,
                 GraphicsDevice.Viewport.Height), // Position
                 new Rectangle(frame * SourceWidth - SourceWidth, // X
-                Yoffset, // Y
+                lineCount * SourceHeight - SourceHeight, // Y
                 GraphicsDevice.Viewport.Width, // Width
                 GraphicsDevice.Viewport.Height), // Height
                 bg, // Color
