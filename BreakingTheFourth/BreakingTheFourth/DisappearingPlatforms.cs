@@ -43,6 +43,7 @@ namespace BreakingTheFourth
         public DisappearingPlatforms(int x, int y, int width, int height, int max, int min, Movement axis, Color color, Disappear version) 
             : base (x, y,width, height, max, min, axis, color)
         {
+            tint = color;
             image = base.image;
             type = version;
             position = new Rectangle(x, y, width, height);
@@ -64,6 +65,7 @@ namespace BreakingTheFourth
         public DisappearingPlatforms(int x, int y, int width, int height, Color color, Disappear version)
             : base(x, y, width, height, -1, -1, Movement.None, color)
         {
+            tint = color;
             image = base.image;
             type = version;
             position = new Rectangle(x, y, width, height);
@@ -156,11 +158,16 @@ namespace BreakingTheFourth
                     timer = 0;
                 }
             }
+            if(type == Disappear.Invisible)
+            {
+                tint = Color.Transparent;
+            }
         }
         public new void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(image, position, tint);
         }
+        //had to use new collision detection since the terrain one wouldn't work for some reason //can't land on blinking platforms for some reason //bug//////////////////////
         public new bool CollisionDetected(Rectangle entity)
         {
             if (position.Intersects(entity))
