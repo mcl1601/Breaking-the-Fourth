@@ -104,6 +104,16 @@ namespace BreakingTheFourth
                     }
                     for (int i = 0; i < terrain.Count; i++)
                     {
+                        //makes sure you can't teleport to a platform that isn't supposed to be there
+                        if (terrain[i] is DisappearingPlatforms)
+                        {
+                            DisappearingPlatforms plat = (DisappearingPlatforms)terrain[i];
+                            if ((plat.Type == DisappearingPlatforms.Disappear.Blinking && plat.Tint == Color.Transparent)
+                                || plat.Type == DisappearingPlatforms.Disappear.Intangible)
+                            {
+                                continue;
+                            }
+                        }
                         if (terrain[i].CollisionDetected(position) == true) //collision detection causes the bullet to disappear
                         {
                             if(terrain[i] is DeathObject)

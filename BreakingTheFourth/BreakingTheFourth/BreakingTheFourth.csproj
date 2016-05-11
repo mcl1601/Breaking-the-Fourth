@@ -45,6 +45,7 @@
     <Compile Include="Bullet.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="DeathObject.cs" />
+    <Compile Include="DisappearingPlatforms.cs" />
     <Compile Include="FileIO.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Gun.cs" />

@@ -2,31 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace BreakingTheFourth
 {
-    public enum Movement
+    class DisappearingPlatforms: SpecialTerrain
     {
-        Vertical,
-        Horizontal,
-        None
-    }
-    //Contributors:
-    //Mike O'Donnell - Helped plan on logic for getting the block to move up and down a constant distance. Also added the beginning comments for outlining
-    //Kat Weis - did inheriting from terrain and adjustments to make that work
-    //Matt Lienhard - worked on moving platforms mainly
-    class SpecialTerrain : Terrain
-    {
-        //This class will inherit from Terrain
-        //Since these will all likely be moving platforms, we will definitely need x and y coordinates and speed values for these
-        //Again the same question with the Collision Detection. Do we need a method for all of them?
-        //These will definitely require a parameterized constructor.
-        //Separate method for spikes?
-
-        // Constructor
-        protected Texture2D image;
+        public enum Disappear
+        {
+            Visible,
+            Invisible,
+            Blinking,
+            Intangible
+        }
+        //private Texture2D image;
         private Rectangle position;
         private bool movingUp;
         private bool movingLeft;
@@ -36,14 +27,26 @@ namespace BreakingTheFourth
         private int maxX = -1;
         private int minX = -1;
         private Color tint;
+        private Disappear type;
+        private int timer =0;
         FileIO movement = new FileIO();
-
-        public SpecialTerrain(int x, int y, int width, int height, int max, int min, Movement axis, Color color) : base (x, y,width, height, color)
+        //properties
+        public Disappear Type
         {
-            image = base.Image;
+            get { return type; }
+        }
+        public Color Tint
+        {
+            get { return tint; }
+        }
+        // Constructor
+        public DisappearingPlatforms(int x, int y, int width, int height, int max, int min, Movement axis, Color color, Disappear version) 
+            : base (x, y,width, height, max, min, axis, color)
+        {
+            type = version;
             position = new Rectangle(x, y, width, height);
             //determines where to set max and min and where its moving
-            if(axis == Movement.Horizontal)
+            if (axis == Movement.Horizontal)
             {
                 movingLeft = true;
                 maxX = max;
@@ -56,6 +59,12 @@ namespace BreakingTheFourth
                 maxY = max;
                 minY = min;
             }
+        }
+        public DisappearingPlatforms(int x, int y, int width, int height, Color color, Disappear version)
+            : base(x, y, width, height, -1, -1, Movement.None, color)
+        {
+            type = version;
+            position = new Rectangle(x, y, width, height);
         }
 
         // properties
@@ -93,13 +102,13 @@ namespace BreakingTheFourth
             if (movingUp == true)
             {
                 Y--;
-                if(Y <= maxY)
+                if (Y <= maxY)
                 {
                     movingUp = false;
                 }
             }
             //moving left
-            else if(movingLeft == true)
+            else if (movingLeft == true)
             {
                 X--;
                 if (X <= minX)
@@ -108,16 +117,16 @@ namespace BreakingTheFourth
                 }
             }
             //moving down
-            else if(maxX < 0 || minX < 0)
+            else if (maxX < 0 || minX < 0)
             {
                 Y++;
-                if(Y >= minY)
+                if (Y >= minY)
                 {
                     movingUp = true;
                 }
             }
             //moving right
-            else if(maxY == -1 || minY == -1)
+            else if(maxY ==-1 || minY == -1)
             {
                 X++;
                 if (X >= maxX)
@@ -125,7 +134,25 @@ namespace BreakingTheFourth
                     movingLeft = true;
                 }
             }
-            
+            //increase timer
+            timer++;
+            if(type == Disappear.Blinking)
+            {
+                if(tint == Color.Transparent && timer > 30)
+                {
+                    tint = Color.Red;
+                    timer = 0;
+                }
+                if (tint == Color.Red && timer > 30)
+                {
+                    tint = Color.Transparent;
+                    timer = 0;
+                }
+            }
+        }
+        public new void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(image, position, tint);
         }
     }
 }

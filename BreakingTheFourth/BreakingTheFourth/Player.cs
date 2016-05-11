@@ -249,6 +249,17 @@ namespace BreakingTheFourth
             //collision detection
             for (int i = 0; i < terrain.Count; i++)
             {
+                //doesn't allow collision if platform isn't there/has disappeared
+                if (terrain[i] is DisappearingPlatforms)
+                {
+                    justTeleported = false;
+                    DisappearingPlatforms plat = (DisappearingPlatforms)terrain[i];
+                    if ((plat.Type == DisappearingPlatforms.Disappear.Blinking && plat.Tint == Color.Transparent)
+                        || plat.Type == DisappearingPlatforms.Disappear.Intangible)
+                    {
+                        continue;
+                    }
+                }
                 if (terrain[i].CollisionDetected(position) == true )/////special terrain is causing issue still when going down-resolved
                 {
                     if(terrain[i] is DeathObject)
@@ -360,7 +371,7 @@ namespace BreakingTheFourth
                     }
                 }
                 
-            }
+            }//end of loop for collision detection
             if(isJumping == false && collided == false)
             {
                 isFalling = true;
