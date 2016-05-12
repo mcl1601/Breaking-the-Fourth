@@ -28,8 +28,8 @@ namespace BreakingTheFourth
         // Constructor
         protected Texture2D image;
         private Rectangle position;
-        private bool movingUp;
-        private bool movingLeft;
+        private bool movingUp = false;
+        private bool movingLeft = false;
         //max and mins
         private int maxY = -1;
         private int minY = -1;
@@ -41,6 +41,7 @@ namespace BreakingTheFourth
 
         public SpecialTerrain(int x, int y, int width, int height, int max, int min, Movement axis, Color color) : base (x, y,width, height, color)
         {
+            tint = color;
             direction = axis;
             image = base.Image;
             position = new Rectangle(x, y, width, height);
@@ -50,7 +51,6 @@ namespace BreakingTheFourth
                 movingLeft = true;
                 maxX = max;
                 minX = min;
-                tint = color;
             }
             else if (axis == Movement.Vertical)
             {
@@ -110,7 +110,7 @@ namespace BreakingTheFourth
                 }
             }
             //moving down
-            else if((maxX < 0 || minX < 0) && direction != Movement.None)
+            else if(direction == Movement.Vertical && movingUp == false)
             {
                 Y++;
                 if(Y >= minY)
@@ -119,7 +119,7 @@ namespace BreakingTheFourth
                 }
             }
             //moving right
-            else if((maxY == -1 || minY == -1) && direction != Movement.None)
+            else if(movingLeft == false && direction == Movement.Horizontal)
             {
                 X++;
                 if (X >= maxX)

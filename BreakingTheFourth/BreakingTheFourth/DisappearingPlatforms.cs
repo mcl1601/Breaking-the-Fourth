@@ -17,10 +17,11 @@ namespace BreakingTheFourth
             Blinking,
             Intangible
         }
+        //fields
         private Texture2D image;
         private Rectangle position;
-        private bool movingUp;
-        private bool movingLeft;
+        private bool movingUp = false;
+        private bool movingLeft = false;
         //max and mins
         private int maxY = -1;
         private int minY = -1;
@@ -55,7 +56,6 @@ namespace BreakingTheFourth
                 movingLeft = true;
                 maxX = max;
                 minX = min;
-                tint = color;
             }
             else if (axis == Movement.Vertical)
             {
@@ -75,31 +75,15 @@ namespace BreakingTheFourth
         }
 
         // properties
-        public int MaxY
+        public new int X
         {
-            get { return maxY; }
+            get { return position.X; }
+            set { position.X = value; }
         }
-
-        public int MinY
+        public new int Y
         {
-            get { return minY; }
-        }
-        public int MaxX
-        {
-            get { return maxX; }
-        }
-
-        public int MinX
-        {
-            get { return minX; }
-        }
-        public bool MovingUp
-        {
-            get { return movingUp; }
-        }
-        public bool MovingLeft
-        {
-            get { return movingLeft; }
+            get { return position.Y; }
+            set { position.Y = value; }
         }
         public new Texture2D Image
         {
@@ -128,7 +112,7 @@ namespace BreakingTheFourth
                 }
             }
             //moving down
-            else if ((maxX < 0 || minX < 0) && direction != Movement.None)
+            else if (movingUp == false && direction == Movement.Vertical)
             {
                 Y++;
                 if (Y >= minY)
@@ -137,7 +121,7 @@ namespace BreakingTheFourth
                 }
             }
             //moving right
-            else if((maxY ==-1 || minY == -1) && direction != Movement.None)
+            else if(movingLeft == false && direction == Movement.Horizontal)
             {
                 X++;
                 if (X >= maxX)

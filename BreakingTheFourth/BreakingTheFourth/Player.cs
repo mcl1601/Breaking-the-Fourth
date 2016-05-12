@@ -308,7 +308,7 @@ namespace BreakingTheFourth
                             {
                                 onVST = true;//set standing on vertical st true
                                 onST = false;
-                                Y = terrain[i].Position.Top - position.Height;
+                                Y = st.Position.Top - position.Height;
                                 justTeleported = false;
                                 isFalling = false;
                                 isJumping = false;
@@ -323,7 +323,7 @@ namespace BreakingTheFourth
                                 {
                                     onST = true;
                                     onVST = false; //set standing on st true
-                                    Y = terrain[i].Position.Top - position.Height;
+                                    Y = st.Position.Top - position.Height;
                                     justTeleported = false;
                                     isFalling = false;
                                     isJumping = false;
