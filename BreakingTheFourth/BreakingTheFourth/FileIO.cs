@@ -7,7 +7,7 @@ using System.IO;
 namespace BreakingTheFourth
 {
     // Contributors 
-    // Matt Lienhard - did the whole thing since I was in charge of the tool
+    // Matt Lienhard - did the whole thing since I was in charge of the tool, also loading/saving the game
     class FileIO
     {
         // fields

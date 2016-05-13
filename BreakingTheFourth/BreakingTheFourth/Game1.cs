@@ -15,7 +15,8 @@ namespace BreakingTheFourth
     //also debugged alot of shit in several classes which involved both refactoring old code and putting in new code
     //Mike O'Donnell - implemented terrain list, screen list and gun. And added beginning comments for outline. Added state switches for 
     //level progression and death objects.
-    //Matt Lienhard - NextScreen and terrain loading, loading the animation spritesheets
+    //Matt Lienhard - NextScreen and terrain loading, loading the animation spritesheets, update  background animation method, animating 
+    //the background, and playling/loading sound effects
 
     /// <summary>
     /// This is the main type for your game.

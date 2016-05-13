@@ -10,6 +10,7 @@ namespace BreakingTheFourth
 {
     //Contributors:
     //Mike O'Donnell - Everything here
+    //Matt Lienhard - update method for rotation and the new draw method
     class LevelGoal : Terrain
     {
         private Rectangle position;
