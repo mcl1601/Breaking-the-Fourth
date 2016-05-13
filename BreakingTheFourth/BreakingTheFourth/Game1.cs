@@ -436,26 +436,31 @@ namespace BreakingTheFourth
                             {
                                 terrain = level1.NextScreen(screenCounter, bullet);
                                 player.Y = level1.PlayerY;
+                                bullet.Bullets = level1.NumBullets;
                             }
                             if (levelCounter == 2)
                             {
                                 terrain = level2.NextScreen(screenCounter, bullet);
                                 player.Y = level2.PlayerY;
+                                bullet.Bullets = level2.NumBullets;
                             }
                             if(levelCounter==3)
                             {
                                 terrain = level3.NextScreen(screenCounter, bullet);
                                 player.Y = level3.PlayerY;
+                                bullet.Bullets = level3.NumBullets;
                             }
                             if (levelCounter==4)
                             {
                                 terrain = level4.NextScreen(screenCounter, bullet);
                                 player.Y = level4.PlayerY;
+                                bullet.Bullets = level4.NumBullets;
                             }
                             if (levelCounter == 5)
                             {
                                 terrain = level5.NextScreen(screenCounter, bullet);
                                 player.Y = level5.PlayerY;
+                                bullet.Bullets = level5.NumBullets;
                             }
                             for (int x = 0; x < terrain.Count; x++)
                             {
