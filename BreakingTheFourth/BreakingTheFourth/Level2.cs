@@ -15,6 +15,7 @@ namespace BreakingTheFourth
 
         // list to hold the terrain pieces
         List<Terrain> pieces = new List<Terrain>();
+        private int numBullets;
         int playerY;
         Song bgMusic;
         Color bgColor = Color.Chartreuse;
@@ -31,6 +32,10 @@ namespace BreakingTheFourth
         public int PlayerY
         {
             get { return playerY; }
+        }
+        public int NumBullets
+        {
+            get { return numBullets; }
         }
         // Next Screen method
         public List<Terrain> NextScreen(int screen, Bullet bullet)

@@ -11,6 +11,7 @@ namespace BreakingTheFourth
     {
         List<Terrain> pieces = new List<Terrain>();
         int playerY;
+        private int numBullets;
         Song bgMusic;
         Color bgColor = Color.Yellow;
         //properties
@@ -26,6 +27,10 @@ namespace BreakingTheFourth
         public int PlayerY
         {
             get { return playerY; }
+        }
+        public int NumBullets
+        {
+            get { return numBullets; }
         }
         // Next Screen method
         public List<Terrain> NextScreen(int screen, Bullet bullet)

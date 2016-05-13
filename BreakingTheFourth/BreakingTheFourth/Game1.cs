@@ -15,7 +15,8 @@ namespace BreakingTheFourth
     //also debugged alot of shit in several classes which involved both refactoring old code and putting in new code
     //Mike O'Donnell - implemented terrain list, screen list and gun. And added beginning comments for outline. Added state switches for 
     //level progression and death objects.
-    //Matt Lienhard - NextScreen and terrain loading, loading the animation spritesheets
+    //Matt Lienhard - NextScreen and terrain loading, loading the animation spritesheets, update  background animation method, animating 
+    //the background, and playling/loading sound effects
 
     /// <summary>
     /// This is the main type for your game.
@@ -352,11 +353,7 @@ namespace BreakingTheFourth
                         // player falls to their death
                         else if (player.Y > GraphicsDevice.Viewport.Height)
                         {
-                            player.PlayerLives--;
-                            player.X = 30;
-                            player.Y = 370;
-                            //previousGamestate = gamestate;
-                            //gamestate = GameState.GameOver;
+                            Death();
                         }
                         else
                         {
@@ -373,17 +370,13 @@ namespace BreakingTheFourth
                             {
                                 if(t.CollisionDetected(player.Position)==true)
                                 {
-                                    player.PlayerLives--;
-                                    player.X = 30;
-                                    player.Y = 370;
-                                    //previousGamestate = gamestate;
-                                    //gamestate = GameState.GameOver;
+                                    Death();
                                 }
                             }
                             
                         }
                         //add player update for movement
-                        player.Update(kbState, previousKbState, terrain, gun, gamestate, mouseState, this);
+                        player.Update(kbState, previousKbState, terrain, gun, gamestate, mouseState, this, bullet);
                         //Keep the gun at the same position relative to the player
                         gun.Update(player);
                         //update the bullet
@@ -806,9 +799,10 @@ namespace BreakingTheFourth
                             break;
                     }
                 }
-                else if (gamestate == GameState.Paused)
+                else if (gamestate == GameState.LevelClear)
                 {
-                    
+                    MediaPlayer.Stop();
+                    MediaPlayer.Play(pauseSong);
                 }
                 else if (gamestate == GameState.GameOver)
                 {
@@ -869,6 +863,31 @@ namespace BreakingTheFourth
                 Vector2.Zero, // Origin
                 SpriteEffects.None, // Effects
                 0); // Depth
+        }
+        public void Death()
+        {
+            player.PlayerLives--;
+            player.X = 30;
+            player.Y = 370;
+            //switch statement to determine num of bullets
+            switch(levelCounter)
+            {
+                case 1:
+                    bullet.Bullets = level1.NumBullets;
+                    break;
+                case 2:
+                    bullet.Bullets = level2.NumBullets;
+                    break;
+                case 3:
+                    bullet.Bullets = level3.NumBullets;
+                    break;
+                case 4:
+                    bullet.Bullets = level4.NumBullets;
+                    break;
+                case 5:
+                    bullet.Bullets = level5.NumBullets;
+                    break;
+            }
         }
     }
 }
