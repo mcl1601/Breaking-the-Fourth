@@ -9,6 +9,7 @@ namespace BreakingTheFourth
 {
     //Contributors:
     //Mike O'Donnell - Everything here
+    //Kat Weis - helped mike with the new draw method
     class DeathObject : Terrain
     {
         private Rectangle position;

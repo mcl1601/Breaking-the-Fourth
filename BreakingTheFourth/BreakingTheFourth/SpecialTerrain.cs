@@ -15,7 +15,8 @@ namespace BreakingTheFourth
     }
     //Contributors:
     //Mike O'Donnell - Helped plan on logic for getting the block to move up and down a constant distance. Also added the beginning comments for outlining
-    //Kat Weis - did inheriting from terrain and adjustments to make that work
+    //Kat Weis - did inheriting from terrain and adjustments to make that work, adjusted special terrain so that disappearing platforms 
+    //could inherit from it and also tweaked it so they can be different colors, horizontal moving platforms, movement enum
     //Matt Lienhard - worked on moving platforms mainly
     class SpecialTerrain : Terrain
     {

@@ -10,7 +10,7 @@ namespace BreakingTheFourth
     class Level2
     {
         //Contributors:
-        //Kat Weis - Implemented the num of bullets
+        //Kat Weis - Implemented the num of bullets, background color and music
         //Mike O'Donnell - Designed and coded of the screens
 
         // list to hold the terrain pieces
