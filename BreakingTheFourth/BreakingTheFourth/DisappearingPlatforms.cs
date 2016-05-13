@@ -10,6 +10,8 @@ namespace BreakingTheFourth
 {
     class DisappearingPlatforms: SpecialTerrain
     {
+        //Contribution Comments - 
+        //Mike O'Donnell: I came up with the idea to use these and that's about it
         public enum Disappear
         {
             Visible,

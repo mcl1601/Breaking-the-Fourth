@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace BreakingTheFourth
 {
     //Contributors:
-    //Mike O'Donnell - Everything here
+    //Mike O'Donnell - Most of everything here, though Kat and I worked on implementing the rotated spikes together
     class DeathObject : Terrain
     {
         private Rectangle position;

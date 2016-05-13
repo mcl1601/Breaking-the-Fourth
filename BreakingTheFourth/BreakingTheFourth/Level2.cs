@@ -11,7 +11,7 @@ namespace BreakingTheFourth
     {
         //Contributors:
         //Kat Weis - Implemented the num of bullets
-        //Mike O'Donnell - Designed and coded of the screens
+        //Mike O'Donnell - Anything involving level generation
 
         // list to hold the terrain pieces
         List<Terrain> pieces = new List<Terrain>();
@@ -48,6 +48,7 @@ namespace BreakingTheFourth
                     pieces.Clear();
                     // add new terrain pieces
                     bullet.Bullets = 2;
+                    numBullets = 2;
                     pieces.Add(new Terrain(0, 0, 25, 600, Color.White)); // left wall
                     pieces.Add(new Terrain(0, 450, 200, 40, Color.White)); //left floor
                     pieces.Add(new Terrain(0, 0, 800, 40, Color.White)); //ceiling
@@ -66,6 +67,7 @@ namespace BreakingTheFourth
                     pieces.Clear();
                     //add new pieces
                     bullet.Bullets = 5;
+                    numBullets = 5;
                     pieces.Add(new Terrain(0, 450, 150, 40, Color.White)); // left floor
                     pieces.Add(new Terrain(60, 440, 15, 10, Color.White)); //thingy to stop you from walking right off a cliff
                     pieces.Add(new Terrain(0, 0, 25, 300, Color.White)); // left wall
@@ -86,6 +88,7 @@ namespace BreakingTheFourth
                     pieces.Clear();
                     // add new pieces
                     bullet.Bullets = 2;
+                    numBullets = 2;
                     pieces.Add(new Terrain(0, 0, 25, 300, Color.White)); // left wall 
                     pieces.Add(new Terrain(750, 0, 50, 110, Color.White)); // right wall(upper)
                     pieces.Add(new Terrain(750, 200, 50, 250, Color.White)); // right wall (lower)
@@ -103,6 +106,7 @@ namespace BreakingTheFourth
                     pieces.Clear();
                     // add new pieces
                     bullet.Bullets = 3;
+                    numBullets = 3;
                     pieces.Add(new Terrain(0, 450, 150, 40, Color.White)); // left floor
                     pieces.Add(new Terrain(0, 0, 25, 300, Color.White)); // left wall
                     pieces.Add(new SpecialTerrain(200, 440, 60, 60, 200, 440, Movement.Vertical, Color.White)); //moving platform
@@ -130,6 +134,7 @@ namespace BreakingTheFourth
                     pieces.Clear();
                     //add new pieces
                     bullet.Bullets = 2;
+                    numBullets = 2;
                     pieces.Add(new Terrain(0, 450, 225, 40, Color.White)); // left floor
                     pieces.Add(new Terrain(0, 0, 25, 300, Color.White)); // left wall
                     pieces.Add(new Terrain(775, 0, 25, 500, Color.White)); // right wall

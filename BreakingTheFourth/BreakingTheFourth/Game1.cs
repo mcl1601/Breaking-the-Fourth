@@ -14,7 +14,7 @@ namespace BreakingTheFourth
     //to update, all the menu stuff (drawing, loading, updating), made mouse crosshair texture, restart method, death and player lives,
     //also debugged alot of shit in several classes which involved both refactoring old code and putting in new code
     //Mike O'Donnell - implemented terrain list, screen list and gun. And added beginning comments for outline. Added state switches for 
-    //level progression and death objects.
+    //level progression and death objects, helped with implementing rotated death objects.
     //Matt Lienhard - NextScreen and terrain loading, loading the animation spritesheets, update  background animation method, animating 
     //the background, and playling/loading sound effects
 

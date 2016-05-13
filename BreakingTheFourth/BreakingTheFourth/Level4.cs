@@ -9,6 +9,8 @@ namespace BreakingTheFourth
 {
     class Level4
     {
+        //Contribution Comments - 
+        //Mike O'Donnell: Anything involving level generation
         List<Terrain> pieces = new List<Terrain>();
         private int numBullets;
         int playerY;
@@ -42,6 +44,7 @@ namespace BreakingTheFourth
                     pieces.Clear();
                     // add new terrain pieces
                     bullet.Bullets = 2;
+                    numBullets = 2;
                     pieces.Add(new Terrain(0, 0, 30, 500, Color.White));//left wall
                     pieces.Add(new Terrain(0, 450, 300, 40, Color.White));//left floor
                     pieces.Add(new Terrain(300, 200, 40, 300, Color.White));//right wall connected to left floor
@@ -63,6 +66,7 @@ namespace BreakingTheFourth
                     pieces.Clear();
                     //add new terrain pieces
                     bullet.Bullets = 3;
+                    numBullets = 3;
                     pieces.Add(new Terrain(0, 450, 150, 40, Color.White));//left floor
                     pieces.Add(new SpecialTerrain(700, 450, 100, 30, 700, 200,Movement.Horizontal, Color.White));//Bottom moving platform
                     pieces.Add(new SpecialTerrain(700, 200, 50, 30, 700, 200, Movement.Horizontal, Color.White));//Bottom moving platform of top pair
@@ -84,6 +88,7 @@ namespace BreakingTheFourth
                     pieces.Clear();
                     //add new terrain pieces
                     bullet.Bullets = 2;
+                    numBullets = 2;
                     pieces.Add(new Terrain(0, 450, 150, 40, Color.White));//left floor
                     pieces.Add(new SpecialTerrain(160, 350, 40, 40, 100, 450, Movement.Vertical, Color.White));//lift next to start
                     pieces.Add(new Terrain(220, 100, 300, 40, Color.White));//spiked platform at the top
@@ -106,6 +111,7 @@ namespace BreakingTheFourth
                     pieces.Clear();
                     // add new pieces
                     bullet.Bullets = 2;
+                    numBullets = 2;
                     pieces.Add(new Terrain(0, 450, 150, 40, Color.White));//left floor
                     pieces.Add(new DeathObject(0, 0, 800, 50, "down", Color.White));//ceiling spikes of imminent demise
                     //Moving blocks from left to right
@@ -124,6 +130,7 @@ namespace BreakingTheFourth
                     pieces.Clear();
                     //add new pieces
                     bullet.Bullets = 4;
+                    numBullets = 4;
                     pieces.Add(new Terrain(0, 450, 150, 40, Color.White));//left floor
                     pieces.Add(new DeathObject(200, 200, 100, 30, "down", Color.White));//first top spikes
                     pieces.Add(new SpecialTerrain(225, 230, 50, 50, 230, 450, Movement.Vertical, Color.White));//first platform moving up and down
