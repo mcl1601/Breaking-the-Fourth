@@ -31,13 +31,13 @@ namespace BreakingTheFourth
         // Next Screen method
         public List<Terrain> NextScreen(int screen, Bullet bullet)
         {
-            bullet.Bullets = 500;
             switch (screen)
             {
                 case 1:
                     // clear the list
                     pieces.Clear();
                     // add new terrain pieces
+                    bullet.Bullets = 1;
                     pieces.Add(new Terrain(0, 0, 30, 500, Color.White));//left wall
                     pieces.Add(new Terrain(0, 450, 150, 40, Color.White));//left floor
                     pieces.Add(new DeathObject(150, 460, 600, 30, "none", Color.White));//spikes
@@ -50,6 +50,7 @@ namespace BreakingTheFourth
                     //Clear the list
                     pieces.Clear();
                     //add new terrain pieces
+                    bullet.Bullets = 0;
                     pieces.Add(new Terrain(0, 450, 150, 40, Color.White));//left floor
                     //all spikes, blinking platforms, and safe zones from left to right
                     pieces.Add(new DeathObject(150, 430, 40, 800, "none", Color.White));
@@ -76,6 +77,7 @@ namespace BreakingTheFourth
                     // clear the list
                     pieces.Clear();
                     //add new terrain pieces
+                    bullet.Bullets = 1;
                     pieces.Add(new Terrain(0, 450, 350, 40, Color.White));//left floor
                     pieces.Add(new DisappearingPlatforms(200, 0, 40, 500, Color.White, DisappearingPlatforms.Disappear.Intangible));//unsolid wall
                     pieces.Add(new DisappearingPlatforms(400, 450, 40, 40, Color.White, DisappearingPlatforms.Disappear.Invisible));//first invisible platform
@@ -87,12 +89,17 @@ namespace BreakingTheFourth
                     pieces.Add(new DeathObject(650, 300, 75, 200, "none", Color.White));//spikes
                     pieces.Add(new Terrain(750, 375, 100, 100, Color.White));//right floor
                     playerY = 295;
-                    playerY = 370;
                     break;
                 case 4:
                     // clear the list
                     pieces.Clear();
                     // add new pieces
+                    pieces.Add(new Terrain(0, 450, 150, 40, Color.White));//left floor
+                    pieces.Add(new DisappearingPlatforms(200, 450, 50, 50, Color.Red, DisappearingPlatforms.Disappear.Blinking));//first blinking platform
+                    pieces.Add(new SpecialTerrain(300, 150, 50, 50, 150, 450, Movement.Vertical, Color.White));//first moving platform
+                    pieces.Add(new Terrain(400, 0, 40, 100, Color.White));//first top wall
+                    pieces.Add(new DisappearingPlatforms(400, 100, 20, 50, Color.White, DisappearingPlatforms.Disappear.Intangible));//intangible wall between first wall set
+                    pieces.Add(new Terrain(400, 150, 40, 400, Color.White));
                     playerY = 370;
                     break;
                 case 5:

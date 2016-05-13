@@ -30,7 +30,7 @@ namespace BreakingTheFourth
         // Next Screen method
         public List<Terrain> NextScreen(int screen, Bullet bullet)
         {
-            bullet.Bullets = 500;
+            
             // switch to determine which screen to draw
             switch (screen)
             {
@@ -38,6 +38,7 @@ namespace BreakingTheFourth
                     // clear the list
                     pieces.Clear();
                     // add new terrain pieces
+                    bullet.Bullets = 3;
                     pieces.Add(new Terrain(0, 0, 25, 600, Color.White)); // left wall
                     pieces.Add(new Terrain(0, 450, 150, 40, Color.White)); //left floor
                     pieces.Add(new Terrain(130, 440, 20, 10, Color.White)); //thingy to stop you from walking right onto the spikes
@@ -60,6 +61,7 @@ namespace BreakingTheFourth
                     //Clear the list
                     pieces.Clear();
                     //add new pieces
+                    bullet.Bullets = 2;
                     pieces.Add(new Terrain(0, 0, 25, 350, Color.White));//left wall
                     pieces.Add(new Terrain(0, 450, 150, 40, Color.White));//left floor
                     pieces.Add(new Terrain(130, 440, 20, 10, Color.White)); //thingy to stop you from walking right onto the spikes
@@ -84,6 +86,7 @@ namespace BreakingTheFourth
                     // clear the list
                     pieces.Clear();
                     // add new pieces
+                    bullet.Bullets = 4;
                     pieces.Add(new Terrain(0, 0, 25, 350, Color.White));//left wall
                     pieces.Add(new Terrain(0, 450, 150, 40, Color.White));//left floor
                     pieces.Add(new SpecialTerrain(150, 75, 600, 40, 50, 460, Movement.Vertical, Color.White));//moving platform
@@ -105,6 +108,7 @@ namespace BreakingTheFourth
                     // clear the list
                     pieces.Clear();
                     // add new pieces
+                    bullet.Bullets = 2;
                     pieces.Add(new Terrain(0, 0, 25, 350, Color.White));//left wall
                     pieces.Add(new Terrain(0, 450, 150, 40, Color.White));//left floor
                     pieces.Add(new Terrain(0, 0, 200, 30, Color.White));//left ceiling
@@ -124,6 +128,7 @@ namespace BreakingTheFourth
                     //clear the list
                     pieces.Clear();
                     //add new pieces
+                    bullet.Bullets = 3;
                     pieces.Add(new Terrain(0, 450, 100, 40, Color.White));//left lower floor
                     pieces.Add(new Terrain(0, 0, 30, 200, Color.White));//left wall
                     pieces.Add(new Terrain(0, 0, 100, 30, Color.White));//left ceiling
