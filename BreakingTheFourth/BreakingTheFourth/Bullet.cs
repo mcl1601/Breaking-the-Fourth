@@ -140,13 +140,8 @@ namespace BreakingTheFourth
                             IsTeleporting = true;
                             if(terrain[i] is DeathObject)
                             {
-                                player.PlayerLives--;
-                                player.X = 50;
-                                player.Y = 370;
-                                bState = BulletState.ready;
+                                game.Death();
                                 break;
-                                //game.PreGamestate = game.Gamestate;
-                                //game.Gamestate = GameState.GameOver;
                             }
                             if (terrain[i] is LevelGoal)
                             {

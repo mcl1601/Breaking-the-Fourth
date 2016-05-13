@@ -144,7 +144,7 @@ namespace BreakingTheFourth
             set { playerLives = value; }
         }
         public void Update(KeyboardState kbState, KeyboardState previousKbState, List<Terrain> terrain, Gun gun, 
-            GameState gamestate, MouseState mState, Game1 game1)
+            GameState gamestate, MouseState mState, Game1 game1, Bullet bullet)
         {
             // determining movement and player orientation
             switch (pState)
@@ -263,7 +263,7 @@ namespace BreakingTheFourth
                     {
                         canJump = false;
                         //stops no clip issues
-                        Offset(terrain, kbState, i);
+                        Offset(terrain, kbState, i, bullet, game1);
                         //halts jumping after colliding
                         isJumping = false;
                         collided = true;
@@ -273,11 +273,7 @@ namespace BreakingTheFourth
                 {
                     if(terrain[i] is DeathObject)
                     {
-                        playerLives--;
-                        X = 30;
-                        Y = 370;
-                        justTeleported = false;
-                        //gamestate = GameState.GameOver;
+                        game1.Death();
                     }
                     if (terrain[i] is LevelGoal)
                     {
@@ -290,7 +286,7 @@ namespace BreakingTheFourth
                     }
                     canJump = false;
                     //stops no clip issues
-                    Offset(terrain, kbState, i);
+                    Offset(terrain, kbState, i, bullet, game1);
                     //halts jumping after colliding
                     isJumping = false;
                     collided = true;
@@ -355,12 +351,7 @@ namespace BreakingTheFourth
                         //fixed issue where you could land on spikes
                         if (terrain[i] is DeathObject)
                         {
-                            playerLives--;
-                            X = 30;
-                            Y = 370;
-                            onST = false;
-                            onVST = false;
-                            //gamestate = GameState.GameOver;
+                            game1.Death();
                         }
                         if (terrain[i] is LevelGoal)
                         {
@@ -512,7 +503,7 @@ namespace BreakingTheFourth
         //Need method for checking collisions with walls and other objects - in terrain
         //Need to decide whether to make player move around level or level move around player
 
-        public void Offset(List<Terrain> terrain, KeyboardState kbState, int i)
+        public void Offset(List<Terrain> terrain, KeyboardState kbState, int i, Bullet bullet, Game1 game)
         {
             if(terrain[i] is DisappearingPlatforms)
             {
@@ -545,9 +536,7 @@ namespace BreakingTheFourth
                 else if (onVST == true && position.Top < terrain[i].Position.Bottom)
                 {
                     //kills you if you're standing on a moving platform and are squished vertically
-                    playerLives--;
-                    X = 30;
-                    Y = 370;
+                    game.Death();
                 }
             }
             //sets player on top of terrain if fell
