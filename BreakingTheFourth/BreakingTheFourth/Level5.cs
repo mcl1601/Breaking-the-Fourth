@@ -8,6 +8,8 @@ using Microsoft.Xna.Framework;
 
 namespace BreakingTheFourth
 {
+    //Contribution comments
+    //Kat Weis - background music and color, number of bullets
     class Level5
     {
         //Contribution Comments - 

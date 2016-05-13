@@ -10,7 +10,8 @@ using Microsoft.Xna.Framework.Input;
 namespace BreakingTheFourth
 {
     //Contributors:
-    //Kat Weis - did collision detection and tweaked so special terrain could inherit
+    //Kat Weis - did collision detection and tweaked so special terrain could inherit, tweaked so that terrain could be different colors,
+    //and tweaked so that Disappearing platforms could inherit indirectly from it
     //Mike O'Donnell - Created Rectangle and Texture and decided to put each block of Terrain in a list. And added beginning comments 
     //to outline.
     class Terrain

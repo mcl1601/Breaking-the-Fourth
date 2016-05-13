@@ -12,7 +12,7 @@ namespace BreakingTheFourth
     //Kat Weis - enums for gamestates, player related stuff, keyboard states, placeholder font, case statements, 
     //moving back to previous screen of level, updates and draws for player and menus, updates and draws for bullet, UI, got mouse state
     //to update, all the menu stuff (drawing, loading, updating), made mouse crosshair texture, restart method, death and player lives,
-    //also debugged alot of shit in several classes which involved both refactoring old code and putting in new code
+    //also debugged alot of shit in several classes which involved both refactoring old code and putting in new code, songs
     //Mike O'Donnell - implemented terrain list, screen list and gun. And added beginning comments for outline. Added state switches for 
     //level progression and death objects, helped with implementing rotated death objects.
     //Matt Lienhard - NextScreen and terrain loading, loading the animation spritesheets, update  background animation method, animating 
@@ -32,7 +32,8 @@ namespace BreakingTheFourth
         Game,
         Paused,
         LevelClear,
-        GameOver
+        GameOver,
+        GameClear
     }
     public class Game1 : Game
     {
@@ -531,6 +532,11 @@ namespace BreakingTheFourth
                     break;
                 case GameState.LevelClear:
                     {
+                        if(levelCounter == 5)
+                        {
+                            previousGamestate = gamestate;
+                            gamestate = GameState.GameClear;
+                        }
                         if(kbState.IsKeyDown(Keys.Enter) == true && previousKbState.IsKeyUp(Keys.Enter))
                         {
                             previousGamestate = gamestate;
@@ -561,6 +567,20 @@ namespace BreakingTheFourth
                         else
                         {
                             previousGamestate = gamestate;
+                        }
+                    }
+                    break;
+                case GameState.GameClear:
+                    {
+                        if (kbState.IsKeyDown(Keys.Escape) == true && previousKbState.IsKeyUp(Keys.Escape))
+                        {
+                            previousGamestate = gamestate;
+                            gamestate = GameState.Main;
+                        }
+                        else if (kbState.IsKeyDown(Keys.Enter) == true && previousKbState.IsKeyUp(Keys.Enter))
+                        {
+                            previousGamestate = gamestate;
+                            gamestate = GameState.Main;
                         }
                     }
                     break;
@@ -700,6 +720,13 @@ namespace BreakingTheFourth
                         spriteBatch.DrawString(font, death, fontPosition, Color.Red);
                         menus.Draw(spriteBatch, mouseState, Config.Buttons.Restart);
                         menus.Draw(spriteBatch, mouseState, Config.Buttons.Menu);
+                    }
+                    break;
+                case GameState.GameClear:
+                    {
+                        spriteBatch.Draw(background, new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height), Color.ForestGreen);
+                        string cleared = "Game Cleared! \n Press Enter to return to the main menu";
+                        spriteBatch.DrawString(font, cleared, fontPosition, Color.White);
                     }
                     break;
             }//end of switch statement

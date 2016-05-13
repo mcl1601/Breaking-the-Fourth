@@ -9,6 +9,7 @@ namespace BreakingTheFourth
 {
     //Contributors:
     //Mike O'Donnell - Most of everything here, though Kat and I worked on implementing the rotated spikes together
+    //Kat Weis - helped mike with the new draw method
     class DeathObject : Terrain
     {
         private Rectangle position;

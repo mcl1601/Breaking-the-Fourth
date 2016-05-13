@@ -8,6 +8,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace BreakingTheFourth
 {
+    //Contribution comments
+    //Kat Weis - everything in here
     class DisappearingPlatforms: SpecialTerrain
     {
         //Contribution Comments - 

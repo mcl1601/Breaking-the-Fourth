@@ -10,8 +10,8 @@ namespace BreakingTheFourth
     class Level2
     {
         //Contributors:
-        //Kat Weis - Implemented the num of bullets
         //Mike O'Donnell - Anything involving level generation
+        //Kat Weis - Implemented the num of bullets, background color and music
 
         // list to hold the terrain pieces
         List<Terrain> pieces = new List<Terrain>();
