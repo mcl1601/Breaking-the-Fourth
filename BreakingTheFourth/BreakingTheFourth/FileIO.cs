@@ -20,20 +20,31 @@ namespace BreakingTheFourth
         // reading in the tool file
         public FileIO(int a)
         {
-            // make the stream
-            Stream inStream = File.OpenRead("../../../../Tool/Tool/bin/Debug/Values.data");
+            //try to read the file
+            try
+            {
+                // make the stream
+                Stream inStream = File.OpenRead("../../../../Tool/Tool/bin/Debug/Values.data");
 
-            // read the file
-            BinaryReader input = new BinaryReader(inStream); 
+                // read the file
+                BinaryReader input = new BinaryReader(inStream);
+
+
+                // assign the values when reading
+                playerSpeed = input.ReadInt32();
+                bulletSpeed = input.ReadInt32();
+                gravity = input.ReadInt32();
+
+                // close the file
+                input.Close();
+            }
+            catch
+            {
+                playerSpeed = 5;
+                bulletSpeed = 10;
+                gravity = 5;
+            }
             
-
-            // assign the values when reading
-            playerSpeed = input.ReadInt32();
-            bulletSpeed = input.ReadInt32();
-            gravity = input.ReadInt32();
-
-            // close the file
-            input.Close();
         }
 
         // reading in the saved game file
